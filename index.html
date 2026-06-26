@@ -303,7 +303,7 @@ const SKY_RAYS = [12, 30, 48, 66, 84];
 const BG = { sky: U("bg-sky.jpg"), hero: U("bg-hero.jpg"), welcome: U("welcome.jpg") };
 // On phones the backdrops are landscape, so object-cover shows only a vertical strip.
 // The flowers live on the left edge of both images — anchor the strip there so they show.
-const BG_POS = IS_MOBILE ? "object-[10%_center]" : "";
+const BG_POS = IS_MOBILE ? "object-[15%_center]" : "";
 function BgImage({ src, className = "", style }) {
   const [ok, setOk] = useState(true);
   if (!ok) return null;
