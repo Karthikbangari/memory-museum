@@ -19,6 +19,8 @@
 </script>
 <style>
   html{scroll-behavior:smooth;}
+  html,body{overflow-x:hidden;max-width:100%;}
+  section{scroll-margin-top:72px;}
   body{margin:0;color:#24201E;
     background:radial-gradient(150% 100% at 50% -8%, #FFFFFF 0%, #FDFAF3 28%, #F4F2E6 58%, #E4ECDD 100%) fixed;}
   .boot{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;color:#7A6A63;font-family:'Cormorant Garamond',serif;letter-spacing:5px;text-transform:uppercase;font-size:15px;background:#FFFDF8;}
@@ -44,19 +46,19 @@
   /* ---------- translucent fairyland veil (fixed parallax sky shows through) ---------- */
   .fairy{position:relative;overflow:hidden;
     background:
-      radial-gradient(circle at 20% 10%, rgba(214,236,219,.22), transparent 36%),
-      radial-gradient(circle at 88% 14%, rgba(247,229,210,.20), transparent 34%),
-      linear-gradient(180deg, rgba(255,254,250,.72) 0%, rgba(252,247,238,.5) 52%, rgba(255,254,250,.7) 100%);}
-  .fairy::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.7;
+      radial-gradient(circle at 20% 10%, rgba(214,236,219,.18), transparent 38%),
+      radial-gradient(circle at 88% 14%, rgba(247,229,210,.16), transparent 36%),
+      linear-gradient(180deg, rgba(255,254,250,.42) 0%, rgba(252,247,238,.26) 52%, rgba(255,254,250,.42) 100%);}
+  .fairy::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.45;
     background:
-      radial-gradient(circle at 50% 104%, rgba(255,255,255,.9), transparent 40%),
-      radial-gradient(circle at 8% 92%, rgba(255,255,255,.7), transparent 26%),
-      radial-gradient(circle at 92% 88%, rgba(255,255,255,.65), transparent 28%);}
+      radial-gradient(circle at 50% 104%, rgba(255,255,255,.85), transparent 42%),
+      radial-gradient(circle at 8% 92%, rgba(255,255,255,.6), transparent 26%),
+      radial-gradient(circle at 92% 88%, rgba(255,255,255,.55), transparent 28%);}
   .fairy-green{position:relative;overflow:hidden;
     background:
-      radial-gradient(circle at 25% 20%, rgba(207,232,213,.6), transparent 46%),
-      radial-gradient(circle at 80% 78%, rgba(243,200,210,.42), transparent 46%),
-      linear-gradient(160deg, rgba(207,232,213,.55) 0%, rgba(255,249,239,.45) 55%, rgba(243,200,210,.4) 130%);}
+      radial-gradient(circle at 25% 20%, rgba(207,232,213,.42), transparent 48%),
+      radial-gradient(circle at 80% 78%, rgba(243,200,210,.3), transparent 48%),
+      linear-gradient(160deg, rgba(207,232,213,.4) 0%, rgba(255,249,239,.3) 55%, rgba(243,200,210,.3) 130%);}
 
   /* ---------- cloud floor ---------- */
   .cloudfloor{position:absolute;left:-10%;right:-10%;bottom:-8%;height:240px;pointer-events:none;z-index:1;
@@ -106,7 +108,7 @@
       linear-gradient(180deg,transparent,rgba(255,255,255,.92) 62%);
     filter:blur(10px);opacity:.96;}
 
-  @media (max-width:640px){ .cloudpuff{filter:blur(12px);} }
+  @media (max-width:640px){ .cloudpuff{filter:blur(12px);} .godray{opacity:.3!important;} .skyfixed .bokeh{opacity:.4!important;} }
   @media (prefers-reduced-motion: reduce){*{animation-duration:.001s!important;animation-iteration-count:1!important;}}
 
   .shimmer{background:linear-gradient(120deg,#8DBF8A,#D8A84E 45%,#C58CA0 90%);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% auto;animation:shimmerText 6s linear infinite;}
@@ -141,7 +143,7 @@ import { Menu, X, ChevronLeft, ChevronRight, Volume2, Flower2, Leaf, Sparkles } 
    Edit photos / titles / captions / filters / focus in the data
    block below. Photos hosted on GitHub, served via jsDelivr.
    ============================================================ */
-const PHOTO_BASE = "https://cdn.jsdelivr.net/gh/Karthikbangari/memory-museum@main/photos";
+const PHOTO_BASE = "photos"; // same-origin (GitHub Pages) — no CDN cache, instant updates
 const U = (f) => `${PHOTO_BASE}/${f}`;
 const STUDIO = "Stories by Studio K";
 
@@ -230,7 +232,7 @@ const FILTERS = {
   4:["pachala-rich","pachala-bw"],
   5:["pachala-bw","pachala-photo","pachala-rich"],
 };
-const FOCI = ["center center","center top","left center","right center","center bottom"];
+const FOCI = ["center 30%","center 18%","center center","center 35%","center 22%"];
 const ORI  = ["portrait","landscape","square","portrait","landscape"];
 const PHOTOS = FILES.map((f, i) => {
   const id = i + 1, chapter = Math.floor(i / 10) + 1, k = i % 10;
@@ -588,7 +590,7 @@ function HeroLanding({ onEnter, onGallery }) {
   const rotY = useTransform(sx, (v) => v * 18);
   const rotX = useTransform(sy, (v) => v * -13);
   return (
-    <header id="home" className="fairy relative min-h-screen flex items-center pt-24 pb-24 px-6 md:px-10">
+    <header id="home" className="fairy relative min-h-[100svh] flex items-center pt-28 pb-24 px-6 md:px-10">
       <BgImage src={BG.hero} className="absolute inset-0 w-full h-full object-cover" style={{ zIndex: 0 }} />
       {/* fallback scene if the backdrop image is absent */}
       <img src={cover.image} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover opacity-[.08] blur-3xl -z-10" style={{ animation:"slowZoom 20s ease-in-out infinite alternate" }} />
@@ -1055,7 +1057,6 @@ function App() {
       <ScrollProgress />
       <Nav onLink={goId} />
       <HeroLanding onEnter={()=>refs.chapters.current?.scrollIntoView({behavior:"smooth"})} onGallery={()=>goId("gallery")} />
-      <AlbumOpening3D />
       <OpeningCover />
       <PeopleWhoMatter onOpen={open} />
       <StudioIntro />
