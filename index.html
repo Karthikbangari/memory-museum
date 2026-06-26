@@ -18,7 +18,9 @@
   }}};
 </script>
 <style>
-  html,body{margin:0;background:#FFFDF8;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;color:#24201E;
+    background:radial-gradient(150% 100% at 50% -8%, #FFFFFF 0%, #FCF8F0 24%, #F1F0DA 54%, #DCE9D2 100%) fixed;}
   .boot{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;color:#7A6A63;font-family:'Cormorant Garamond',serif;letter-spacing:5px;text-transform:uppercase;font-size:15px;background:#FFFDF8;}
 
   /* ---------- studio photo filters (soft, not washed-out) ---------- */
@@ -39,21 +41,22 @@
   .frame:hover .shine{opacity:1;}
   .frame .vig{position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 70px rgba(36,32,30,.22);z-index:3;}
 
-  /* ---------- fairyland section background ---------- */
+  /* ---------- translucent fairyland veil (fixed parallax sky shows through) ---------- */
   .fairy{position:relative;overflow:hidden;
     background:
-      radial-gradient(circle at 20% 12%, rgba(207,232,213,.55), transparent 36%),
-      radial-gradient(circle at 86% 18%, rgba(243,200,210,.35), transparent 32%),
-      linear-gradient(180deg,#FFFDF8 0%,#FAF4EA 45%,#FFFDF8 100%);}
-  .fairy::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.85;
+      radial-gradient(circle at 18% 12%, rgba(207,232,213,.30), transparent 34%),
+      radial-gradient(circle at 88% 16%, rgba(243,200,210,.24), transparent 32%),
+      linear-gradient(180deg, rgba(255,253,248,.64) 0%, rgba(250,244,234,.42) 50%, rgba(255,253,248,.64) 100%);}
+  .fairy::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.7;
     background:
-      radial-gradient(circle at 50% 102%, rgba(255,255,255,.95), transparent 38%),
-      radial-gradient(circle at 8% 92%, rgba(255,255,255,.8), transparent 26%),
-      radial-gradient(circle at 92% 88%, rgba(255,255,255,.75), transparent 28%);}
-  .fairy-green{background:
-      radial-gradient(circle at 25% 20%, rgba(207,232,213,.85), transparent 45%),
-      radial-gradient(circle at 80% 75%, rgba(243,200,210,.5), transparent 45%),
-      linear-gradient(160deg,#CFE8D5 0%,#FFF9EF 55%,#F3C8D2 130%);}
+      radial-gradient(circle at 50% 104%, rgba(255,255,255,.9), transparent 40%),
+      radial-gradient(circle at 8% 92%, rgba(255,255,255,.7), transparent 26%),
+      radial-gradient(circle at 92% 88%, rgba(255,255,255,.65), transparent 28%);}
+  .fairy-green{position:relative;overflow:hidden;
+    background:
+      radial-gradient(circle at 25% 20%, rgba(207,232,213,.6), transparent 46%),
+      radial-gradient(circle at 80% 78%, rgba(243,200,210,.42), transparent 46%),
+      linear-gradient(160deg, rgba(207,232,213,.55) 0%, rgba(255,249,239,.45) 55%, rgba(243,200,210,.4) 130%);}
 
   /* ---------- cloud floor ---------- */
   .cloudfloor{position:absolute;left:-10%;right:-10%;bottom:-8%;height:240px;pointer-events:none;z-index:1;
@@ -76,7 +79,24 @@
   @keyframes twinkle{0%,100%{opacity:0;transform:scale(.4);}50%{opacity:1;transform:scale(1.25);}}
   @keyframes shimmerText{to{background-position:200% center;}}
   @keyframes slowZoom{0%{transform:scale(1);}100%{transform:scale(1.1);}}
-  @media (prefers-reduced-motion: reduce){*{animation-duration:.001s!important;}}
+  /* ---------- fixed 3D parallax sky ---------- */
+  .skyfixed{position:fixed;inset:0;z-index:-10;pointer-events:none;overflow:hidden;}
+  .skylayer{position:absolute;inset:-14%;will-change:transform;}
+  .bokeh{position:absolute;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, rgba(255,255,255,.95), rgba(216,168,78,.22) 55%, transparent 72%);}
+  .cloudpuff{position:absolute;border-radius:50%;
+    background:radial-gradient(60% 100% at 30% 60%,#fff,transparent 70%),radial-gradient(50% 90% at 68% 50%,#fff,transparent 72%),radial-gradient(46% 86% at 50% 62%,#fff,transparent 70%);
+    filter:blur(16px);}
+  .godray{position:absolute;top:-30%;transform-origin:top center;
+    background:linear-gradient(180deg, rgba(255,244,214,.5), transparent 72%);filter:blur(12px);mix-blend-mode:screen;}
+  .scrollbar-top{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;transform-origin:0 50%;
+    background:linear-gradient(90deg,#8DBF8A,#D8A84E,#C58CA0);box-shadow:0 0 12px rgba(216,168,78,.55);}
+  @keyframes orbFloat{0%,100%{transform:translateY(0) translateX(0) scale(1);}50%{transform:translateY(-30px) translateX(12px) scale(1.08);}}
+  @keyframes cloudDrift{0%,100%{transform:translateX(-6%);}50%{transform:translateX(6%);}}
+  @keyframes bloomPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.07);}}
+
+  @media (max-width:640px){ .cloudpuff{filter:blur(12px);} }
+  @media (prefers-reduced-motion: reduce){*{animation-duration:.001s!important;animation-iteration-count:1!important;}}
 
   .shimmer{background:linear-gradient(120deg,#8DBF8A,#D8A84E 45%,#C58CA0 90%);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% auto;animation:shimmerText 6s linear infinite;}
   .goldgrad{background:linear-gradient(120deg,#8DBF8A,#D8A84E 60%);-webkit-background-clip:text;background-clip:text;color:transparent;}
@@ -102,7 +122,7 @@
 <script type="text/babel" data-type="module" data-presets="react">
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { createRoot } from "react-dom/client";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useScroll, useTransform } from "framer-motion";
 import { Menu, X, ChevronLeft, ChevronRight, Volume2, Flower2, Leaf, Sparkles } from "lucide-react";
 
 /* ============================================================
@@ -214,6 +234,108 @@ const PHOTOS = FILES.map((f, i) => {
 });
 const byChapter = (c) => PHOTOS.filter((p) => p.chapter === c);
 const photoById = (id) => PHOTOS.find((p) => p.id === id);
+
+/* ============================================================
+   3D PARALLAX SKY — shared tilt (mouse + gyroscope) + scroll depth
+   ============================================================ */
+const TiltCtx = React.createContext({ sx: null, sy: null });
+const useTilt = () => React.useContext(TiltCtx);
+function TiltProvider({ children }) {
+  const mx = useMotionValue(0), my = useMotionValue(0);
+  const sx = useSpring(mx, { stiffness: 45, damping: 20, mass: 0.6 });
+  const sy = useSpring(my, { stiffness: 45, damping: 20, mass: 0.6 });
+  useEffect(() => {
+    const onMouse = (e) => { mx.set(e.clientX / innerWidth - 0.5); my.set(e.clientY / innerHeight - 0.5); };
+    const onOrient = (e) => {
+      if (e.gamma == null && e.beta == null) return;
+      mx.set(Math.max(-0.5, Math.min(0.5, (e.gamma || 0) / 40)));
+      my.set(Math.max(-0.5, Math.min(0.5, ((e.beta || 0) - 42) / 40)));
+    };
+    addEventListener("mousemove", onMouse, { passive: true });
+    addEventListener("deviceorientation", onOrient, { passive: true });
+    return () => { removeEventListener("mousemove", onMouse); removeEventListener("deviceorientation", onOrient); };
+  }, [mx, my]);
+  return <TiltCtx.Provider value={{ sx, sy }}>{children}</TiltCtx.Provider>;
+}
+
+const SKY_PUFFS = [
+  { t: 4, l: 2, w: 360, o: .75 }, { t: 10, l: 58, w: 440, o: .6 }, { t: 20, l: 28, w: 380, o: .55 },
+  { t: 34, l: 74, w: 320, o: .5 }, { t: 46, l: 10, w: 360, o: .55 }, { t: 60, l: 52, w: 400, o: .5 },
+  { t: 74, l: 30, w: 340, o: .5 }, { t: 86, l: 66, w: 360, o: .55 },
+];
+const SKY_BOKEH = Array.from({ length: 16 }).map((_, i) => ({
+  l: (i * 39) % 100, t: (i * 61) % 100, s: 10 + (i % 5) * 12, d: 7 + (i % 6), delay: (i % 7) * 0.6, o: .5 - (i % 3) * .12,
+}));
+const SKY_RAYS = [12, 30, 48, 66, 84];
+
+function FairySky() {
+  const { sx, sy } = useTilt();
+  const { scrollY } = useScroll();
+  const farX = useTransform(sx, (v) => v * -16), farY = useTransform(sy, (v) => v * -10);
+  const midX = useTransform(sx, (v) => v * -38), midY = useTransform(sy, (v) => v * -24);
+  const nearX = useTransform(sx, (v) => v * -66), nearY = useTransform(sy, (v) => v * -42);
+  const sFar = useTransform(scrollY, (v) => v * 0.03);
+  return (
+    <div className="skyfixed" aria-hidden>
+      {/* god rays (deep) */}
+      <motion.div className="skylayer" style={{ x: farX, y: farY }}>
+        {SKY_RAYS.map((l, i) => (
+          <span key={i} className="godray" style={{
+            left: `${l}%`, width: `${64 + i * 16}px`, height: "150%",
+            transform: `rotate(${(i - 2) * 8}deg)`, opacity: .5,
+            animation: `rayPulse ${7 + i * 1.4}s ease-in-out ${-i}s infinite`,
+          }} />
+        ))}
+      </motion.div>
+      {/* far clouds */}
+      <motion.div className="skylayer" style={{ x: farX, y: sFar }}>
+        {SKY_PUFFS.map((p, i) => (
+          <span key={i} className="cloudpuff" style={{
+            top: `${p.t}%`, left: `${p.l}%`, width: p.w, height: p.w * 0.42, opacity: p.o,
+            animation: `cloudDrift ${40 + i * 7}s ease-in-out ${-i * 5}s infinite`,
+          }} />
+        ))}
+      </motion.div>
+      {/* mid bokeh */}
+      <motion.div className="skylayer" style={{ x: midX, y: midY }}>
+        {SKY_BOKEH.map((b, i) => (
+          <span key={i} className="bokeh" style={{
+            left: `${b.l}%`, top: `${b.t}%`, width: b.s, height: b.s, opacity: b.o,
+            animation: `orbFloat ${b.d}s ease-in-out ${b.delay}s infinite`,
+          }} />
+        ))}
+      </motion.div>
+      {/* near sparkles */}
+      <motion.div className="skylayer" style={{ x: nearX, y: nearY }}>
+        {SKY_BOKEH.slice(0, 7).map((b, i) => (
+          <span key={i} className="bokeh" style={{
+            left: `${(b.l + 13) % 100}%`, top: `${(b.t + 21) % 100}%`, width: b.s * 0.5, height: b.s * 0.5,
+            opacity: .75, animation: `twinkle ${3 + (i % 4)}s ease-in-out ${i * .5}s infinite`,
+          }} />
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
+function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  return <motion.div className="scrollbar-top" style={{ scaleX: scrollYProgress }} />;
+}
+
+function MotionEnable() {
+  const [need, setNeed] = useState(false);
+  useEffect(() => {
+    setNeed(typeof DeviceOrientationEvent !== "undefined" && typeof DeviceOrientationEvent.requestPermission === "function");
+  }, []);
+  if (!need) return null;
+  return (
+    <button onClick={async () => { try { await DeviceOrientationEvent.requestPermission(); } catch (e) {} setNeed(false); }}
+      className="fixed bottom-5 left-5 z-[80] font-cormorant tracking-widest text-xs uppercase bg-white/85 backdrop-blur ring-1 ring-gold/40 text-ink px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
+      <Sparkles size={13} className="text-gold" /> Enable 3D Tilt
+    </button>
+  );
+}
 
 /* ============================================================
    DECORATIVE LAYERS
@@ -335,13 +457,14 @@ const Kicker = ({ children }) => <span className="font-cormorant tracking-[5px] 
 const Heading = ({ children, className="" }) => <h2 className={`font-play font-extrabold text-ink leading-tight ${className}`}>{children}</h2>;
 function Jasmine({ className="" }) {
   return (
-    <span className={`relative inline-block ${className}`} aria-hidden>
+    <svg viewBox="0 0 40 40" className={className} aria-hidden
+      style={{ filter:"drop-shadow(0 2px 4px rgba(150,120,80,.28))", animation:"bloomPulse 6s ease-in-out infinite" }}>
       {[0,72,144,216,288].map((a) => (
-        <span key={a} className="absolute w-3 h-3 rounded-full bg-white shadow"
-          style={{ left:10+Math.cos(a*Math.PI/180)*9, top:10+Math.sin(a*Math.PI/180)*9 }} />
+        <ellipse key={a} cx="20" cy="8.5" rx="6.2" ry="9" fill="#ffffff" transform={`rotate(${a} 20 20)`} />
       ))}
-      <span className="absolute left-[10px] top-[10px] w-2.5 h-2.5 rounded-full bg-gold/90 -translate-x-1/2 -translate-y-1/2" />
-    </span>
+      <circle cx="20" cy="20" r="4.4" fill="#EBB94B" />
+      <circle cx="20" cy="20" r="2" fill="#C8922F" />
+    </svg>
   );
 }
 
@@ -372,8 +495,10 @@ function Nav({ onLink }) {
    HERO
    ============================================================ */
 function HeroLanding({ onEnter, onGallery }) {
-  const [p, setP] = useState({ x:0, y:0 });
   const cover = photoById(1), s1 = photoById(18), s2 = photoById(11), s3 = photoById(5);
+  const { sx, sy } = useTilt();
+  const rotY = useTransform(sx, (v) => v * 18);
+  const rotX = useTransform(sy, (v) => v * -13);
   return (
     <header id="home" className="fairy relative min-h-screen flex items-center pt-24 pb-24 px-6 md:px-10">
       <img src={cover.image} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover opacity-[.10] blur-3xl -z-10" style={{ animation:"slowZoom 20s ease-in-out infinite alternate" }} />
@@ -390,22 +515,23 @@ function HeroLanding({ onEnter, onGallery }) {
           </div>
         </motion.div>
 
-        {/* 3D stacked composition */}
+        {/* 3D stacked composition — reacts to mouse & phone tilt */}
         <motion.div className="relative h-[460px] md:h-[560px]" initial={{ opacity:0, scale:.9 }} animate={{ opacity:1, scale:1 }} transition={{ duration:1, delay:.2 }}
-          onMouseMove={(e)=>{const r=e.currentTarget.getBoundingClientRect();setP({x:(e.clientX-r.left)/r.width-0.5,y:(e.clientY-r.top)/r.height-0.5});}}
-          onMouseLeave={()=>setP({x:0,y:0})} style={{ perspective:"1300px" }}>
+          style={{ perspective:"1300px" }}>
           <div className="absolute -inset-6 rounded-[40px] bg-[radial-gradient(circle,rgba(141,191,138,.4),transparent_62%)] blur-2xl" />
-          <div className="relative w-full h-full" style={{ transformStyle:"preserve-3d", transform:`rotateX(${p.y*-8}deg) rotateY(${p.x*10}deg)`, transition:"transform .25s ease", animation:"floaty 7s ease-in-out infinite" }}>
-            <div className="absolute right-8 top-2 w-40 md:w-48" style={{ transform:"translateZ(-140px) rotate(-9deg) translateX(30px)" }}><Frame p={s1} className="aspect-[3/4]" /></div>
-            <div className="absolute left-2 bottom-6 w-36 md:w-44" style={{ transform:"translateZ(-90px) rotate(7deg) translateX(-26px)" }}><Frame p={s3} className="aspect-[3/4]" /></div>
-            <div className="absolute left-1/2 top-1/2 w-56 md:w-72 -translate-x-1/2 -translate-y-1/2" style={{ transform:"translate(-50%,-50%) translateZ(20px)" }}>
-              <Frame p={cover} className="aspect-[4/5]" vignette glow />
-              <span className="absolute -top-4 right-6 font-inter text-[11px] tracking-widest bg-ink text-bg px-3 py-1 rounded-full shadow">01 / 50</span>
-              <span className="absolute -bottom-7 left-2 font-cormorant italic text-sm text-muted bg-white/90 px-3 py-1 rounded-full ring-1 ring-line shadow">{STUDIO}</span>
-              <Jasmine className="absolute -bottom-3 -left-4 w-6 h-6 text-gold" />
-              <span className="absolute -top-3 -left-4 text-leaf"><Leaf size={26}/></span>
-              <span className="absolute top-1/3 -right-5 text-leaf rotate-45"><Leaf size={22}/></span>
-            </div>
+          <div className="relative w-full h-full" style={{ animation:"floaty 7s ease-in-out infinite" }}>
+            <motion.div className="relative w-full h-full" style={{ transformStyle:"preserve-3d", rotateX:rotX, rotateY:rotY }}>
+              <div className="absolute right-8 top-2 w-40 md:w-48" style={{ transform:"translateZ(-140px) rotate(-9deg) translateX(30px)" }}><Frame p={s1} className="aspect-[3/4]" /></div>
+              <div className="absolute left-2 bottom-6 w-36 md:w-44" style={{ transform:"translateZ(-90px) rotate(7deg) translateX(-26px)" }}><Frame p={s3} className="aspect-[3/4]" /></div>
+              <div className="absolute left-1/2 top-1/2 w-56 md:w-72 -translate-x-1/2 -translate-y-1/2" style={{ transform:"translate(-50%,-50%) translateZ(20px)" }}>
+                <Frame p={cover} className="aspect-[4/5]" vignette glow />
+                <span className="absolute -top-4 right-6 font-inter text-[11px] tracking-widest bg-ink text-bg px-3 py-1 rounded-full shadow">01 / 50</span>
+                <span className="absolute -bottom-7 left-2 font-cormorant italic text-sm text-muted bg-white/90 px-3 py-1 rounded-full ring-1 ring-line shadow">{STUDIO}</span>
+                <Jasmine className="absolute -bottom-3 -left-4 w-7 h-7" />
+                <span className="absolute -top-3 -left-4 text-leaf"><Leaf size={26}/></span>
+                <span className="absolute top-1/3 -right-5 text-leaf rotate-45"><Leaf size={22}/></span>
+              </div>
+            </motion.div>
           </div>
         </motion.div>
       </div>
@@ -753,7 +879,10 @@ function App() {
   const nav = useCallback((d)=>setModal((p)=>(p+d+PHOTOS.length)%PHOTOS.length),[]);
   const goId = (id)=>{ if(id==="home")return scrollTo({top:0,behavior:"smooth"}); refs[id]?.current?.scrollIntoView({behavior:"smooth"}); };
   return (
+    <TiltProvider>
     <div className="font-inter text-ink">
+      <FairySky />
+      <ScrollProgress />
       <Nav onLink={goId} />
       <HeroLanding onEnter={()=>refs.chapters.current?.scrollIntoView({behavior:"smooth"})} onGallery={()=>goId("gallery")} />
       <AlbumOpening3D />
@@ -770,7 +899,9 @@ function App() {
         <Flower2 size={16} className="text-gold"/> Pachala Memories · 50 Frames of Tradition &amp; Love · {STUDIO} <Flower2 size={16} className="text-gold"/>
       </footer>
       {modal!==null && <PhotoModal index={modal} onClose={()=>setModal(null)} onNav={nav} />}
+      <MotionEnable />
     </div>
+    </TiltProvider>
   );
 }
 createRoot(document.getElementById("root")).render(<App />);
