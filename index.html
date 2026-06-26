@@ -11,8 +11,8 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = { theme: { extend: {
-    colors: { bg:'#FFFDF8', cloud:'#FFFFFF', ivory:'#FAF4EA', pgreen:'#CFE8D5', leaf:'#8DBF8A',
-      jasmine:'#FFF9EF', gold:'#D8A84E', blush:'#F3C8D2', beige:'#EFE2D0', ink:'#24201E', muted:'#7A6A63', line:'#E9DED2' },
+    colors: { bg:'#FFFDF6', cloud:'#FFFFFF', ivory:'#FFF8EC', cream:'#F5EBD7', pgreen:'#CFE3CC', sage:'#A8B69A', leaf:'#6F8F63',
+      jasmine:'#FFFBF2', gold:'#D4B45A', blush:'#F3D9D0', beige:'#EFE2CE', ink:'#2A2620', muted:'#7C6F5E', line:'#EBE0CE' },
     fontFamily: { play:['"Playfair Display"','serif'], cormorant:['"Cormorant Garamond"','serif'],
       lora:['Lora','serif'], inter:['Inter','sans-serif'], script:['"Great Vibes"','cursive'] },
   }}};
@@ -245,6 +245,7 @@ const PHOTOS = FILES.map((f, i) => {
 });
 const byChapter = (c) => PHOTOS.filter((p) => p.chapter === c);
 const photoById = (id) => PHOTOS.find((p) => p.id === id);
+const byFile = (f) => PHOTOS.find((p) => p.image === U(f));
 
 /* ============================================================
    3D PARALLAX SKY — shared tilt (mouse + gyroscope) + scroll depth
@@ -294,7 +295,7 @@ const SKY_RAYS = [12, 30, 48, 66, 84];
 
 /* Optional rendered backdrops — drop these files in /photos and push.
    Until they exist, onError hides them and the CSS/SVG art shows instead. */
-const BG = { sky: U("bg-sky.jpg"), hero: U("bg-hero.jpg") };
+const BG = { sky: U("bg-sky.png"), hero: U("bg-hero.png"), welcome: U("welcome.png") };
 function BgImage({ src, className = "", style }) {
   const [ok, setOk] = useState(true);
   if (!ok) return null;
@@ -588,14 +589,11 @@ function HeroLanding({ onEnter, onGallery }) {
   const rotX = useTransform(sy, (v) => v * -13);
   return (
     <header id="home" className="fairy relative min-h-screen flex items-center pt-24 pb-24 px-6 md:px-10">
-      <img src={cover.image} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover opacity-[.10] blur-3xl -z-10" style={{ animation:"slowZoom 20s ease-in-out infinite alternate" }} />
       <BgImage src={BG.hero} className="absolute inset-0 w-full h-full object-cover" style={{ zIndex: 0 }} />
-      <LightRays /><SoftClouds /><PalaceSilhouette /><FloatingPetals count={34} /><MangoLeaves count={12} />
-      <div className="cloudbank" />
-      <JasmineCluster className="absolute bottom-4 left-1 w-32 md:w-52 z-[2]" />
-      <JasmineCluster className="absolute bottom-2 right-1 w-28 md:w-44 z-[2]" flip />
-      <MangoFrond className="absolute bottom-6 left-[26%] w-16 md:w-24 z-[2] hidden sm:block" flip />
-      <MangoFrond className="absolute bottom-8 right-[24%] w-16 md:w-24 z-[2] hidden sm:block" />
+      {/* fallback scene if the backdrop image is absent */}
+      <img src={cover.image} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover opacity-[.08] blur-3xl -z-10" style={{ animation:"slowZoom 20s ease-in-out infinite alternate" }} />
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-ivory/10 via-transparent to-ivory/45" />
+      <SoftClouds floor={false} /><FloatingPetals count={26} />
 
       <div className="relative max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center z-[3]">
         <motion.div initial={{ opacity:0, y:30 }} animate={{ opacity:1, y:0 }} transition={{ duration:1 }}>
@@ -680,21 +678,21 @@ function AlbumOpening3D() {
    OPENING COVER
    ============================================================ */
 function OpeningCover() {
+  const cover = photoById(1); // headline family photo into the welcome frame
   return (
-    <section className="fairy relative py-28 px-6">
-      <img src={photoById(2).image} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover opacity-[.14] blur-3xl -z-10" />
-      <SoftClouds /><FloatingPetals count={12} />
-      <Reveal className="relative max-w-md mx-auto text-center z-[3]">
-        <div className="relative inline-block">
-          <Frame p={photoById(8)} className="w-64 md:w-80 aspect-[4/5] mx-auto" vignette glow />
-          <Jasmine className="absolute -bottom-4 -left-5 w-7 h-7" />
-          <Jasmine className="absolute -bottom-4 -right-5 w-7 h-7" />
-          <span className="absolute -top-4 -left-5 text-leaf"><Leaf size={26}/></span>
-          <span className="absolute -top-4 -right-5 text-leaf -scale-x-100"><Leaf size={26}/></span>
+    <section className="fairy relative py-24 px-6">
+      <BgImage src={BG.sky} className="absolute inset-0 w-full h-full object-cover opacity-30" />
+      <SoftClouds floor={false} /><FloatingPetals count={12} />
+      <Reveal className="relative z-[3] flex justify-center">
+        <div className="relative w-full max-w-[440px]" style={{ animation:"floaty 7s ease-in-out infinite" }}>
+          <BgImage src={BG.welcome} className="w-full block drop-shadow-[0_30px_60px_rgba(120,100,70,.25)]" />
+          {/* real photo dropped into the frame opening (nudge these % if needed) */}
+          <div className="absolute overflow-hidden rounded-[6px]" style={{ left:"45.5%", top:"20.5%", width:"44.5%", height:"49%" }}>
+            <img src={cover.image} alt="The family" loading="lazy"
+              className="w-full h-full object-cover pachala-soft"
+              onError={(e)=>{ e.currentTarget.style.opacity=0; }} />
+          </div>
         </div>
-        <p className="font-script text-5xl text-leaf mt-8">Welcome</p>
-        <h3 className="font-play font-bold tracking-[3px] text-2xl text-ink mt-1">TO OUR WORLD</h3>
-        <p className="font-cormorant italic text-muted text-lg mt-2">50 Frames of Tradition &amp; Love</p>
       </Reveal>
     </section>
   );
@@ -964,6 +962,68 @@ function FinalEnding({ onTop }) {
 }
 
 /* ============================================================
+   PEOPLE WHO MATTER — Naanna · Amma · Ammamma · Maamayya · Family
+   Drop photos/nana.jpg, amma.jpg, mama.jpg (ammamma.jpg & family.jpg
+   already exist). Missing files show an empty frame until added.
+   ============================================================ */
+const PEOPLE = [
+  { name:"Naanna",  role:"Father",      file:"nana.jpg",    quote:"“A father’s love is the quiet strength behind every blessing.”" },
+  { name:"Amma",    role:"Mother",      file:"amma.jpg",    quote:"“The first love, the softest grace, the heart of our home.”" },
+  { name:"Ammamma", role:"Grandmother", file:"ammamma.jpg", quote:"“In her hands, every old tradition becomes tenderness.”" },
+  { name:"Maamayya",role:"Uncle",       file:"mama.jpg",    quote:"“Family — the first friend and the forever one.”" },
+];
+const personP = (f) => byFile(f) || { id:0, image:U(f), title:f, caption:"", filter:"pachala-soft", focusPosition:"center top", orientation:"portrait" };
+function PeopleWhoMatter({ onOpen }) {
+  const fam = byFile("family.jpg") || photoById(18);
+  const openP = (f) => { const ph = byFile(f); if (ph && onOpen) onOpen(ph.id); };
+  return (
+    <section className="fairy relative py-28 px-6 md:px-10 border-t border-line/50">
+      <BgImage src={BG.sky} className="absolute inset-0 w-full h-full object-cover opacity-30" />
+      <SoftClouds floor={false} /><FloatingPetals count={12} />
+      <div className="relative max-w-6xl mx-auto z-[3]">
+        <Reveal className="text-center mb-16">
+          <p className="font-script text-4xl text-leaf">Together</p>
+          <Kicker>The People Who Matter</Kicker>
+          <Heading className="text-[clamp(28px,5vw,50px)] mt-2">Naanna &middot; Amma &middot; Ammamma &middot; Maamayya</Heading>
+          <p className="font-cormorant italic text-xl text-muted mt-3 max-w-xl mx-auto">Some people are not part of life &mdash; they are home.</p>
+        </Reveal>
+        <div className="grid sm:grid-cols-2 gap-x-10 gap-y-20">
+          {PEOPLE.map((person, i) => (
+            <Reveal key={person.name} delay={(i%2)*0.1}>
+              <div className="flex flex-col items-center text-center" style={{ animation:`floaty ${6+i}s ease-in-out ${i*.35}s infinite` }}>
+                <div className="relative">
+                  <Frame p={personP(person.file)} className="w-60 md:w-72 aspect-[4/5]" vignette glow onClick={()=>openP(person.file)} />
+                  <Garland className="absolute -top-7 left-1/2 -translate-x-1/2 w-[118%] max-w-none" />
+                  <JasmineCluster className="absolute -bottom-8 -left-8 w-28 md:w-32" />
+                  <JasmineCluster className="absolute -bottom-5 -right-7 w-20 md:w-24" flip />
+                </div>
+                <p className="font-script text-3xl text-leaf mt-10">{person.role}</p>
+                <h3 className="font-play font-black tracking-[3px] text-2xl md:text-3xl text-ink mt-1">{person.name}</h3>
+                <span className="inline-block w-12 h-px bg-gold my-4" />
+                <p className="font-cormorant italic text-lg text-muted max-w-xs">{person.quote}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal className="mt-24" delay={0.1}>
+          <div className="relative max-w-3xl mx-auto bg-white p-3 rounded-2xl ring-1 ring-line shadow-[0_34px_70px_-30px_rgba(141,191,138,.6)]" style={{ animation:"floaty 8s ease-in-out infinite" }}>
+            <Frame p={fam} className="w-full aspect-[16/10]" vignette onClick={()=>openP("family.jpg")} />
+            <div className="text-center py-7 px-4">
+              <p className="font-script text-3xl text-leaf">Our Whole World</p>
+              <h3 className="font-play font-black tracking-[6px] text-2xl text-ink mt-1">THE WHOLE FAMILY</h3>
+              <p className="font-cormorant italic text-muted mt-2 max-w-md mx-auto">&ldquo;All of us, in one warm and golden frame &mdash; loud, full, and complete.&rdquo;</p>
+            </div>
+            <Garland className="absolute -top-8 left-1/2 -translate-x-1/2 w-[55%] max-w-none" />
+            <JasmineCluster className="absolute -bottom-9 -left-9 w-32 md:w-40" />
+            <JasmineCluster className="absolute -bottom-6 -right-8 w-24 md:w-28" flip />
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================
    APP
    ============================================================ */
 function App() {
@@ -982,6 +1042,7 @@ function App() {
       <HeroLanding onEnter={()=>refs.chapters.current?.scrollIntoView({behavior:"smooth"})} onGallery={()=>goId("gallery")} />
       <AlbumOpening3D />
       <OpeningCover />
+      <PeopleWhoMatter onOpen={open} />
       <StudioIntro />
       <div ref={refs.story}><EditorialStory /></div>
       <div ref={refs.chapters}><ChapterIndex onChapter={(id)=>chapRefs[id].current?.scrollIntoView({behavior:"smooth"})} /></div>
