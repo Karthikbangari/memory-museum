@@ -20,7 +20,7 @@
 <style>
   html{scroll-behavior:smooth;}
   body{margin:0;color:#24201E;
-    background:radial-gradient(150% 100% at 50% -8%, #FFFFFF 0%, #FCF8F0 24%, #F1F0DA 54%, #DCE9D2 100%) fixed;}
+    background:radial-gradient(150% 100% at 50% -8%, #FFFFFF 0%, #FDFAF3 28%, #F4F2E6 58%, #E4ECDD 100%) fixed;}
   .boot{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;color:#7A6A63;font-family:'Cormorant Garamond',serif;letter-spacing:5px;text-transform:uppercase;font-size:15px;background:#FFFDF8;}
 
   /* ---------- studio photo filters (soft, not washed-out) ---------- */
@@ -44,9 +44,9 @@
   /* ---------- translucent fairyland veil (fixed parallax sky shows through) ---------- */
   .fairy{position:relative;overflow:hidden;
     background:
-      radial-gradient(circle at 18% 12%, rgba(207,232,213,.30), transparent 34%),
-      radial-gradient(circle at 88% 16%, rgba(243,200,210,.24), transparent 32%),
-      linear-gradient(180deg, rgba(255,253,248,.64) 0%, rgba(250,244,234,.42) 50%, rgba(255,253,248,.64) 100%);}
+      radial-gradient(circle at 20% 10%, rgba(214,236,219,.22), transparent 36%),
+      radial-gradient(circle at 88% 14%, rgba(247,229,210,.20), transparent 34%),
+      linear-gradient(180deg, rgba(255,254,250,.72) 0%, rgba(252,247,238,.5) 52%, rgba(255,254,250,.7) 100%);}
   .fairy::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.7;
     background:
       radial-gradient(circle at 50% 104%, rgba(255,255,255,.9), transparent 40%),
@@ -94,6 +94,17 @@
   @keyframes orbFloat{0%,100%{transform:translateY(0) translateX(0) scale(1);}50%{transform:translateY(-30px) translateX(12px) scale(1.08);}}
   @keyframes cloudDrift{0%,100%{transform:translateX(-6%);}50%{transform:translateX(6%);}}
   @keyframes bloomPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.07);}}
+  @keyframes sway{0%,100%{transform:rotate(-3deg);}50%{transform:rotate(3deg);}}
+  .cloudbank{position:absolute;left:-12%;right:-12%;bottom:-4%;height:300px;pointer-events:none;z-index:1;
+    background:
+      radial-gradient(circle at 8% 78%, #fff 0 16%, transparent 17%),
+      radial-gradient(circle at 22% 60%, #fff 0 20%, transparent 21%),
+      radial-gradient(circle at 38% 76%, #fff 0 22%, transparent 23%),
+      radial-gradient(circle at 54% 62%, #fff 0 21%, transparent 22%),
+      radial-gradient(circle at 70% 76%, #fff 0 22%, transparent 23%),
+      radial-gradient(circle at 85% 64%, #fff 0 19%, transparent 20%),
+      linear-gradient(180deg,transparent,rgba(255,255,255,.92) 62%);
+    filter:blur(10px);opacity:.96;}
 
   @media (max-width:640px){ .cloudpuff{filter:blur(12px);} }
   @media (prefers-reduced-motion: reduce){*{animation-duration:.001s!important;animation-iteration-count:1!important;}}
@@ -406,9 +417,9 @@ function Sparkles2({ count = 22 }) {
 }
 function PalaceSilhouette({ className = "" }) {
   return (
-    <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-[1100px] max-w-[150%] pointer-events-none z-0 ${className}`} aria-hidden>
-      <svg viewBox="0 0 1100 360" className="w-full" style={{ opacity:.08 }}>
-        <g fill="#24201E">
+    <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-[1200px] max-w-[160%] pointer-events-none z-0 ${className}`} aria-hidden style={{ filter:"blur(2.5px)" }}>
+      <svg viewBox="0 0 1100 360" className="w-full" style={{ opacity:.22 }}>
+        <g fill="#BBAE96">
           {/* central mandap */}
           <path d="M470 360 V170 Q470 90 550 70 Q630 90 630 170 V360 Z"/>
           <ellipse cx="550" cy="78" rx="46" ry="30"/>
@@ -426,6 +437,69 @@ function PalaceSilhouette({ className = "" }) {
         </g>
       </svg>
     </div>
+  );
+}
+
+/* ---- lush jasmine + mango-leaf florals (reference-style) ---- */
+const Blossom = ({ x, y, s = 1, rot = 0 }) => (
+  <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${s})`}>
+    {[0, 72, 144, 216, 288].map((a) => (
+      <ellipse key={a} cx="0" cy="-6.5" rx="4.6" ry="7" fill="#ffffff" transform={`rotate(${a})`} />
+    ))}
+    <circle r="3.1" fill="#ECC04E" /><circle r="1.4" fill="#C8922F" />
+  </g>
+);
+const Sprig = ({ x, y, s = 1, rot = 0, dark = "#5f9a63", light = "#86bd86" }) => (
+  <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${s})`}>
+    <path d="M0 0 C-8 -11 -8 -27 0 -36 C8 -27 8 -11 0 0 Z" fill={dark} />
+    <path d="M0 -3 C-5 -12 -5 -24 0 -32 C3 -24 3 -13 0 -3 Z" fill={light} opacity=".7" />
+    <path d="M0 -2 L0 -33" stroke="#3f7a48" strokeWidth="0.9" opacity=".5" />
+  </g>
+);
+function JasmineCluster({ className = "", flip = false }) {
+  return (
+    <svg viewBox="0 0 130 96" className={className} aria-hidden
+      style={{ filter: "drop-shadow(0 6px 8px rgba(110,90,60,.22))", transform: flip ? "scaleX(-1)" : undefined }}>
+      <g style={{ transformOrigin: "65px 90px", animation: "sway 7s ease-in-out infinite" }}>
+        <Sprig x={40} y={92} s={1.5} rot={-32} /><Sprig x={66} y={94} s={1.7} rot={4} /><Sprig x={92} y={92} s={1.5} rot={30} />
+        <Sprig x={26} y={84} s={1.1} rot={-58} /><Sprig x={108} y={84} s={1.1} rot={58} />
+        <Blossom x={36} y={60} s={1.25} rot={10} /><Blossom x={62} y={50} s={1.6} rot={-8} /><Blossom x={90} y={60} s={1.3} rot={16} />
+        <Blossom x={50} y={72} s={1.05} rot={-20} /><Blossom x={78} y={74} s={1.1} rot={22} />
+        <circle cx="48" cy="44" r="2.6" fill="#fff" /><circle cx="100" cy="48" r="2.4" fill="#fff" />
+      </g>
+    </svg>
+  );
+}
+function MangoFrond({ className = "", flip = false }) {
+  const leaves = [[60,118,18,1],[60,96,-22,1.05],[60,74,20,1.1],[60,52,-20,1],[60,32,8,.9]];
+  return (
+    <svg viewBox="0 0 120 150" className={className} aria-hidden style={{ transform: flip ? "scaleX(-1)" : undefined }}>
+      <g style={{ transformOrigin: "60px 145px", animation: "sway 8s ease-in-out infinite" }}>
+        <path d="M60 150 C57 110 57 70 60 26" stroke="#5a8f5e" strokeWidth="3.2" fill="none" strokeLinecap="round" />
+        {leaves.map(([x, y, rot, s], i) => (
+          <g key={i} transform={`translate(${x} ${y}) rotate(${rot}) scale(${s})`}>
+            <path d="M0 0 C-9 -20 -9 -48 0 -66 C9 -48 9 -20 0 0 Z" fill="#5f9a63" />
+            <path d="M0 -4 C-5 -20 -5 -44 0 -60 C4 -44 4 -22 0 -4 Z" fill="#84bd85" opacity=".75" />
+            <path d="M0 -2 L0 -62" stroke="#3f7a48" strokeWidth="1" opacity=".5" />
+          </g>
+        ))}
+      </g>
+    </svg>
+  );
+}
+function Garland({ className = "" }) {
+  const P = (t) => [
+    (1-t)*(1-t)*8 + 2*(1-t)*t*160 + t*t*312,
+    (1-t)*(1-t)*8 + 2*(1-t)*t*64 + t*t*8,
+  ];
+  const ts = Array.from({ length: 11 }).map((_, i) => i / 10);
+  return (
+    <svg viewBox="0 0 320 70" className={className} aria-hidden style={{ filter: "drop-shadow(0 4px 6px rgba(110,90,60,.18))" }}>
+      <path d="M8 8 Q160 64 312 8" stroke="#6aa06d" strokeWidth="7" fill="none" strokeLinecap="round" />
+      <path d="M8 8 Q160 64 312 8" stroke="#8ec48d" strokeWidth="3" fill="none" strokeLinecap="round" opacity=".8" />
+      {ts.map((t, i) => { const [x, y] = P(t); return <Sprig key={"s"+i} x={x} y={y+9} s={.7} rot={(i%2?-1:1)*30} />; })}
+      {ts.filter((_,i)=>i%2===0).map((t, i) => { const [x, y] = P(t); return <Blossom key={"b"+i} x={x} y={y+5} s={1.05} rot={i*15} />; })}
+    </svg>
   );
 }
 
@@ -503,6 +577,11 @@ function HeroLanding({ onEnter, onGallery }) {
     <header id="home" className="fairy relative min-h-screen flex items-center pt-24 pb-24 px-6 md:px-10">
       <img src={cover.image} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover opacity-[.10] blur-3xl -z-10" style={{ animation:"slowZoom 20s ease-in-out infinite alternate" }} />
       <LightRays /><SoftClouds /><PalaceSilhouette /><FloatingPetals count={34} /><MangoLeaves count={12} />
+      <div className="cloudbank" />
+      <JasmineCluster className="absolute bottom-4 left-1 w-32 md:w-52 z-[2]" />
+      <JasmineCluster className="absolute bottom-2 right-1 w-28 md:w-44 z-[2]" flip />
+      <MangoFrond className="absolute bottom-6 left-[26%] w-16 md:w-24 z-[2] hidden sm:block" flip />
+      <MangoFrond className="absolute bottom-8 right-[24%] w-16 md:w-24 z-[2] hidden sm:block" />
 
       <div className="relative max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center z-[3]">
         <motion.div initial={{ opacity:0, y:30 }} animate={{ opacity:1, y:0 }} transition={{ duration:1 }}>
@@ -525,11 +604,13 @@ function HeroLanding({ onEnter, onGallery }) {
               <div className="absolute left-2 bottom-6 w-36 md:w-44" style={{ transform:"translateZ(-90px) rotate(7deg) translateX(-26px)" }}><Frame p={s3} className="aspect-[3/4]" /></div>
               <div className="absolute left-1/2 top-1/2 w-56 md:w-72 -translate-x-1/2 -translate-y-1/2" style={{ transform:"translate(-50%,-50%) translateZ(20px)" }}>
                 <Frame p={cover} className="aspect-[4/5]" vignette glow />
-                <span className="absolute -top-4 right-6 font-inter text-[11px] tracking-widest bg-ink text-bg px-3 py-1 rounded-full shadow">01 / 50</span>
-                <span className="absolute -bottom-7 left-2 font-cormorant italic text-sm text-muted bg-white/90 px-3 py-1 rounded-full ring-1 ring-line shadow">{STUDIO}</span>
-                <Jasmine className="absolute -bottom-3 -left-4 w-7 h-7" />
-                <span className="absolute -top-3 -left-4 text-leaf"><Leaf size={26}/></span>
-                <span className="absolute top-1/3 -right-5 text-leaf rotate-45"><Leaf size={22}/></span>
+                <MangoFrond className="absolute -right-11 top-4 w-20 md:w-24 hidden sm:block" />
+                <MangoFrond className="absolute -left-11 top-2 w-16 md:w-20 hidden sm:block" flip />
+                <Garland className="absolute -top-8 left-1/2 -translate-x-1/2 w-[122%] max-w-none" />
+                <JasmineCluster className="absolute -bottom-9 -left-9 w-32 md:w-40" />
+                <JasmineCluster className="absolute -bottom-6 -right-8 w-24 md:w-28" flip />
+                <span className="absolute -top-4 right-6 font-inter text-[11px] tracking-widest bg-ink text-bg px-3 py-1 rounded-full shadow z-[8]">01 / 50</span>
+                <span className="absolute -bottom-7 left-2 font-cormorant italic text-sm text-muted bg-white/90 px-3 py-1 rounded-full ring-1 ring-line shadow z-[8]">{STUDIO}</span>
               </div>
             </motion.div>
           </div>
