@@ -23,7 +23,6 @@ const IMAGES = {
   13: img("ammamma.jpg"),   // Ammamma
   14: img("wa-12.jpg"),     // Tatha
   15: img("wa-13.jpg"),     // Mama
-  16: img("photo-01.jpg"),  // Atta
   17: img("photo-02.jpg"),  // Sibling
   18: img("photo-03.jpg"),  // Best Friend
   19: img("family.jpg"),    // The Whole Family

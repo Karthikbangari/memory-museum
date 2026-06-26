@@ -1,6 +1,5 @@
 photo-file -> original (DSC photos only)
 ---
-photo-01.jpg  <-  DSC03152.JPG_(4).jpg
 photo-02.jpg  <-  DSC03160.jpg
 photo-03.jpg  <-  DSC03734.jpg
 photo-04.jpg  <-  DSC03767.jpg
