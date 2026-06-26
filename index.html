@@ -4,56 +4,82 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Pachala Memories — 50 Frames of Tradition &amp; Love</title>
-<meta name="description" content="A dreamy fairyland Pachala Function memory album — family, tradition, blessings." />
+<meta name="description" content="A dreamy 3D fairyland Pachala Function memory album — family, tradition, blessings." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,600&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-  tailwind.config = {
-    theme: { extend: {
-      colors: {
-        bg:'#FFFDF8', cloud:'#FFFFFF', ivory:'#FAF4EA', pgreen:'#CFE8D5', leaf:'#8DBF8A',
-        jasmine:'#FFF9EF', gold:'#D8A84E', blush:'#F3C8D2', beige:'#EFE2D0',
-        ink:'#24201E', muted:'#7A6A63', line:'#E9DED2',
-      },
-      fontFamily: {
-        play:['"Playfair Display"','serif'], cormorant:['"Cormorant Garamond"','serif'],
-        lora:['Lora','serif'], inter:['Inter','sans-serif'], script:['"Great Vibes"','cursive'],
-      },
-    }},
-  };
+  tailwind.config = { theme: { extend: {
+    colors: { bg:'#FFFDF8', cloud:'#FFFFFF', ivory:'#FAF4EA', pgreen:'#CFE8D5', leaf:'#8DBF8A',
+      jasmine:'#FFF9EF', gold:'#D8A84E', blush:'#F3C8D2', beige:'#EFE2D0', ink:'#24201E', muted:'#7A6A63', line:'#E9DED2' },
+    fontFamily: { play:['"Playfair Display"','serif'], cormorant:['"Cormorant Garamond"','serif'],
+      lora:['Lora','serif'], inter:['Inter','sans-serif'], script:['"Great Vibes"','cursive'] },
+  }}};
 </script>
 <style>
   html,body{margin:0;background:#FFFDF8;}
   .boot{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;color:#7A6A63;font-family:'Cormorant Garamond',serif;letter-spacing:5px;text-transform:uppercase;font-size:15px;background:#FFFDF8;}
 
-  /* ---- studio photo-edit filters (replace freely) ---- */
-  .pachalaWarm{filter:brightness(1.05) contrast(1.03) saturate(.94) sepia(.04);}
-  .leafSoft{filter:brightness(1.06) contrast(.98) saturate(.9) sepia(.05);}
-  .ivoryMatte{filter:brightness(1.08) contrast(.96) saturate(.86);}
-  .divineBW{filter:grayscale(1) contrast(1.1) brightness(1.05);}
-  .turmericGlow{filter:brightness(1.05) contrast(1.05) saturate(.96) sepia(.07);}
-  .dreamyHeaven{filter:brightness(1.09) contrast(1.01) saturate(.9) sepia(.04);}
+  /* ---------- studio photo filters (soft, not washed-out) ---------- */
+  .pachala-photo{filter:brightness(.98) contrast(1.05) saturate(.92) sepia(.03);}
+  .pachala-soft {filter:brightness(1.01) contrast(1.02) saturate(.88) sepia(.04);}
+  .pachala-rich {filter:brightness(.97) contrast(1.08) saturate(.96) sepia(.03);}
+  .pachala-bw   {filter:grayscale(1) brightness(1.02) contrast(1.12);}
 
-  /* ---- soft 3D + fairyland keyframes ---- */
-  @keyframes floaty{0%,100%{transform:translateY(0) rotate(0);}50%{transform:translateY(-14px) rotate(.4deg);}}
+  /* ---------- luxury white + gold ornamental frame ---------- */
+  .frame{position:relative;border:9px solid #FFFDF8;border-radius:22px;overflow:hidden;
+    box-shadow:0 26px 70px rgba(112,92,62,.18), 0 0 0 1px rgba(216,168,78,.25), 0 0 50px rgba(141,191,138,.20);}
+  .frame .corner{position:absolute;width:30px;height:30px;border-color:#D8A84E;border-style:solid;z-index:6;pointer-events:none;}
+  .frame .c-tl{top:7px;left:7px;border-width:2px 0 0 2px;border-top-left-radius:6px;}
+  .frame .c-tr{top:7px;right:7px;border-width:2px 2px 0 0;border-top-right-radius:6px;}
+  .frame .c-br{bottom:7px;right:7px;border-width:0 2px 2px 0;border-bottom-right-radius:6px;}
+  .frame .c-bl{bottom:7px;left:7px;border-width:0 0 2px 2px;border-bottom-left-radius:6px;}
+  .frame .shine{position:absolute;inset:0;background:linear-gradient(120deg,transparent 42%,rgba(255,255,255,.5) 50%,transparent 58%);opacity:0;transition:opacity .5s;z-index:4;}
+  .frame:hover .shine{opacity:1;}
+  .frame .vig{position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 70px rgba(36,32,30,.22);z-index:3;}
+
+  /* ---------- fairyland section background ---------- */
+  .fairy{position:relative;overflow:hidden;
+    background:
+      radial-gradient(circle at 20% 12%, rgba(207,232,213,.55), transparent 36%),
+      radial-gradient(circle at 86% 18%, rgba(243,200,210,.35), transparent 32%),
+      linear-gradient(180deg,#FFFDF8 0%,#FAF4EA 45%,#FFFDF8 100%);}
+  .fairy::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.85;
+    background:
+      radial-gradient(circle at 50% 102%, rgba(255,255,255,.95), transparent 38%),
+      radial-gradient(circle at 8% 92%, rgba(255,255,255,.8), transparent 26%),
+      radial-gradient(circle at 92% 88%, rgba(255,255,255,.75), transparent 28%);}
+  .fairy-green{background:
+      radial-gradient(circle at 25% 20%, rgba(207,232,213,.85), transparent 45%),
+      radial-gradient(circle at 80% 75%, rgba(243,200,210,.5), transparent 45%),
+      linear-gradient(160deg,#CFE8D5 0%,#FFF9EF 55%,#F3C8D2 130%);}
+
+  /* ---------- cloud floor ---------- */
+  .cloudfloor{position:absolute;left:0;right:0;bottom:-30px;height:220px;pointer-events:none;z-index:1;
+    background:
+      radial-gradient(60% 120% at 18% 100%, #fff, transparent 70%),
+      radial-gradient(55% 120% at 42% 100%, #fff, transparent 70%),
+      radial-gradient(65% 130% at 68% 100%, #fff, transparent 72%),
+      radial-gradient(55% 120% at 90% 100%, #fff, transparent 70%);
+    filter:blur(8px);opacity:.9;}
+
+  /* ---------- keyframes ---------- */
+  @keyframes floaty{0%,100%{transform:translateY(0) rotate(0);}50%{transform:translateY(-14px) rotate(.5deg);}}
   @keyframes floatySlow{0%,100%{transform:translateY(0);}50%{transform:translateY(-22px);}}
-  @keyframes drift{from{transform:translateX(-20vw);}to{transform:translateX(120vw);}}
-  @keyframes fall{0%{transform:translateY(-10vh) translateX(0) rotate(0);opacity:0;}10%{opacity:.9;}100%{transform:translateY(110vh) translateX(40px) rotate(320deg);opacity:0;}}
-  @keyframes leafFall{0%{transform:translateY(-10vh) rotate(0);opacity:0;}10%{opacity:.8;}100%{transform:translateY(112vh) rotate(260deg);opacity:0;}}
-  @keyframes rays{0%,100%{opacity:.35;transform:translateX(0) rotate(8deg);}50%{opacity:.6;transform:translateX(20px) rotate(8deg);}}
+  @keyframes drift{from{transform:translateX(-30vw);}to{transform:translateX(130vw);}}
+  @keyframes fall{0%{transform:translateY(-12vh) translateX(0) rotate(0);opacity:0;}10%{opacity:.95;}100%{transform:translateY(114vh) translateX(50px) rotate(340deg);opacity:0;}}
+  @keyframes leafFall{0%{transform:translateY(-12vh) rotate(0);opacity:0;}12%{opacity:.85;}100%{transform:translateY(116vh) rotate(300deg);opacity:0;}}
+  @keyframes rayPulse{0%,100%{opacity:.35;}50%{opacity:.7;}}
+  @keyframes twinkle{0%,100%{opacity:0;transform:scale(.4);}50%{opacity:1;transform:scale(1.25);}}
   @keyframes shimmerText{to{background-position:200% center;}}
-  @keyframes slowZoom{0%{transform:scale(1);}100%{transform:scale(1.08);}}
-  @keyframes pageTurn{0%,100%{transform:rotateY(0deg);}45%,55%{transform:rotateY(-150deg);}}
-  @keyframes shineSweep{0%,60%{left:-60%;}100%{left:140%;}}
-  @keyframes twinkle{0%,100%{opacity:0;transform:scale(.4);}50%{opacity:1;transform:scale(1.2);}}
+  @keyframes slowZoom{0%{transform:scale(1);}100%{transform:scale(1.1);}}
   @media (prefers-reduced-motion: reduce){*{animation-duration:.001s!important;}}
 
   .shimmer{background:linear-gradient(120deg,#8DBF8A,#D8A84E 45%,#C58CA0 90%);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% auto;animation:shimmerText 6s linear infinite;}
   .goldgrad{background:linear-gradient(120deg,#8DBF8A,#D8A84E 60%);-webkit-background-clip:text;background-clip:text;color:transparent;}
-  .scroll-smooth-y{scroll-behavior:smooth;}
   ::selection{background:#CFE8D5;}
+  .no-scrollbar::-webkit-scrollbar{display:none;}
 </style>
 <script type="importmap">
 {
@@ -68,7 +94,7 @@
 }
 </script>
 </head>
-<body class="scroll-smooth-y">
+<body class="no-scrollbar">
 <div id="root"><div class="boot">Opening the Album…</div></div>
 
 <script type="text/babel" data-type="module" data-presets="react">
@@ -79,18 +105,17 @@ import { Menu, X, ChevronLeft, ChevronRight, Volume2, Flower2, Leaf, Sparkles } 
 
 /* ============================================================
    PACHALA MEMORIES — 3D Fairyland Heaven Pachala Function Album
-   • Replace photos / captions / filters / focus in PHOTOS below.
-   • Photos hosted on GitHub, served via jsDelivr.
+   Edit photos / titles / captions / filters / focus in the data
+   block below. Photos hosted on GitHub, served via jsDelivr.
    ============================================================ */
 const PHOTO_BASE = "https://cdn.jsdelivr.net/gh/Karthikbangari/memory-museum@main/photos";
 const U = (f) => `${PHOTO_BASE}/${f}`;
 const STUDIO = "Stories by Studio K";
 
-/* ---- 50 source files (your real photos) ---- */
 const FILES = [
   // Ch1 Welcome & Blessings (1-10)
   "hero.jpg","photo-03.jpg","wa-01.jpg","wa-02.jpg","wa-03.jpg","wa-04.jpg","wa-05.jpg","wa-06.jpg","wa-07.jpg","wa-08.jpg",
-  // Ch2 Family Portraits (11-20)  — ammamma.jpg = Ammamma, family.jpg = whole family
+  // Ch2 Family Portraits (11-20) — ammamma.jpg = Ammamma, family.jpg = whole family
   "ammamma.jpg","wa-09.jpg","wa-10.jpg","wa-11.jpg","wa-12.jpg","wa-13.jpg","photo-02.jpg","family.jpg","photo-05.jpg","photo-06.jpg",
   // Ch3 Traditional Moments (21-30)
   "photo-08.jpg","photo-09.jpg","photo-12.jpg","photo-13.jpg","photo-14.jpg","photo-15.jpg","photo-16.jpg","photo-17.jpg","photo-18.jpg","photo-19.jpg",
@@ -99,7 +124,6 @@ const FILES = [
   // Ch5 Forever Memories (41-50)
   "photo-30.jpg","photo-31.jpg","photo-32.jpg","photo-33.jpg","photo-34.jpg","photo-35.jpg","photo-36.jpg","photo-37.jpg","photo-38.jpg","photo-39.jpg",
 ];
-
 const CHAPTERS = [
   { id:1, name:"Welcome & Blessings", script:"Welcome", quote:"Every beautiful tradition begins with a blessing." },
   { id:2, name:"Family Portraits",    script:"Together", quote:"Some people are not part of life — they are home." },
@@ -107,7 +131,6 @@ const CHAPTERS = [
   { id:4, name:"Decorations & Details",script:"Details", quote:"Every flower, every color, every detail carried the beauty of tradition." },
   { id:5, name:"Forever Memories",    script:"Forever",  quote:"The story does not end here — it lives on in every smile and every blessing." },
 ];
-
 const TITLES = {
   1:["First Blessing","The Welcome","Aarti Glow","Sacred Threshold","Golden Morning","Joyful Arrival","Tilak & Smiles","Auspicious Start","Hearts Gather","Blessed Beginnings"],
   2:["Ammamma's Love","The Elders","Generations","Amma's Grace","Side by Side","Bonds of Love","Cousins","The Whole Family","Warm Embrace","Loved Ones"],
@@ -115,9 +138,7 @@ const TITLES = {
   4:["Jasmine Strings","Mango Leaves","Marigold Hues","Petal by Petal","Rangoli Art","Brass & Gold","Floral Mandap","Little Details","Color & Craft","Adorned With Love"],
   5:["The Smile","Pure Joy","Tears of Love","Held Close","Laughter","Blessings","A Warm Hug","Timeless","Forever","The Last Frame"],
 };
-/* ---- 50 unique captions (one per frame, in id order) ---- */
 const CAPTIONS = [
-  // Ch1 Welcome & Blessings
   "The very first frame — soft light, full hearts, and a day that begins with grace.",
   "Welcomed home with warm smiles and open arms.",
   "The gentle glow of the aarti, blessing every face it touched.",
@@ -128,7 +149,6 @@ const CAPTIONS = [
   "An auspicious start, gently set in motion.",
   "Hearts gathering, the way they always do for the ones they love.",
   "Where the blessings begin and the memories take root.",
-  // Ch2 Family Portraits
   "Ammamma's love — stories, sweets, and a lap that fixes everything.",
   "The elders, holding the whole family in their quiet strength.",
   "Three generations, one unbroken thread of love.",
@@ -139,7 +159,6 @@ const CAPTIONS = [
   "The whole family in one frame, loud, warm, and complete.",
   "A warm embrace that says more than any words could.",
   "The loved ones who make every gathering feel like home.",
-  // Ch3 Traditional Moments
   "The ritual unfolding, gentle and unhurried.",
   "Little lamps of faith, glowing against the morning.",
   "Pasupu and kumkum — color, blessing, and old, deep meaning.",
@@ -150,7 +169,6 @@ const CAPTIONS = [
   "A blessed moment, held still in the middle of the day.",
   "Quiet devotion, the kind that fills a whole room.",
   "Holy light, falling just where it was meant to.",
-  // Ch4 Decorations & Details
   "Strings of jasmine, perfuming every corner of the day.",
   "Mango leaves at the door — a welcome as old as time.",
   "Marigolds in every shade of celebration.",
@@ -161,7 +179,6 @@ const CAPTIONS = [
   "The little details that no one forgets.",
   "Color and craft, woven into every inch of tradition.",
   "Every corner adorned with love, and it showed.",
-  // Ch5 Forever Memories
   "The smile that needs no words — pure and unforgettable.",
   "Pure joy, the kind that lights up a whole face.",
   "Tears of love, the happiest kind there is.",
@@ -174,250 +191,262 @@ const CAPTIONS = [
   "The last frame, and the start of remembering.",
 ];
 const FILTERS = {
-  1:["dreamyHeaven","pachalaWarm","ivoryMatte"],
-  2:["leafSoft","pachalaWarm","leafSoft"],
-  3:["turmericGlow","pachalaWarm","ivoryMatte"],
-  4:["turmericGlow","divineBW"],
-  5:["divineBW","pachalaWarm","dreamyHeaven"],
+  1:["pachala-soft","pachala-photo","pachala-rich"],
+  2:["pachala-photo","pachala-soft","pachala-rich"],
+  3:["pachala-rich","pachala-photo","pachala-soft"],
+  4:["pachala-rich","pachala-bw"],
+  5:["pachala-bw","pachala-photo","pachala-rich"],
 };
 const FOCI = ["center center","center top","left center","right center","center bottom"];
 const ORI  = ["portrait","landscape","square","portrait","landscape"];
-
 const PHOTOS = FILES.map((f, i) => {
-  const id = i + 1;
-  const chapter = Math.floor(i / 10) + 1;
-  const k = i % 10;
+  const id = i + 1, chapter = Math.floor(i / 10) + 1, k = i % 10;
   return {
-    id, image: U(f), chapter,
-    title: TITLES[chapter][k],
-    caption: CAPTIONS[i],
+    id, image: U(f), chapter, title: TITLES[chapter][k], caption: CAPTIONS[i],
     orientation: ORI[(i + chapter) % ORI.length],
     tone: chapter === 4 && k % 3 === 0 ? "bw" : "color",
     featured: [1, 11, 21, 31, 41].includes(id),
     focusPosition: FOCI[(i * 2) % FOCI.length],
-    filter: FILTERS[chapter][(chapter === 4 ? (k % 3 === 0 ? 1 : 0) : k % FILTERS[chapter].length)],
+    filter: FILTERS[chapter][chapter === 4 ? (k % 3 === 0 ? 1 : 0) : k % FILTERS[chapter].length],
   };
 });
 const byChapter = (c) => PHOTOS.filter((p) => p.chapter === c);
 const photoById = (id) => PHOTOS.find((p) => p.id === id);
 
 /* ============================================================
-   Reusable bits
+   DECORATIVE LAYERS
    ============================================================ */
-function Frame({ p, className = "", imgClass = "", corners = true, onClick, vignette = false }) {
+function SoftClouds({ floor = true }) {
   return (
-    <div className={`relative bg-white p-2 rounded-[14px] shadow-[0_22px_50px_-18px_rgba(141,191,138,.5)] ring-1 ring-line ${onClick ? "cursor-pointer" : ""} ${className}`} onClick={onClick}>
-      <div className="relative w-full h-full overflow-hidden rounded-[8px] bg-gradient-to-br from-pgreen/40 to-blush/30">
-        <img src={p.image} alt={p.title} loading="lazy"
-          className={`w-full h-full object-cover ${p.filter} ${imgClass}`}
-          style={{ objectPosition: p.focusPosition }}
-          onError={(e) => { e.currentTarget.style.opacity = 0; }} />
-        {vignette && <div className="absolute inset-0 pointer-events-none" style={{ boxShadow:"inset 0 0 70px rgba(36,32,30,.18)" }} />}
-        <div className="absolute inset-0 pointer-events-none opacity-0 hover:opacity-100 transition duration-500"
-          style={{ background:"linear-gradient(120deg,transparent 42%,rgba(255,255,255,.5) 50%,transparent 58%)" }} />
-      </div>
-      {corners && <><Corner cls="top-1 left-1" /><Corner cls="top-1 right-1 rotate-90" /><Corner cls="bottom-1 right-1 rotate-180" /><Corner cls="bottom-1 left-1 -rotate-90" /></>}
-    </div>
-  );
-}
-function Corner({ cls }) {
-  return <span className={`absolute ${cls} w-5 h-5 border-t-2 border-l-2 border-gold/70 rounded-tl-[6px]`} />;
-}
-
-/* ---- decorative layers ---- */
-function SoftClouds() {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0" aria-hidden>
       {Array.from({ length: 6 }).map((_, i) => (
         <span key={i} className="absolute rounded-full blur-2xl"
-          style={{ top:`${6+i*15}%`, left:`-25%`, width:`${260+i*40}px`, height:`${90+i*16}px`,
+          style={{ top:`${5+i*15}%`, left:"-30%", width:`${300+i*50}px`, height:`${100+i*18}px`,
             background:"radial-gradient(60% 100% at 30% 60%,#fff,transparent 70%),radial-gradient(50% 90% at 65% 50%,#fff,transparent 70%)",
-            opacity:0.5-(i%3)*0.1, animation:`drift ${44+i*10}s linear ${-i*8}s infinite` }} />
+            opacity:0.55-(i%3)*0.1, animation:`drift ${48+i*10}s linear ${-i*9}s infinite` }} />
       ))}
+      {floor && <div className="cloudfloor" />}
     </div>
   );
 }
-function FloatingPetals({ count = 16 }) {
+function FloatingPetals({ count = 30 }) {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
-      {Array.from({ length: count }).map((_, i) => (
-        <span key={i} className="absolute"
-          style={{ left:`${(i*61)%100}%`, top:`-5%`, width:7+(i%3)*3, height:9+(i%3)*3,
-            background:`radial-gradient(circle at 30% 30%, #FFF9EF, ${i%2?"#F3C8D2":"#FFFFFF"})`,
-            borderRadius:"60% 0 60% 0", boxShadow:"0 1px 4px rgba(195,140,160,.4)",
-            animation:`fall ${9+(i%6)}s linear ${-(i%9)*1.1}s infinite` }} />
-      ))}
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-[2]" aria-hidden>
+      {Array.from({ length: count }).map((_, i) => {
+        const c = i%3===0 ? "#F3C8D2" : i%3===1 ? "#FFF9EF" : "#CFE8D5";
+        return <span key={i} className="absolute"
+          style={{ left:`${(i*53)%100}%`, top:"-6%", width:6+(i%4)*3, height:8+(i%4)*3,
+            background:`radial-gradient(circle at 30% 30%, #FFFFFF, ${c})`, borderRadius:"60% 0 60% 0",
+            boxShadow:"0 1px 4px rgba(195,140,160,.35)", animation:`fall ${8+(i%7)}s linear ${-(i%11)*1.0}s infinite` }} />;
+      })}
     </div>
   );
 }
-function MangoLeaves({ count = 8 }) {
+function MangoLeaves({ count = 12 }) {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-[2]" aria-hidden>
       {Array.from({ length: count }).map((_, i) => (
-        <span key={i} className="absolute"
-          style={{ left:`${(i*73)%100}%`, top:"-6%", width:14, height:24,
-            background:"linear-gradient(160deg,#8DBF8A,#5f9a63)", borderRadius:"0 80% 0 80%",
-            opacity:.7, animation:`leafFall ${12+(i%5)*2}s linear ${-(i%7)*1.4}s infinite` }} />
+        <svg key={i} width="20" height="30" viewBox="0 0 20 30" className="absolute"
+          style={{ left:`${(i*61)%100}%`, top:"-7%", opacity:.72, animation:`leafFall ${12+(i%6)*2}s linear ${-(i%8)*1.3}s infinite` }}>
+          <path d="M10 0 C2 8 0 20 10 30 C20 20 18 8 10 0 Z" fill="url(#lg)"/>
+          <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#8DBF8A"/><stop offset="1" stopColor="#5f9a63"/></linearGradient></defs>
+          <path d="M10 3 L10 27" stroke="#4d8052" strokeWidth="0.8"/>
+        </svg>
       ))}
     </div>
   );
 }
 function LightRays() {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-      {Array.from({ length: 4 }).map((_, i) => (
-        <span key={i} className="absolute top-[-20%] origin-top"
-          style={{ left:`${15+i*22}%`, width:`${60+i*20}px`, height:"140%",
-            background:"linear-gradient(180deg,rgba(216,168,78,.18),transparent 70%)",
-            filter:"blur(6px)", animation:`rays ${7+i*2}s ease-in-out ${-i}s infinite` }} />
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0" aria-hidden>
+      {Array.from({ length: 5 }).map((_, i) => (
+        <span key={i} className="absolute top-[-25%] origin-top"
+          style={{ left:`${10+i*19}%`, width:`${70+i*22}px`, height:"150%", transform:`rotate(${(i-2)*7}deg)`,
+            background:"linear-gradient(180deg,rgba(216,168,78,.22),transparent 72%)", filter:"blur(10px)",
+            animation:`rayPulse ${7+i*1.5}s ease-in-out ${-i}s infinite` }} />
       ))}
     </div>
   );
 }
 function Sparkles2({ count = 22 }) {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-[2]" aria-hidden>
       {Array.from({ length: count }).map((_, i) => (
         <span key={i} className="absolute rounded-full"
-          style={{ left:`${(i*53)%100}%`, top:`${(i*37)%100}%`, width:3+(i%3), height:3+(i%3),
+          style={{ left:`${(i*47)%100}%`, top:`${(i*37)%100}%`, width:3+(i%3), height:3+(i%3),
             background:"radial-gradient(circle,#fff,#D8A84E)", boxShadow:"0 0 8px #D8A84E",
             animation:`twinkle ${3+(i%4)}s ease-in-out ${(i%7)*.4}s infinite` }} />
       ))}
     </div>
   );
 }
-
-const fadeUp = { hidden:{ opacity:0, y:36 }, show:{ opacity:1, y:0, transition:{ duration:.8, ease:[.2,.8,.2,1] } } };
-const Reveal = ({ children, className, delay=0 }) => (
-  <motion.div className={className} variants={fadeUp} initial="hidden" whileInView="show"
-    viewport={{ once:true, amount:.2 }} transition={{ delay }}>{children}</motion.div>
-);
-
-function Kicker({ children }) {
-  return <span className="font-cormorant tracking-[5px] uppercase text-gold text-sm">{children}</span>;
-}
-function Heading({ children, className="" }) {
-  return <h2 className={`font-play font-extrabold text-ink leading-tight ${className}`}>{children}</h2>;
+function PalaceSilhouette({ className = "" }) {
+  return (
+    <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-[1100px] max-w-[150%] pointer-events-none z-0 ${className}`} aria-hidden>
+      <svg viewBox="0 0 1100 360" className="w-full" style={{ opacity:.08 }}>
+        <g fill="#24201E">
+          {/* central mandap */}
+          <path d="M470 360 V170 Q470 90 550 70 Q630 90 630 170 V360 Z"/>
+          <ellipse cx="550" cy="78" rx="46" ry="30"/>
+          <path d="M550 18 L566 50 H534 Z"/><circle cx="550" cy="14" r="7"/>
+          {/* side towers */}
+          <path d="M330 360 V210 Q330 150 388 138 Q446 150 446 210 V360 Z"/>
+          <ellipse cx="388" cy="142" rx="34" ry="22"/><circle cx="388" cy="112" r="5"/>
+          <path d="M654 360 V210 Q654 150 712 138 Q770 150 770 210 V360 Z"/>
+          <ellipse cx="712" cy="142" rx="34" ry="22"/><circle cx="712" cy="112" r="5"/>
+          {/* outer pillars */}
+          <rect x="250" y="250" width="40" height="110"/><rect x="810" y="250" width="40" height="110"/>
+          <ellipse cx="270" cy="250" rx="24" ry="16"/><ellipse cx="830" cy="250" rx="24" ry="16"/>
+          {/* base */}
+          <rect x="220" y="340" width="660" height="20"/>
+        </g>
+      </svg>
+    </div>
+  );
 }
 
 /* ============================================================
-   1 · NAV
+   FRAME + helpers
+   ============================================================ */
+function Frame({ p, className = "", imgClass = "", onClick, vignette = false, glow = false }) {
+  return (
+    <div className={`relative ${glow ? "before:absolute before:-inset-5 before:-z-10 before:rounded-[30px] before:bg-[radial-gradient(circle,rgba(141,191,138,.45),transparent_65%)] before:blur-xl" : ""}`}>
+      <div className={`frame ${onClick ? "cursor-pointer" : ""} ${className}`} onClick={onClick}>
+        <div className="relative w-full h-full overflow-hidden rounded-[12px] bg-gradient-to-br from-pgreen/40 to-blush/30">
+          <img src={p.image} alt={p.title} loading="lazy"
+            className={`w-full h-full object-cover ${p.filter} ${imgClass}`}
+            style={{ objectPosition:p.focusPosition }}
+            onError={(e)=>{ e.currentTarget.style.opacity=0; }} />
+        </div>
+        {vignette && <span className="vig" />}
+        <span className="shine" />
+        <span className="corner c-tl" /><span className="corner c-tr" /><span className="corner c-br" /><span className="corner c-bl" />
+      </div>
+    </div>
+  );
+}
+const fadeUp = { hidden:{ opacity:0, y:38 }, show:{ opacity:1, y:0, transition:{ duration:.8, ease:[.2,.8,.2,1] } } };
+const Reveal = ({ children, className, delay=0 }) => (
+  <motion.div className={className} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once:true, amount:.2 }} transition={{ delay }}>{children}</motion.div>
+);
+const Kicker = ({ children }) => <span className="font-cormorant tracking-[5px] uppercase text-gold text-sm">{children}</span>;
+const Heading = ({ children, className="" }) => <h2 className={`font-play font-extrabold text-ink leading-tight ${className}`}>{children}</h2>;
+function Jasmine({ className="" }) {
+  return (
+    <span className={`relative inline-block ${className}`} aria-hidden>
+      {[0,72,144,216,288].map((a) => (
+        <span key={a} className="absolute w-3 h-3 rounded-full bg-white shadow"
+          style={{ left:10+Math.cos(a*Math.PI/180)*9, top:10+Math.sin(a*Math.PI/180)*9 }} />
+      ))}
+      <span className="absolute left-[10px] top-[10px] w-2.5 h-2.5 rounded-full bg-gold/90 -translate-x-1/2 -translate-y-1/2" />
+    </span>
+  );
+}
+
+/* ============================================================
+   NAV
    ============================================================ */
 function Nav({ onLink }) {
   const [open, setOpen] = useState(false);
   const links = [["Home","home"],["Story","story"],["Chapters","chapters"],["Gallery","gallery"],["Contact","ending"]];
   return (
     <nav className="fixed top-0 inset-x-0 z-50">
-      <div className="max-w-7xl mx-auto px-6 md:px-10 py-4 flex items-center justify-between
-        bg-bg/70 backdrop-blur-md border-b border-line/70">
-        <button onClick={() => onLink("home")} className="font-play font-extrabold tracking-[3px] text-ink text-lg">STUDIO&nbsp;<span className="goldgrad">K</span></button>
+      <div className="max-w-7xl mx-auto px-6 md:px-10 py-4 flex items-center justify-between bg-bg/70 backdrop-blur-md border-b border-line/70">
+        <button onClick={()=>onLink("home")} className="font-play font-extrabold tracking-[3px] text-ink text-lg">STUDIO&nbsp;<span className="goldgrad">K</span></button>
         <div className="hidden md:flex items-center gap-8 font-inter text-sm text-muted">
-          {links.map(([l,id]) => (
-            <button key={id} onClick={() => onLink(id)} className="hover:text-ink transition tracking-wide">{l}</button>
-          ))}
+          {links.map(([l,id])=> <button key={id} onClick={()=>onLink(id)} className="hover:text-ink transition tracking-wide">{l}</button>)}
         </div>
-        <button onClick={() => onLink("gallery")} className="hidden md:inline-flex font-inter text-sm px-5 py-2 rounded-full bg-ink text-bg hover:bg-leaf transition">View Album</button>
-        <button className="md:hidden text-ink" onClick={() => setOpen(!open)}>{open ? <X size={22}/> : <Menu size={22}/>}</button>
+        <button onClick={()=>onLink("gallery")} className="hidden md:inline-flex font-inter text-sm px-5 py-2 rounded-full bg-ink text-bg hover:bg-leaf transition">View Album</button>
+        <button className="md:hidden text-ink" onClick={()=>setOpen(!open)}>{open?<X size={22}/>:<Menu size={22}/>}</button>
       </div>
-      {open && (
-        <div className="md:hidden bg-bg/95 backdrop-blur border-b border-line px-6 py-4 flex flex-col gap-3 font-inter text-muted">
-          {links.map(([l,id]) => <button key={id} className="text-left py-1" onClick={() => { onLink(id); setOpen(false); }}>{l}</button>)}
-        </div>
-      )}
+      {open && <div className="md:hidden bg-bg/95 backdrop-blur border-b border-line px-6 py-4 flex flex-col gap-3 font-inter text-muted">
+        {links.map(([l,id])=> <button key={id} className="text-left py-1" onClick={()=>{onLink(id);setOpen(false);}}>{l}</button>)}
+      </div>}
     </nav>
   );
 }
 
 /* ============================================================
-   2 · HERO LANDING
+   HERO
    ============================================================ */
 function HeroLanding({ onEnter, onGallery }) {
   const [p, setP] = useState({ x:0, y:0 });
-  const cover = photoById(1), s1 = photoById(2), s2 = photoById(11);
+  const cover = photoById(1), s1 = photoById(18), s2 = photoById(11), s3 = photoById(5);
   return (
-    <header id="home" className="relative min-h-screen flex items-center pt-24 pb-16 px-6 md:px-10 overflow-hidden"
-      onMouseMove={(e) => setP({ x:e.clientX/innerWidth-0.5, y:e.clientY/innerHeight-0.5 })}>
-      <div className="absolute inset-0 -z-10" style={{ background:
-        "radial-gradient(60% 50% at 20% 15%,rgba(207,232,213,.7),transparent 60%),radial-gradient(55% 45% at 85% 10%,rgba(243,200,210,.5),transparent 60%),radial-gradient(70% 60% at 50% 100%,rgba(255,249,239,.9),transparent 60%),linear-gradient(180deg,#FFFDF8,#FAF4EA)" }} />
-      <img src={cover.image} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover opacity-[.10] blur-2xl -z-10" style={{ animation:"slowZoom 18s ease-in-out infinite alternate" }} />
-      <LightRays /><SoftClouds /><FloatingPetals count={14} /><MangoLeaves count={6} />
-      {/* mandap silhouette */}
-      <div className="absolute bottom-0 inset-x-0 h-40 -z-0 opacity-[.07]"
-        style={{ background:"radial-gradient(40% 100% at 50% 100%,#24201E,transparent 70%)" }} />
+    <header id="home" className="fairy relative min-h-screen flex items-center pt-24 pb-24 px-6 md:px-10">
+      <img src={cover.image} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover opacity-[.10] blur-3xl -z-10" style={{ animation:"slowZoom 20s ease-in-out infinite alternate" }} />
+      <LightRays /><SoftClouds /><PalaceSilhouette /><FloatingPetals count={26} /><MangoLeaves count={8} />
 
-      <div className="relative max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center">
-        {/* left */}
+      <div className="relative max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center z-[3]">
         <motion.div initial={{ opacity:0, y:30 }} animate={{ opacity:1, y:0 }} transition={{ duration:1 }}>
-          <Kicker>Pachala Function Memory Portfolio</Kicker>
-          <h1 className="font-play font-black text-ink leading-[1.04] mt-4 text-[clamp(38px,6vw,76px)]">
-            Where Every Frame<br/>Feels Like <span className="shimmer">Blessings</span>
-          </h1>
-          <p className="font-lora text-muted text-lg mt-6 max-w-lg leading-relaxed">
-            A soft heavenly album of family, tradition, smiles, rituals, decorations, and the quiet moments that become lifelong memories.
-          </p>
+          <span className="inline-flex items-center gap-2 font-cormorant tracking-[4px] uppercase text-gold text-sm bg-white/60 ring-1 ring-gold/30 rounded-full px-4 py-1.5 backdrop-blur"><Sparkles size={13}/> Pachala Function Memory Portfolio</span>
+          <h1 className="font-play font-black text-ink leading-[1.04] mt-5 text-[clamp(38px,6vw,76px)]">Where Every Frame<br/>Feels Like <span className="shimmer">Blessings</span></h1>
+          <p className="font-lora text-muted text-lg mt-6 max-w-lg leading-relaxed">A soft heavenly album of family, tradition, smiles, rituals, decorations, and the quiet moments that become lifelong memories.</p>
           <div className="flex flex-wrap gap-4 mt-9">
             <button onClick={onEnter} className="font-inter px-7 py-3.5 rounded-full bg-ink text-bg hover:bg-leaf transition shadow-lg shadow-leaf/30">Enter Album</button>
             <button onClick={onGallery} className="font-inter px-7 py-3.5 rounded-full bg-white text-ink ring-1 ring-line hover:ring-gold transition">View 50 Frames</button>
           </div>
         </motion.div>
 
-        {/* right — 3D photo composition */}
-        <motion.div className="relative h-[460px] md:h-[540px]" initial={{ opacity:0, scale:.9 }} animate={{ opacity:1, scale:1 }} transition={{ duration:1, delay:.2 }}
-          style={{ transform:`translate(${p.x*18}px,${p.y*18}px)` }}>
-          <div className="absolute right-10 top-6 w-44 md:w-52" style={{ transform:`rotate(-7deg) translate(${p.x*-26}px,${p.y*-26}px)`, animation:"floatySlow 7s ease-in-out infinite" }}>
-            <Frame p={s1} className="aspect-[3/4]" />
-          </div>
-          <div className="absolute left-4 bottom-8 w-40 md:w-48" style={{ transform:`rotate(6deg) translate(${p.x*-34}px,${p.y*-34}px)`, animation:"floaty 6s ease-in-out .6s infinite" }}>
-            <Frame p={s2} className="aspect-[3/4]" />
-          </div>
-          <div className="absolute left-1/2 top-1/2 w-60 md:w-72 -translate-x-1/2 -translate-y-1/2" style={{ animation:"floaty 6.5s ease-in-out infinite" }}>
-            <Frame p={cover} className="aspect-[4/5]" vignette />
-            <span className="absolute -top-3 -left-3 font-cormorant text-gold/90"><Flower2 size={30}/></span>
-            <span className="absolute -bottom-3 -right-3 text-leaf/80"><Leaf size={26}/></span>
-            <span className="absolute -top-4 right-6 font-inter text-[11px] tracking-widest bg-ink text-bg px-3 py-1 rounded-full">01 / 50</span>
-            <span className="absolute -bottom-6 left-4 font-cormorant italic text-sm text-muted bg-white/90 px-3 py-1 rounded-full ring-1 ring-line shadow">{STUDIO}</span>
+        {/* 3D stacked composition */}
+        <motion.div className="relative h-[460px] md:h-[560px]" initial={{ opacity:0, scale:.9 }} animate={{ opacity:1, scale:1 }} transition={{ duration:1, delay:.2 }}
+          onMouseMove={(e)=>{const r=e.currentTarget.getBoundingClientRect();setP({x:(e.clientX-r.left)/r.width-0.5,y:(e.clientY-r.top)/r.height-0.5});}}
+          onMouseLeave={()=>setP({x:0,y:0})} style={{ perspective:"1300px" }}>
+          <div className="absolute -inset-6 rounded-[40px] bg-[radial-gradient(circle,rgba(141,191,138,.4),transparent_62%)] blur-2xl" />
+          <div className="relative w-full h-full" style={{ transformStyle:"preserve-3d", transform:`rotateX(${p.y*-8}deg) rotateY(${p.x*10}deg)`, transition:"transform .25s ease", animation:"floaty 7s ease-in-out infinite" }}>
+            <div className="absolute right-8 top-2 w-40 md:w-48" style={{ transform:"translateZ(-140px) rotate(-9deg) translateX(30px)" }}><Frame p={s1} className="aspect-[3/4]" /></div>
+            <div className="absolute left-2 bottom-6 w-36 md:w-44" style={{ transform:"translateZ(-90px) rotate(7deg) translateX(-26px)" }}><Frame p={s3} className="aspect-[3/4]" /></div>
+            <div className="absolute left-1/2 top-1/2 w-56 md:w-72 -translate-x-1/2 -translate-y-1/2" style={{ transform:"translate(-50%,-50%) translateZ(20px)" }}>
+              <Frame p={cover} className="aspect-[4/5]" vignette glow />
+              <span className="absolute -top-4 right-6 font-inter text-[11px] tracking-widest bg-ink text-bg px-3 py-1 rounded-full shadow">01 / 50</span>
+              <span className="absolute -bottom-7 left-2 font-cormorant italic text-sm text-muted bg-white/90 px-3 py-1 rounded-full ring-1 ring-line shadow">{STUDIO}</span>
+              <Jasmine className="absolute -bottom-3 -left-4 w-6 h-6 text-gold" />
+              <span className="absolute -top-3 -left-4 text-leaf"><Leaf size={26}/></span>
+              <span className="absolute top-1/3 -right-5 text-leaf rotate-45"><Leaf size={22}/></span>
+            </div>
           </div>
         </motion.div>
       </div>
-
-      <button onClick={onEnter} className="absolute bottom-7 left-1/2 -translate-x-1/2 font-cormorant tracking-widest text-muted text-sm flex items-center gap-2">
-        Scroll to Begin <span className="inline-block animate-bounce">↓</span>
-      </button>
+      <button onClick={onEnter} className="absolute bottom-8 left-1/2 -translate-x-1/2 font-cormorant tracking-widest text-muted text-sm flex items-center gap-2 z-[3]">Scroll to Begin <span className="inline-block animate-bounce">↓</span></button>
     </header>
   );
 }
 
 /* ============================================================
-   3 · 3D ALBUM OPENING
+   3D ALBUM OPENING
    ============================================================ */
 function AlbumOpening3D() {
   return (
-    <section className="relative py-28 px-6 md:px-10 overflow-hidden bg-jasmine">
-      <SoftClouds /><FloatingPetals count={10} />
-      <div className="relative max-w-5xl mx-auto text-center">
+    <section className="fairy relative py-28 px-6 md:px-10">
+      <SoftClouds /><FloatingPetals count={16} /><Sparkles2 count={16} />
+      <div className="relative max-w-5xl mx-auto text-center z-[3]">
         <Reveal><Kicker>The Album</Kicker>
           <Heading className="text-[clamp(28px,4.5vw,50px)] mt-3">3D Fairyland Pachala Album</Heading>
           <p className="font-cormorant italic text-xl text-muted mt-2">Premium Traditional Function Portfolio</p>
           <p className="font-inter text-xs tracking-[3px] uppercase text-leaf mt-3">Soft Clouds • Jasmine Petals • Mango Leaves • Elegant Frames • Page Turns</p>
         </Reveal>
-
-        <div className="mt-14 flex justify-center" style={{ perspective:"1600px" }}>
-          <div className="relative" style={{ transformStyle:"preserve-3d", animation:"floatySlow 7s ease-in-out infinite" }}>
-            {/* book base */}
-            <div className="relative w-[300px] md:w-[420px] h-[230px] md:h-[300px] rounded-r-xl rounded-l-md bg-white shadow-[0_40px_80px_-30px_rgba(141,191,138,.7)] ring-1 ring-line flex">
-              <div className="w-1/2 h-full p-2"><Frame p={photoById(3)} className="w-full h-full" corners={false} /></div>
-              <div className="w-1/2 h-full p-2"><Frame p={photoById(12)} className="w-full h-full" corners={false} /></div>
-              {/* spine */}
-              <div className="absolute left-1/2 -translate-x-1/2 top-0 h-full w-2 bg-gradient-to-b from-gold/40 to-leaf/30" />
-              {/* turning page */}
-              <div className="absolute left-1/2 top-0 h-full w-1/2 origin-left p-2 rounded-r-xl bg-white ring-1 ring-line"
-                style={{ transformStyle:"preserve-3d", animation:"pageTurn 9s ease-in-out infinite", backfaceVisibility:"hidden" }}>
-                <Frame p={photoById(21)} className="w-full h-full" corners={false} />
+        <div className="mt-16 flex justify-center" style={{ perspective:"1700px" }}>
+          <motion.div initial={{ rotateX:18, scale:.92, opacity:0 }} whileInView={{ rotateX:6, scale:1, opacity:1 }} viewport={{ once:true, amount:.3 }} transition={{ duration:1 }}
+            className="relative" style={{ transformStyle:"preserve-3d", animation:"floatySlow 8s ease-in-out infinite" }}>
+            <div className="relative flex items-stretch w-[320px] md:w-[560px] h-[240px] md:h-[360px]">
+              {/* left page */}
+              <div className="w-1/2 h-full origin-right p-1.5 bg-white rounded-l-lg shadow-[0_40px_80px_-30px_rgba(141,191,138,.7)]"
+                style={{ transform:"rotateY(14deg)", transformStyle:"preserve-3d" }}>
+                <Frame p={photoById(3)} className="w-full h-full !rounded-l-md" />
               </div>
+              {/* right page */}
+              <div className="w-1/2 h-full origin-left p-1.5 bg-white rounded-r-lg shadow-[0_40px_80px_-30px_rgba(141,191,138,.7)]"
+                style={{ transform:"rotateY(-14deg)", transformStyle:"preserve-3d" }}>
+                <Frame p={photoById(12)} className="w-full h-full !rounded-r-md" />
+              </div>
+              {/* spine + gold edges */}
+              <div className="absolute left-1/2 -translate-x-1/2 top-0 h-full w-[6px] bg-gradient-to-b from-gold via-gold/40 to-leaf/40 shadow-[0_0_20px_rgba(216,168,78,.5)]" />
+              <div className="absolute inset-y-0 left-0 w-[3px] bg-gold/50" /><div className="absolute inset-y-0 right-0 w-[3px] bg-gold/50" />
             </div>
-            <span className="absolute -top-5 -left-5 text-gold"><Flower2 size={26}/></span>
-            <span className="absolute -bottom-5 -right-5 text-leaf"><Leaf size={24}/></span>
-          </div>
+            <Jasmine className="absolute -top-5 -left-6 w-7 h-7" />
+            <span className="absolute -bottom-5 -right-6 text-leaf"><Leaf size={26}/></span>
+            <FloatingPetals count={8} />
+          </motion.div>
         </div>
       </div>
     </section>
@@ -425,23 +454,23 @@ function AlbumOpening3D() {
 }
 
 /* ============================================================
-   4 · OPENING COVER
+   OPENING COVER
    ============================================================ */
 function OpeningCover() {
-  const p = photoById(2);
   return (
-    <section className="relative py-28 px-6 overflow-hidden">
-      <img src={p.image} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover opacity-[.14] blur-2xl -z-10" />
-      <div className="absolute inset-0 -z-10 bg-bg/60" />
-      <FloatingPetals count={10} />
-      <Reveal className="relative max-w-md mx-auto text-center">
+    <section className="fairy relative py-28 px-6">
+      <img src={photoById(2).image} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover opacity-[.14] blur-3xl -z-10" />
+      <SoftClouds /><FloatingPetals count={12} />
+      <Reveal className="relative max-w-md mx-auto text-center z-[3]">
         <div className="relative inline-block">
-          <Frame p={photoById(8)} className="w-64 md:w-80 aspect-[4/5] mx-auto" vignette />
-          <Flower2 className="absolute -top-4 -left-4 text-gold" size={28}/>
-          <Flower2 className="absolute -bottom-4 -right-4 text-blush" size={28}/>
+          <Frame p={photoById(8)} className="w-64 md:w-80 aspect-[4/5] mx-auto" vignette glow />
+          <Jasmine className="absolute -bottom-4 -left-5 w-7 h-7" />
+          <Jasmine className="absolute -bottom-4 -right-5 w-7 h-7" />
+          <span className="absolute -top-4 -left-5 text-leaf"><Leaf size={26}/></span>
+          <span className="absolute -top-4 -right-5 text-leaf -scale-x-100"><Leaf size={26}/></span>
         </div>
         <p className="font-script text-5xl text-leaf mt-8">Welcome</p>
-        <h3 className="font-play font-bold text-3xl text-ink -mt-1">to Our World</h3>
+        <h3 className="font-play font-bold tracking-[3px] text-2xl text-ink mt-1">TO OUR WORLD</h3>
         <p className="font-cormorant italic text-muted text-lg mt-2">50 Frames of Tradition &amp; Love</p>
       </Reveal>
     </section>
@@ -449,24 +478,17 @@ function OpeningCover() {
 }
 
 /* ============================================================
-   5 · STUDIO INTRO
+   STUDIO INTRO
    ============================================================ */
 function StudioIntro() {
   const trio = [photoById(13), photoById(5), photoById(17)];
   return (
-    <section className="relative py-28 px-6 md:px-10 overflow-hidden"
-      style={{ background:"linear-gradient(135deg,#CFE8D5 0%,#FFF9EF 50%,#F3C8D2 120%)" }}>
-      <FloatingPetals count={8} />
-      <div className="relative max-w-5xl mx-auto text-center">
+    <section className="fairy-green relative py-28 px-6 md:px-10 overflow-hidden">
+      <FloatingPetals count={12} /><SoftClouds floor={false} />
+      <div className="relative max-w-5xl mx-auto text-center z-[3]">
         <Reveal><p className="font-inter tracking-[7px] uppercase text-ink/70 text-sm">Stories By</p></Reveal>
         <div className="grid grid-cols-3 gap-4 md:gap-8 mt-8 max-w-3xl mx-auto">
-          {trio.map((p,i) => (
-            <Reveal key={p.id} delay={i*0.12}>
-              <div style={{ animation:`floaty ${6+i}s ease-in-out ${i*.4}s infinite` }}>
-                <Frame p={p} className="aspect-[3/4]" />
-              </div>
-            </Reveal>
-          ))}
+          {trio.map((p,i)=> <Reveal key={p.id} delay={i*0.12}><div style={{ animation:`floaty ${6+i}s ease-in-out ${i*.4}s infinite` }}><Frame p={p} className="aspect-[3/4]" /></div></Reveal>)}
         </div>
         <Reveal delay={0.2}>
           <h2 className="font-play font-black text-ink text-[clamp(46px,9vw,110px)] mt-10 leading-none">STUDIO&nbsp;K</h2>
@@ -478,54 +500,45 @@ function StudioIntro() {
 }
 
 /* ============================================================
-   6 · EDITORIAL STORY
+   EDITORIAL STORY
    ============================================================ */
 function EditorialStory() {
   return (
-    <section id="story" className="relative py-28 px-6 md:px-10 bg-ivory overflow-hidden">
-      <div className="max-w-4xl mx-auto text-center">
-        <Reveal><Frame p={photoById(7)} className="aspect-[16/9] w-full" vignette /></Reveal>
-        <Reveal delay={0.1}>
-          <p className="font-cormorant italic text-[clamp(20px,3vw,32px)] text-ink leading-relaxed mt-12 max-w-2xl mx-auto">
-            “Here’s to blessings, laughter, family, and a lifetime of memories — because every beautiful tradition begins with one meaningful moment.”
-          </p>
-        </Reveal>
+    <section id="story" className="fairy relative py-28 px-6 md:px-10">
+      <SoftClouds floor={false} /><FloatingPetals count={10} />
+      <div className="relative max-w-4xl mx-auto text-center z-[3]">
+        <Reveal><Frame p={photoById(7)} className="aspect-[16/9] w-full" vignette glow /></Reveal>
+        <Reveal delay={0.1}><p className="font-cormorant italic text-[clamp(20px,3vw,32px)] text-ink leading-relaxed mt-12 max-w-2xl mx-auto">“Here’s to blessings, laughter, family, and a lifetime of memories — because every beautiful tradition begins with one meaningful moment.”</p></Reveal>
         <Reveal delay={0.2}>
           <Frame p={photoById(24)} className="aspect-[4/3] w-56 mx-auto mt-12" />
-          <div className="flex items-center justify-center gap-2 mt-6">
-            {[0,1,2,3].map((d) => <span key={d} className={`h-1.5 rounded-full transition-all ${d===1?"w-6 bg-gold":"w-1.5 bg-line"}`} />)}
-          </div>
+          <div className="flex items-center justify-center gap-2 mt-6">{[0,1,2,3].map((d)=><span key={d} className={`h-1.5 rounded-full transition-all ${d===1?"w-6 bg-gold":"w-1.5 bg-line"}`} />)}</div>
         </Reveal>
       </div>
-      <Volume2 className="absolute bottom-8 right-8 text-leaf/60" size={20} />
+      <Volume2 className="absolute bottom-8 right-8 text-leaf/60 z-[3]" size={20} />
     </section>
   );
 }
 
 /* ============================================================
-   7 · CHAPTER INDEX
+   CHAPTER INDEX
    ============================================================ */
 function ChapterIndex({ onChapter }) {
   return (
-    <section id="chapters" className="relative py-28 px-6 md:px-10 overflow-hidden bg-bg">
-      <SoftClouds />
-      <div className="relative max-w-6xl mx-auto">
-        <Reveal className="text-center mb-14">
-          <Kicker>The Album Chapters</Kicker>
+    <section id="chapters" className="fairy relative py-28 px-6 md:px-10">
+      <SoftClouds /><FloatingPetals count={12} />
+      <div className="relative max-w-6xl mx-auto z-[3]">
+        <Reveal className="text-center mb-14"><Kicker>The Album Chapters</Kicker>
           <Heading className="text-[clamp(30px,5vw,52px)] mt-3">Five Chapters. Fifty Frames.</Heading>
           <p className="font-cormorant italic text-xl text-muted mt-1">One blessed story.</p>
         </Reveal>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-7">
-          {CHAPTERS.map((c,i) => (
-            <Reveal key={c.id} delay={i*0.08}>
-              <button onClick={() => onChapter(c.id)}
-                className="group w-full text-left bg-white rounded-2xl ring-1 ring-line p-3 shadow-[0_18px_44px_-22px_rgba(141,191,138,.6)] hover:-translate-y-2 hover:shadow-[0_30px_60px_-22px_rgba(216,168,78,.5)] transition-all duration-500"
-                style={{ transformStyle:"preserve-3d" }}>
-                <div className="relative overflow-hidden rounded-xl aspect-[4/3]">
-                  <img src={byChapter(c.id)[0].image} alt={c.name} loading="lazy"
-                    className={`w-full h-full object-cover ${byChapter(c.id)[0].filter} group-hover:scale-110 transition duration-700`} />
-                  <span className="absolute top-3 right-3 font-play text-2xl text-white drop-shadow">0{c.id}</span>
-                  <Flower2 className="absolute bottom-2 left-2 text-white/80" size={18}/>
+        <div className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto md:overflow-visible snap-x md:snap-none pb-4 no-scrollbar -mx-6 px-6 md:mx-0 md:px-0">
+          {CHAPTERS.map((c,i)=> (
+            <Reveal key={c.id} delay={i*0.08} className="snap-center shrink-0 w-[78%] sm:w-[60%] md:w-auto">
+              <button onClick={()=>onChapter(c.id)}
+                className="group w-full text-left bg-white/90 rounded-2xl ring-1 ring-line p-3 shadow-[0_20px_50px_-22px_rgba(141,191,138,.6)] hover:-translate-y-2 hover:[transform:perspective(900px)_rotateX(4deg)_translateY(-8px)] hover:shadow-[0_34px_64px_-22px_rgba(216,168,78,.5)] transition-all duration-500">
+                <div className="relative"><Frame p={byChapter(c.id)[0]} className="aspect-[4/3]" imgClass="group-hover:scale-110 transition duration-700" />
+                  <span className="absolute top-3 right-3 font-play text-2xl text-white drop-shadow z-[7]">0{c.id}</span>
+                  <Jasmine className="absolute bottom-2 left-2 w-5 h-5 z-[7]" />
                 </div>
                 <div className="px-2 pt-4 pb-2">
                   <h3 className="font-play font-bold text-xl text-ink">{c.name}</h3>
@@ -542,17 +555,16 @@ function ChapterIndex({ onChapter }) {
 }
 
 /* ============================================================
-   8-11 · CHAPTER SECTIONS
+   CHAPTER SECTIONS
    ============================================================ */
 function ChapterSection({ chapter, anchorRef, onOpen }) {
   const c = CHAPTERS[chapter-1];
   const ph = byChapter(chapter);
-  const bg = chapter===2 ? "bg-gradient-to-br from-pgreen/60 to-blush/40"
-           : chapter===4 ? "bg-ivory" : "bg-bg";
+  const cls = chapter===2 ? "fairy-green" : "fairy";
   return (
-    <section ref={anchorRef} className={`relative py-24 px-6 md:px-10 overflow-hidden ${bg} border-t border-line/60`}>
-      {chapter!==4 && <FloatingPetals count={8} />}
-      <div className="relative max-w-6xl mx-auto">
+    <section ref={anchorRef} className={`${cls} relative py-24 px-6 md:px-10 border-t border-line/50`}>
+      <SoftClouds floor={chapter%2===1} /><FloatingPetals count={chapter===4?8:14} />{chapter===3 && <LightRays />}
+      <div className="relative max-w-6xl mx-auto z-[3]">
         <Reveal className="text-center mb-12">
           <p className="font-script text-4xl text-leaf">{c.script}</p>
           <Heading className="text-[clamp(28px,4.5vw,48px)]">{c.name}</Heading>
@@ -561,68 +573,36 @@ function ChapterSection({ chapter, anchorRef, onOpen }) {
 
         {chapter===1 && (
           <div className="grid md:grid-cols-2 gap-6 items-start">
-            <Reveal><Frame p={ph[0]} className="aspect-[4/5]" vignette /></Reveal>
-            <div className="grid grid-cols-2 gap-4">
-              {ph.slice(1).map((p,i) => <Reveal key={p.id} delay={i*0.05}><Frame p={p} className="aspect-square" /></Reveal>)}
-            </div>
+            <Reveal><Frame p={ph[0]} className="aspect-[4/5]" vignette glow /></Reveal>
+            <div className="grid grid-cols-2 gap-4">{ph.slice(1).map((p,i)=><Reveal key={p.id} delay={i*0.05}><Frame p={p} className="aspect-square" /></Reveal>)}</div>
           </div>
         )}
-
         {chapter===2 && (<>
           <div className="grid grid-cols-3 gap-4 md:gap-6 max-w-3xl mx-auto mb-8">
-            {ph.slice(0,3).map((p,i) => <Reveal key={p.id} delay={i*0.1}><div style={{animation:`floaty ${6+i}s ease-in-out infinite`}}><Frame p={p} className="aspect-[3/4]" /></div></Reveal>)}
+            {ph.slice(0,3).map((p,i)=><Reveal key={p.id} delay={i*0.1}><div style={{animation:`floaty ${6+i}s ease-in-out infinite`}}><Frame p={p} className="aspect-[3/4]" glow /></div></Reveal>)}
           </div>
           <div className="columns-2 md:columns-3 gap-5 [&>*]:mb-5">
-            {ph.slice(3).map((p,i) => (
-              <Reveal key={p.id} delay={i*0.05}>
-                <div><Frame p={p} className={i%2?"aspect-[4/5]":"aspect-square"} />
-                  {i%3===0 && <p className="font-lora italic text-xs text-muted text-center mt-2">{p.title}</p>}</div>
-              </Reveal>
-            ))}
+            {ph.slice(3).map((p,i)=><Reveal key={p.id} delay={i*0.05}><div><Frame p={p} className={i%2?"aspect-[4/5]":"aspect-square"} />{i%3===0 && <p className="font-lora italic text-xs text-muted text-center mt-2">{p.title}</p>}</div></Reveal>)}
           </div>
         </>)}
-
         {chapter===3 && (<>
-          <Reveal className="max-w-2xl mx-auto text-center mb-10">
-            <p className="font-cormorant italic text-[clamp(18px,2.6vw,26px)] text-ink leading-relaxed">
-              “In every ritual, every smile, and every blessing, this day becomes a memory held close by the heart.”
-            </p>
-          </Reveal>
-          <Reveal><Frame p={ph[0]} className="aspect-[16/9] max-w-3xl mx-auto" vignette /></Reveal>
-          <div className="columns-2 gap-6 [&>*]:mb-6 mt-8 max-w-4xl mx-auto">
-            {ph.slice(1).map((p,i) => <Reveal key={p.id} delay={i*0.04}><Frame p={p} className={i%2?"aspect-[3/4]":"aspect-square"} /></Reveal>)}
-          </div>
+          <Reveal className="max-w-2xl mx-auto text-center mb-10"><p className="font-cormorant italic text-[clamp(18px,2.6vw,26px)] text-ink leading-relaxed">“In every ritual, every smile, and every blessing, this day becomes a memory held close by the heart.”</p></Reveal>
+          <Reveal><Frame p={ph[0]} className="aspect-[16/9] max-w-3xl mx-auto" vignette glow /></Reveal>
+          <div className="columns-2 gap-6 [&>*]:mb-6 mt-8 max-w-4xl mx-auto">{ph.slice(1).map((p,i)=><Reveal key={p.id} delay={i*0.04}><Frame p={p} className={i%2?"aspect-[3/4]":"aspect-square"} /></Reveal>)}</div>
         </>)}
-
         {chapter===4 && (<>
           <Reveal className="text-center mb-8"><p className="font-lora italic text-muted max-w-xl mx-auto">“Every flower, every color, every detail carried the beauty of tradition.”</p></Reveal>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-            {ph.map((p,i) => (
-              <Reveal key={p.id} delay={(i%3)*0.06}>
-                <div className="relative">
-                  <Frame p={p} className="aspect-square" corners={false} />
-                  {i===0 && <span className="absolute top-2 right-2 font-inter text-[10px] tracking-widest bg-white/90 text-ink px-2 py-0.5 rounded-full ring-1 ring-line">05 / 12</span>}
-                </div>
-              </Reveal>
-            ))}
+            {ph.map((p,i)=><Reveal key={p.id} delay={(i%3)*0.06}><div className="relative"><Frame p={p} className="aspect-square" />{i===0 && <span className="absolute top-2 right-2 font-inter text-[10px] tracking-widest bg-white/90 text-ink px-2 py-0.5 rounded-full ring-1 ring-line z-[7]">05 / 12</span>}</div></Reveal>)}
           </div>
         </>)}
-
         {chapter===5 && (
           <div className="space-y-10 max-w-3xl mx-auto">
-            {[["SMILE",ph[0],"A smile that needs no words — pure, warm, and unforgettable."],
-              ["BLESSINGS",ph[5],"Surrounded by love, wrapped in the blessings of everyone who matters."],
-              ["FOREVER",ph[8],"The story does not end here. It lives on in every smile, every blessing, and every memory we carry forward."]
-            ].map(([t,p,cap],i) => (
-              <Reveal key={t} delay={i*0.1}>
-                <div className="bg-white p-3 rounded-2xl ring-1 ring-line shadow-[0_24px_55px_-26px_rgba(141,191,138,.6)]" style={{ animation:`floaty ${7+i}s ease-in-out infinite` }}>
-                  <Frame p={p} className="aspect-[16/10]" corners={false} vignette />
-                  <div className="text-center py-5 px-4">
-                    <h3 className="font-play font-black tracking-[6px] text-2xl text-ink">{t}</h3>
-                    <p className="font-cormorant italic text-muted mt-2">{cap}</p>
-                  </div>
-                </div>
-              </Reveal>
+            {[["SMILE",ph[0],"A smile that needs no words — pure, warm, and unforgettable."],["BLESSINGS",ph[5],"Surrounded by love, wrapped in the blessings of everyone who matters."],["FOREVER",ph[8],"The story does not end here. It lives on in every smile, every blessing, and every memory we carry forward."]].map(([t,p,cap],i)=>(
+              <Reveal key={t} delay={i*0.1}><div className="bg-white p-3 rounded-2xl ring-1 ring-line shadow-[0_24px_55px_-26px_rgba(141,191,138,.6)]" style={{ animation:`floaty ${7+i}s ease-in-out infinite` }}>
+                <Frame p={p} className="aspect-[16/10]" vignette />
+                <div className="text-center py-5 px-4"><h3 className="font-play font-black tracking-[6px] text-2xl text-ink">{t}</h3><p className="font-cormorant italic text-muted mt-2">{cap}</p></div>
+              </div></Reveal>
             ))}
           </div>
         )}
@@ -632,28 +612,19 @@ function ChapterSection({ chapter, anchorRef, onOpen }) {
 }
 
 /* ============================================================
-   12 · FEATURED MAGAZINE PAGES
+   MAGAZINE PAGES
    ============================================================ */
-const MAG = [
-  ["WELCOME", 1,  "Where every frame feels like a blessing."],
-  ["SMILE",   41, "A smile that turns a moment into a memory."],
-  ["BLESSINGS",46,"Held in the love of everyone who gathered."],
-  ["TRADITION",21,"Turmeric, lamps, and prayers softly whispered."],
-  ["TOGETHER",18, "All of us, in one warm and golden frame."],
-  ["FOREVER", 49, "Some days never truly end — they simply become forever."],
-];
+const MAG = [["WELCOME",1,"Where every frame feels like a blessing."],["SMILE",41,"A smile that turns a moment into a memory."],["BLESSINGS",46,"Held in the love of everyone who gathered."],["TRADITION",21,"Turmeric, lamps, and prayers softly whispered."],["TOGETHER",18,"All of us, in one warm and golden frame."],["FOREVER",49,"Some days never truly end — they simply become forever."]];
 function MagazinePages({ onOpen }) {
   return (
-    <section className="relative bg-bg">
-      {MAG.map(([title,id,cap],i) => {
+    <section className="relative">
+      {MAG.map(([title,id,cap],i)=>{
         const p = photoById(id);
         return (
-          <div key={title} className={`relative min-h-[88vh] flex items-center px-6 md:px-14 py-20 overflow-hidden border-t border-line/60 ${i%2?"bg-jasmine":"bg-ivory"}`}>
-            <FloatingPetals count={6} />
-            <div className={`relative max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-10 items-center ${i%2?"md:[direction:rtl]":""}`}>
-              <Reveal className="[direction:ltr]">
-                <Frame p={p} className="aspect-[4/5] w-full max-w-md mx-auto" vignette onClick={() => onOpen(p.id)} />
-              </Reveal>
+          <div key={title} className={`fairy relative min-h-[88vh] flex items-center px-6 md:px-14 py-20 border-t border-line/50`}>
+            <FloatingPetals count={8} /><SoftClouds floor={false} />
+            <div className={`relative max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-10 items-center z-[3] ${i%2?"md:[direction:rtl]":""}`}>
+              <Reveal className="[direction:ltr]"><Frame p={p} className="aspect-[4/5] w-full max-w-md mx-auto" vignette glow onClick={()=>onOpen(p.id)} /></Reveal>
               <Reveal delay={0.1} className="[direction:ltr] text-center md:text-left">
                 <span className="font-inter text-xs tracking-[4px] text-gold">0{i+1} / 06</span>
                 <h2 className="font-play font-black tracking-[4px] text-[clamp(40px,8vw,90px)] text-ink leading-none mt-2">{title}</h2>
@@ -661,7 +632,7 @@ function MagazinePages({ onOpen }) {
                 <p className="font-cormorant italic text-xl text-muted max-w-sm md:mx-0 mx-auto">{cap}</p>
               </Reveal>
             </div>
-            <Volume2 className="absolute bottom-6 right-6 text-leaf/50" size={18} />
+            <Volume2 className="absolute bottom-6 right-6 text-leaf/50 z-[3]" size={18} />
           </div>
         );
       })}
@@ -670,25 +641,22 @@ function MagazinePages({ onOpen }) {
 }
 
 /* ============================================================
-   13 · COMPLETE GALLERY (masonry)
+   GALLERY
    ============================================================ */
 function PhotoGallery({ onOpen }) {
   return (
-    <section id="gallery" className="relative py-28 px-6 md:px-10 bg-bg overflow-hidden">
-      <SoftClouds />
-      <div className="relative max-w-6xl mx-auto">
-        <Reveal className="text-center mb-12">
-          <Kicker>The Complete Album</Kicker>
+    <section id="gallery" className="fairy relative py-28 px-6 md:px-10">
+      <SoftClouds /><FloatingPetals count={14} />
+      <div className="relative max-w-6xl mx-auto z-[3]">
+        <Reveal className="text-center mb-12"><Kicker>The Complete Album</Kicker>
           <Heading className="text-[clamp(30px,5vw,52px)] mt-3">Fifty Frames, Softly Held</Heading>
           <p className="font-cormorant italic text-xl text-muted mt-1">One blessed story.</p>
         </Reveal>
         <div className="columns-2 md:columns-3 lg:columns-4 gap-5 [&>*]:mb-5">
-          {PHOTOS.map((p,i) => (
-            <motion.div key={p.id} initial={{ opacity:0, y:24 }} whileInView={{ opacity:1, y:0 }}
-              viewport={{ once:true, amount:.05 }} transition={{ duration:.5, delay:(i%8)*0.03 }}>
-              <div className="group" onClick={() => onOpen(p.id)}>
-                <Frame p={p} className={p.orientation==="portrait"?"aspect-[3/4]":p.orientation==="landscape"?"aspect-[4/3]":"aspect-square"}
-                  imgClass="group-hover:scale-105 transition duration-700" corners={false} />
+          {PHOTOS.map((p,i)=>(
+            <motion.div key={p.id} initial={{ opacity:0, y:24 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true, amount:.05 }} transition={{ duration:.5, delay:(i%8)*0.03 }}>
+              <div className="group" onClick={()=>onOpen(p.id)}>
+                <Frame p={p} className={p.orientation==="portrait"?"aspect-[3/4]":p.orientation==="landscape"?"aspect-[4/3]":"aspect-square"} imgClass="group-hover:scale-105 transition duration-700" />
                 <p className="font-lora italic text-xs text-muted text-center mt-2 opacity-0 group-hover:opacity-100 transition">{p.title}</p>
               </div>
             </motion.div>
@@ -700,25 +668,19 @@ function PhotoGallery({ onOpen }) {
 }
 
 /* ============================================================
-   14 · MODAL
+   MODAL
    ============================================================ */
 function PhotoModal({ index, onClose, onNav }) {
   const p = PHOTOS[index];
-  useEffect(() => {
-    const k = (e) => { if(e.key==="Escape")onClose(); if(e.key==="ArrowLeft")onNav(-1); if(e.key==="ArrowRight")onNav(1); };
-    addEventListener("keydown",k); document.body.style.overflow="hidden";
-    return () => { removeEventListener("keydown",k); document.body.style.overflow=""; };
-  }, [onClose,onNav]);
+  useEffect(()=>{ const k=(e)=>{ if(e.key==="Escape")onClose(); if(e.key==="ArrowLeft")onNav(-1); if(e.key==="ArrowRight")onNav(1); };
+    addEventListener("keydown",k); document.body.style.overflow="hidden"; return ()=>{ removeEventListener("keydown",k); document.body.style.overflow=""; }; },[onClose,onNav]);
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center p-5 bg-ink/40 backdrop-blur-md" onClick={onClose}>
-      <button className="absolute top-6 right-6 w-11 h-11 rounded-full bg-white/80 ring-1 ring-line flex items-center justify-center text-ink hover:bg-blush transition" onClick={onClose}><X size={20}/></button>
-      <button className="absolute left-4 md:left-10 w-11 h-11 rounded-full bg-white/80 ring-1 ring-line flex items-center justify-center text-ink hover:bg-pgreen transition" onClick={(e)=>{e.stopPropagation();onNav(-1);}}><ChevronLeft size={22}/></button>
-      <button className="absolute right-4 md:right-10 w-11 h-11 rounded-full bg-white/80 ring-1 ring-line flex items-center justify-center text-ink hover:bg-pgreen transition" onClick={(e)=>{e.stopPropagation();onNav(1);}}><ChevronRight size={22}/></button>
-      <motion.div initial={{ opacity:0, scale:.92 }} animate={{ opacity:1, scale:1 }} transition={{ duration:.4 }}
-        className="relative bg-bg rounded-2xl ring-1 ring-line p-3 max-w-3xl w-full" onClick={(e)=>e.stopPropagation()}>
-        <div className="bg-white p-2 rounded-xl ring-1 ring-line">
-          <img src={p.image} alt={p.title} className={`w-full max-h-[68vh] object-contain rounded-lg ${p.filter}`} style={{ objectPosition:p.focusPosition }} />
-        </div>
+    <div className="fixed inset-0 z-[200] flex items-center justify-center p-5 bg-ink/45 backdrop-blur-md" onClick={onClose}>
+      <button className="absolute top-6 right-6 w-11 h-11 rounded-full bg-white/85 ring-1 ring-line flex items-center justify-center text-ink hover:bg-blush transition" onClick={onClose}><X size={20}/></button>
+      <button className="absolute left-4 md:left-10 w-11 h-11 rounded-full bg-white/85 ring-1 ring-line flex items-center justify-center text-ink hover:bg-pgreen transition" onClick={(e)=>{e.stopPropagation();onNav(-1);}}><ChevronLeft size={22}/></button>
+      <button className="absolute right-4 md:right-10 w-11 h-11 rounded-full bg-white/85 ring-1 ring-line flex items-center justify-center text-ink hover:bg-pgreen transition" onClick={(e)=>{e.stopPropagation();onNav(1);}}><ChevronRight size={22}/></button>
+      <motion.div initial={{ opacity:0, scale:.92 }} animate={{ opacity:1, scale:1 }} transition={{ duration:.4 }} className="relative max-w-3xl w-full" onClick={(e)=>e.stopPropagation()}>
+        <Frame p={p} className="w-full" imgClass="max-h-[68vh] !object-contain bg-ivory" />
         <div className="text-center py-4">
           <h3 className="font-play font-bold text-2xl text-ink">{p.title}</h3>
           <p className="font-cormorant italic text-muted mt-1">{p.caption}</p>
@@ -730,30 +692,21 @@ function PhotoModal({ index, onClose, onNav }) {
 }
 
 /* ============================================================
-   15 · FINAL ENDING
+   FINAL ENDING
    ============================================================ */
 function FinalEnding({ onTop }) {
   const strip = [1,11,21,31,41].map(photoById);
   return (
-    <section id="ending" className="relative min-h-[88vh] flex items-center justify-center px-6 py-24 overflow-hidden"
-      style={{ background:"linear-gradient(180deg,#FFF9EF,#CFE8D5 60%,#FFFDF8)" }}>
-      <SoftClouds /><FloatingPetals count={16} /><MangoLeaves count={7} /><LightRays />
-      <div className="relative text-center max-w-2xl">
+    <section id="ending" className="fairy-green relative min-h-[88vh] flex items-center justify-center px-6 py-24 overflow-hidden">
+      <SoftClouds /><PalaceSilhouette /><FloatingPetals count={20} /><MangoLeaves count={8} /><LightRays />
+      <div className="relative text-center max-w-2xl z-[3]">
         <Reveal>
           <Sparkles className="mx-auto text-gold mb-4" size={30}/>
-          <p className="font-play font-bold text-[clamp(22px,3.6vw,40px)] text-ink leading-snug">
-            These are not just photographs.<br/>They are the quiet proof of family, tradition, blessings, and a day beautifully remembered.
-          </p>
+          <p className="font-play font-bold text-[clamp(22px,3.6vw,40px)] text-ink leading-snug">These are not just photographs.<br/>They are the quiet proof of family, tradition, blessings, and a day beautifully remembered.</p>
           <p className="font-script text-4xl text-leaf mt-6">The memories continue…</p>
         </Reveal>
         <Reveal delay={0.2}>
-          <div className="flex justify-center gap-3 mt-10">
-            {strip.map((p,i) => (
-              <div key={p.id} className="w-16 md:w-24 shrink-0" style={{ animation:`floaty ${6+i}s ease-in-out ${i*.3}s infinite` }}>
-                <Frame p={p} className="aspect-[3/4]" corners={false} />
-              </div>
-            ))}
-          </div>
+          <div className="flex justify-center gap-3 mt-10">{strip.map((p,i)=><div key={p.id} className="w-16 md:w-24 shrink-0" style={{ animation:`floaty ${6+i}s ease-in-out ${i*.3}s infinite` }}><Frame p={p} className="aspect-[3/4]" /></div>)}</div>
           <button onClick={onTop} className="font-inter mt-12 px-7 py-3 rounded-full bg-ink text-bg hover:bg-leaf transition">Back to the Beginning</button>
         </Reveal>
       </div>
@@ -766,27 +719,24 @@ function FinalEnding({ onTop }) {
    ============================================================ */
 function App() {
   const [modal, setModal] = useState(null);
-  const refs = { chapters:useRef(null), story:useRef(null), gallery:useRef(null), ending:useRef(null), home:useRef(null) };
+  const refs = { chapters:useRef(null), story:useRef(null), gallery:useRef(null), ending:useRef(null) };
   const chapRefs = { 1:useRef(null), 2:useRef(null), 3:useRef(null), 4:useRef(null), 5:useRef(null) };
-  const open = useCallback((id) => setModal(PHOTOS.findIndex((p)=>p.id===id)), []);
-  const nav = useCallback((d) => setModal((p)=>(p+d+PHOTOS.length)%PHOTOS.length), []);
-  const goId = (id) => {
-    if (id==="home") return scrollTo({ top:0, behavior:"smooth" });
-    const r = refs[id]?.current; if (r) r.scrollIntoView({ behavior:"smooth" });
-  };
+  const open = useCallback((id)=>setModal(PHOTOS.findIndex((p)=>p.id===id)),[]);
+  const nav = useCallback((d)=>setModal((p)=>(p+d+PHOTOS.length)%PHOTOS.length),[]);
+  const goId = (id)=>{ if(id==="home")return scrollTo({top:0,behavior:"smooth"}); refs[id]?.current?.scrollIntoView({behavior:"smooth"}); };
   return (
     <div className="font-inter text-ink">
       <Nav onLink={goId} />
-      <HeroLanding onEnter={() => refs.chapters.current?.scrollIntoView({behavior:"smooth"})} onGallery={() => goId("gallery")} />
+      <HeroLanding onEnter={()=>refs.chapters.current?.scrollIntoView({behavior:"smooth"})} onGallery={()=>goId("gallery")} />
       <AlbumOpening3D />
       <OpeningCover />
       <StudioIntro />
       <div ref={refs.story}><EditorialStory /></div>
       <div ref={refs.chapters}><ChapterIndex onChapter={(id)=>chapRefs[id].current?.scrollIntoView({behavior:"smooth"})} /></div>
-      {[1,2,3,4,5].map((ch) => <ChapterSection key={ch} chapter={ch} anchorRef={chapRefs[ch]} onOpen={open} />)}
+      {[1,2,3,4,5].map((ch)=><ChapterSection key={ch} chapter={ch} anchorRef={chapRefs[ch]} onOpen={open} />)}
       <MagazinePages onOpen={open} />
       <div ref={refs.gallery}><PhotoGallery onOpen={open} /></div>
-      <div ref={refs.ending}><FinalEnding onTop={() => goId("home")} /></div>
+      <div ref={refs.ending}><FinalEnding onTop={()=>goId("home")} /></div>
       <footer className="bg-ink text-bg/80 text-center py-10 px-6 font-cormorant italic text-lg flex items-center justify-center gap-3">
         <Flower2 size={16} className="text-gold"/> Pachala Memories · 50 Frames of Tradition &amp; Love · {STUDIO} <Flower2 size={16} className="text-gold"/>
       </footer>
@@ -794,7 +744,6 @@ function App() {
     </div>
   );
 }
-
 createRoot(document.getElementById("root")).render(<App />);
 </script>
 <script src="https://unpkg.com/@babel/standalone@7.25.6/babel.min.js"></script>
