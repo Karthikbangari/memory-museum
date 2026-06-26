@@ -304,7 +304,9 @@ const BG = { sky: U("bg-sky.jpg"), hero: U("bg-hero.jpg"), welcome: U("welcome.j
 function BgImage({ src, className = "", style }) {
   const [ok, setOk] = useState(true);
   if (!ok) return null;
-  return <img src={src} alt="" aria-hidden loading="lazy" onError={() => setOk(false)} className={className} style={style} />;
+  // Eager + async decode: these are full-page backdrops. lazy-loading inside a
+  // position:fixed container can make mobile browsers skip them entirely.
+  return <img src={src} alt="" aria-hidden loading="eager" decoding="async" fetchpriority="high" onError={() => setOk(false)} className={className} style={style} />;
 }
 
 function FairySky() {
