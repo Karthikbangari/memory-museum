@@ -87,9 +87,9 @@ const STUDIO = "Stories by Studio K";
 /* ---- 50 source files (your real photos) ---- */
 const FILES = [
   // Ch1 Welcome & Blessings (1-10)
-  "hero.jpg","family.jpg","wa-01.jpg","wa-02.jpg","wa-03.jpg","wa-04.jpg","wa-05.jpg","wa-06.jpg","wa-07.jpg","wa-08.jpg",
-  // Ch2 Family Portraits (11-20)
-  "ammamma.jpg","wa-09.jpg","wa-10.jpg","wa-11.jpg","wa-12.jpg","wa-13.jpg","photo-02.jpg","photo-03.jpg","photo-05.jpg","photo-06.jpg",
+  "hero.jpg","photo-03.jpg","wa-01.jpg","wa-02.jpg","wa-03.jpg","wa-04.jpg","wa-05.jpg","wa-06.jpg","wa-07.jpg","wa-08.jpg",
+  // Ch2 Family Portraits (11-20)  — ammamma.jpg = Ammamma, family.jpg = whole family
+  "ammamma.jpg","wa-09.jpg","wa-10.jpg","wa-11.jpg","wa-12.jpg","wa-13.jpg","photo-02.jpg","family.jpg","photo-05.jpg","photo-06.jpg",
   // Ch3 Traditional Moments (21-30)
   "photo-08.jpg","photo-09.jpg","photo-12.jpg","photo-13.jpg","photo-14.jpg","photo-15.jpg","photo-16.jpg","photo-17.jpg","photo-18.jpg","photo-19.jpg",
   // Ch4 Decorations & Details (31-40)
@@ -108,18 +108,69 @@ const CHAPTERS = [
 
 const TITLES = {
   1:["First Blessing","The Welcome","Aarti Glow","Sacred Threshold","Golden Morning","Joyful Arrival","Tilak & Smiles","Auspicious Start","Hearts Gather","Blessed Beginnings"],
-  2:["Amma's Grace","The Elders","Generations","Side by Side","Ammamma's Love","Bonds of Love","Cousins","The Whole Family","Warm Embrace","Loved Ones"],
+  2:["Ammamma's Love","The Elders","Generations","Amma's Grace","Side by Side","Bonds of Love","Cousins","The Whole Family","Warm Embrace","Loved Ones"],
   3:["The Ritual","Lamps of Faith","Pasupu & Kumkum","Sacred Hands","Whispered Prayers","Turmeric Touch","The Offering","Blessed Moment","Quiet Devotion","Holy Light"],
   4:["Jasmine Strings","Mango Leaves","Marigold Hues","Petal by Petal","Rangoli Art","Brass & Gold","Floral Mandap","Little Details","Color & Craft","Adorned With Love"],
   5:["The Smile","Pure Joy","Tears of Love","Held Close","Laughter","Blessings","A Warm Hug","Timeless","Forever","The Last Frame"],
 };
-const CAPS = {
-  1:"A blessing to begin — soft light, warm hearts, and the first frame of a beautiful day.",
-  2:"The faces that make us who we are, gathered softly in one golden moment.",
-  3:"Turmeric, lamps, and whispered prayers — tradition held gently in two hands.",
-  4:"Jasmine, mango leaves, and marigold — beauty woven into every little detail.",
-  5:"A smile, a tear, a warm embrace — memories we will carry forever.",
-};
+/* ---- 50 unique captions (one per frame, in id order) ---- */
+const CAPTIONS = [
+  // Ch1 Welcome & Blessings
+  "The very first frame — soft light, full hearts, and a day that begins with grace.",
+  "Welcomed home with warm smiles and open arms.",
+  "The gentle glow of the aarti, blessing every face it touched.",
+  "Crossing the threshold into a morning made of blessings.",
+  "Golden light spilling over the start of something beautiful.",
+  "Joy arriving at the door, dressed in its finest.",
+  "A dab of tilak, a row of smiles — tradition in a single moment.",
+  "An auspicious start, gently set in motion.",
+  "Hearts gathering, the way they always do for the ones they love.",
+  "Where the blessings begin and the memories take root.",
+  // Ch2 Family Portraits
+  "Ammamma's love — stories, sweets, and a lap that fixes everything.",
+  "The elders, holding the whole family in their quiet strength.",
+  "Three generations, one unbroken thread of love.",
+  "Amma — the first love and the softest grace in the room.",
+  "Standing side by side, the way family always does.",
+  "Bonds that no distance and no years could ever loosen.",
+  "Cousins — the first friends and the forever ones.",
+  "The whole family in one frame, loud, warm, and complete.",
+  "A warm embrace that says more than any words could.",
+  "The loved ones who make every gathering feel like home.",
+  // Ch3 Traditional Moments
+  "The ritual unfolding, gentle and unhurried.",
+  "Little lamps of faith, glowing against the morning.",
+  "Pasupu and kumkum — color, blessing, and old, deep meaning.",
+  "Sacred hands, carrying tradition with such tender care.",
+  "Prayers whispered softly, rising like incense.",
+  "The warm touch of turmeric, a blessing in golden hue.",
+  "The offering made, hearts open and humble.",
+  "A blessed moment, held still in the middle of the day.",
+  "Quiet devotion, the kind that fills a whole room.",
+  "Holy light, falling just where it was meant to.",
+  // Ch4 Decorations & Details
+  "Strings of jasmine, perfuming every corner of the day.",
+  "Mango leaves at the door — a welcome as old as time.",
+  "Marigolds in every shade of celebration.",
+  "Petal by petal, beauty laid out by loving hands.",
+  "Rangoli at the threshold, drawn with patience and pride.",
+  "Brass and gold, gleaming with quiet ceremony.",
+  "A floral mandap, soft and grand all at once.",
+  "The little details that no one forgets.",
+  "Color and craft, woven into every inch of tradition.",
+  "Every corner adorned with love, and it showed.",
+  // Ch5 Forever Memories
+  "The smile that needs no words — pure and unforgettable.",
+  "Pure joy, the kind that lights up a whole face.",
+  "Tears of love, the happiest kind there is.",
+  "Held close, safe in the arms of family.",
+  "Laughter that echoed long after the moment passed.",
+  "Surrounded by blessings, from everyone who came.",
+  "A warm hug, worth more than a thousand frames.",
+  "Timeless — a moment that will never feel far away.",
+  "Forever, folded gently into memory.",
+  "The last frame, and the start of remembering.",
+];
 const FILTERS = {
   1:["dreamyHeaven","pachalaWarm","ivoryMatte"],
   2:["leafSoft","pachalaWarm","leafSoft"],
@@ -137,7 +188,7 @@ const PHOTOS = FILES.map((f, i) => {
   return {
     id, image: U(f), chapter,
     title: TITLES[chapter][k],
-    caption: CAPS[chapter],
+    caption: CAPTIONS[i],
     orientation: ORI[(i + chapter) % ORI.length],
     tone: chapter === 4 && k % 3 === 0 ? "bw" : "color",
     featured: [1, 11, 21, 31, 41].includes(id),
