@@ -145,7 +145,7 @@ import { Menu, X, ChevronLeft, ChevronRight, Volume2, Flower2, Leaf, Sparkles } 
    block below. Photos hosted on GitHub, served via jsDelivr.
    ============================================================ */
 const PHOTO_BASE = "photos"; // same-origin (GitHub Pages) — no CDN cache, instant updates
-const ASSET_V = "6"; // bump to force browsers to re-fetch images after an update
+const ASSET_V = "7"; // bump to force browsers to re-fetch images after an update
 const U = (f) => `${PHOTO_BASE}/${f}?v=${ASSET_V}`;
 const IS_MOBILE = typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
 const STUDIO = "Stories by Rekkala's";
