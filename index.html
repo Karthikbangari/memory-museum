@@ -3,469 +3,743 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Pachala Function — A Fairyland Celebration</title>
-<meta name="description" content="A royal fairyland celebration — family, blessings, and memories." />
+<title>Pachala Memories — 50 Frames of Tradition &amp; Love</title>
+<meta name="description" content="A dreamy fairyland Pachala Function memory album — family, tradition, blessings." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,600&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      colors: {
+        bg:'#FFFDF8', cloud:'#FFFFFF', ivory:'#FAF4EA', pgreen:'#CFE8D5', leaf:'#8DBF8A',
+        jasmine:'#FFF9EF', gold:'#D8A84E', blush:'#F3C8D2', beige:'#EFE2D0',
+        ink:'#24201E', muted:'#7A6A63', line:'#E9DED2',
+      },
+      fontFamily: {
+        play:['"Playfair Display"','serif'], cormorant:['"Cormorant Garamond"','serif'],
+        lora:['Lora','serif'], inter:['Inter','sans-serif'], script:['"Great Vibes"','cursive'],
+      },
+    }},
+  };
+</script>
 <style>
-  html,body{margin:0;background:#1a0f2e;}
-  #root{min-height:100vh;}
-  .boot{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;color:#f5e6c8;font-family:'Cormorant Garamond',serif;letter-spacing:4px;text-transform:uppercase;font-size:15px;background:#1a0f2e;}
+  html,body{margin:0;background:#FFFDF8;}
+  .boot{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;color:#7A6A63;font-family:'Cormorant Garamond',serif;letter-spacing:5px;text-transform:uppercase;font-size:15px;background:#FFFDF8;}
+
+  /* ---- studio photo-edit filters (replace freely) ---- */
+  .pachalaWarm{filter:brightness(1.05) contrast(1.03) saturate(.94) sepia(.04);}
+  .leafSoft{filter:brightness(1.06) contrast(.98) saturate(.9) sepia(.05);}
+  .ivoryMatte{filter:brightness(1.08) contrast(.96) saturate(.86);}
+  .divineBW{filter:grayscale(1) contrast(1.1) brightness(1.05);}
+  .turmericGlow{filter:brightness(1.05) contrast(1.05) saturate(.96) sepia(.07);}
+  .dreamyHeaven{filter:brightness(1.09) contrast(1.01) saturate(.9) sepia(.04);}
+
+  /* ---- soft 3D + fairyland keyframes ---- */
+  @keyframes floaty{0%,100%{transform:translateY(0) rotate(0);}50%{transform:translateY(-14px) rotate(.4deg);}}
+  @keyframes floatySlow{0%,100%{transform:translateY(0);}50%{transform:translateY(-22px);}}
+  @keyframes drift{from{transform:translateX(-20vw);}to{transform:translateX(120vw);}}
+  @keyframes fall{0%{transform:translateY(-10vh) translateX(0) rotate(0);opacity:0;}10%{opacity:.9;}100%{transform:translateY(110vh) translateX(40px) rotate(320deg);opacity:0;}}
+  @keyframes leafFall{0%{transform:translateY(-10vh) rotate(0);opacity:0;}10%{opacity:.8;}100%{transform:translateY(112vh) rotate(260deg);opacity:0;}}
+  @keyframes rays{0%,100%{opacity:.35;transform:translateX(0) rotate(8deg);}50%{opacity:.6;transform:translateX(20px) rotate(8deg);}}
+  @keyframes shimmerText{to{background-position:200% center;}}
+  @keyframes slowZoom{0%{transform:scale(1);}100%{transform:scale(1.08);}}
+  @keyframes pageTurn{0%,100%{transform:rotateY(0deg);}45%,55%{transform:rotateY(-150deg);}}
+  @keyframes shineSweep{0%,60%{left:-60%;}100%{left:140%;}}
+  @keyframes twinkle{0%,100%{opacity:0;transform:scale(.4);}50%{opacity:1;transform:scale(1.2);}}
+  @media (prefers-reduced-motion: reduce){*{animation-duration:.001s!important;}}
+
+  .shimmer{background:linear-gradient(120deg,#8DBF8A,#D8A84E 45%,#C58CA0 90%);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% auto;animation:shimmerText 6s linear infinite;}
+  .goldgrad{background:linear-gradient(120deg,#8DBF8A,#D8A84E 60%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .scroll-smooth-y{scroll-behavior:smooth;}
+  ::selection{background:#CFE8D5;}
 </style>
 <script type="importmap">
 {
   "imports": {
     "react": "https://esm.sh/react@18.3.1",
     "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
+    "framer-motion": "https://esm.sh/framer-motion@11.11.17?external=react,react-dom&deps=react@18.3.1,react-dom@18.3.1",
     "lucide-react": "https://esm.sh/lucide-react@0.451.0?external=react&deps=react@18.3.1"
   }
 }
 </script>
 </head>
-<body>
-<div id="root"><div class="boot">Entering the Fairyland…</div></div>
+<body class="scroll-smooth-y">
+<div id="root"><div class="boot">Opening the Album…</div></div>
 
 <script type="text/babel" data-type="module" data-presets="react">
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { createRoot } from "react-dom/client";
-import { Crown, Sparkles, Heart, X, ChevronLeft, ChevronRight, Star, Flower2, ArrowDown } from "lucide-react";
+import { motion } from "framer-motion";
+import { Menu, X, ChevronLeft, ChevronRight, Volume2, Flower2, Leaf, Sparkles } from "lucide-react";
 
 /* ============================================================
-   PACHALA FUNCTION — Royal Fairyland / Heaven theme, full 3D
-   Edit NAMES, captions and photo filenames freely below.
-   Photos are served from GitHub via jsDelivr.
+   PACHALA MEMORIES — 3D Fairyland Heaven Pachala Function Album
+   • Replace photos / captions / filters / focus in PHOTOS below.
+   • Photos hosted on GitHub, served via jsDelivr.
    ============================================================ */
 const PHOTO_BASE = "https://cdn.jsdelivr.net/gh/Karthikbangari/memory-museum@main/photos";
-const P = (f) => `${PHOTO_BASE}/${f}`;
+const U = (f) => `${PHOTO_BASE}/${f}`;
+const STUDIO = "Stories by Studio K";
 
-/* ---- The celebration title / name tag (change to your name) ---- */
-const HONOREE = "Pachala";
-const HONOREE_SUB = "A Fairyland of Love & Blessings";
-
-/* ---- Family introduced ONE BY ONE (single photo each) ---- */
-const PEOPLE = [
-  { name: "Amma",    telugu: "అమ్మ",     photo: P("wa-01.jpg"),   role: "Mother",      caption: "The first love, the softest lap — the warmth that turns a house into a home." },
-  { name: "Nana",    telugu: "నాన్న",    photo: P("wa-02.jpg"),   role: "Father",      caption: "Quiet strength and steady hands — the roots that hold us all together." },
-  { name: "Ammamma", telugu: "అమ్మమ్మ", photo: P("ammamma.jpg"), role: "Grandmother", caption: "Stories at night, sweets in steel boxes, and a love that time can never fade." },
-  { name: "Mama",    telugu: "మామయ్య",   photo: P("wa-03.jpg"),   role: "Uncle",       caption: "Laughter, mischief, and the joy that lights up every gathering." },
+/* ---- 50 source files (your real photos) ---- */
+const FILES = [
+  // Ch1 Welcome & Blessings (1-10)
+  "hero.jpg","family.jpg","wa-01.jpg","wa-02.jpg","wa-03.jpg","wa-04.jpg","wa-05.jpg","wa-06.jpg","wa-07.jpg","wa-08.jpg",
+  // Ch2 Family Portraits (11-20)
+  "ammamma.jpg","wa-09.jpg","wa-10.jpg","wa-11.jpg","wa-12.jpg","wa-13.jpg","photo-02.jpg","photo-03.jpg","photo-05.jpg","photo-06.jpg",
+  // Ch3 Traditional Moments (21-30)
+  "photo-08.jpg","photo-09.jpg","photo-12.jpg","photo-13.jpg","photo-14.jpg","photo-15.jpg","photo-16.jpg","photo-17.jpg","photo-18.jpg","photo-19.jpg",
+  // Ch4 Decorations & Details (31-40)
+  "photo-20.jpg","photo-21.jpg","photo-22.jpg","photo-23.jpg","photo-24.jpg","photo-25.jpg","photo-26.jpg","photo-27.jpg","photo-28.jpg","photo-29.jpg",
+  // Ch5 Forever Memories (41-50)
+  "photo-30.jpg","photo-31.jpg","photo-32.jpg","photo-33.jpg","photo-34.jpg","photo-35.jpg","photo-36.jpg","photo-37.jpg","photo-38.jpg","photo-39.jpg",
 ];
 
-/* ---- Group / together photos (the whole family) ---- */
-const GROUP = [
-  P("family.jpg"), P("wa-04.jpg"), P("wa-05.jpg"), P("wa-06.jpg"), P("wa-07.jpg"),
-  P("wa-08.jpg"), P("wa-09.jpg"), P("wa-10.jpg"), P("wa-11.jpg"), P("wa-12.jpg"),
-  P("wa-13.jpg"), P("photo-06.jpg"), P("photo-08.jpg"), P("photo-09.jpg"),
+const CHAPTERS = [
+  { id:1, name:"Welcome & Blessings", script:"Welcome", quote:"Every beautiful tradition begins with a blessing." },
+  { id:2, name:"Family Portraits",    script:"Together", quote:"Some people are not part of life — they are home." },
+  { id:3, name:"Traditional Moments", script:"Rituals",  quote:"In every ritual and every smile, the day becomes a memory held close by the heart." },
+  { id:4, name:"Decorations & Details",script:"Details", quote:"Every flower, every color, every detail carried the beauty of tradition." },
+  { id:5, name:"Forever Memories",    script:"Forever",  quote:"The story does not end here — it lives on in every smile and every blessing." },
 ];
 
-/* ---------- gold sparkle field ---------- */
-function Sparkle({ i }) {
-  const s = 2 + ((i * 7) % 5);
-  const left = (i * 53) % 100;
-  const top = (i * 37) % 100;
-  const dur = 3 + ((i * 3) % 5);
-  const delay = (i % 9) * 0.4;
+const TITLES = {
+  1:["First Blessing","The Welcome","Aarti Glow","Sacred Threshold","Golden Morning","Joyful Arrival","Tilak & Smiles","Auspicious Start","Hearts Gather","Blessed Beginnings"],
+  2:["Amma's Grace","The Elders","Generations","Side by Side","Ammamma's Love","Bonds of Love","Cousins","The Whole Family","Warm Embrace","Loved Ones"],
+  3:["The Ritual","Lamps of Faith","Pasupu & Kumkum","Sacred Hands","Whispered Prayers","Turmeric Touch","The Offering","Blessed Moment","Quiet Devotion","Holy Light"],
+  4:["Jasmine Strings","Mango Leaves","Marigold Hues","Petal by Petal","Rangoli Art","Brass & Gold","Floral Mandap","Little Details","Color & Craft","Adorned With Love"],
+  5:["The Smile","Pure Joy","Tears of Love","Held Close","Laughter","Blessings","A Warm Hug","Timeless","Forever","The Last Frame"],
+};
+const CAPS = {
+  1:"A blessing to begin — soft light, warm hearts, and the first frame of a beautiful day.",
+  2:"The faces that make us who we are, gathered softly in one golden moment.",
+  3:"Turmeric, lamps, and whispered prayers — tradition held gently in two hands.",
+  4:"Jasmine, mango leaves, and marigold — beauty woven into every little detail.",
+  5:"A smile, a tear, a warm embrace — memories we will carry forever.",
+};
+const FILTERS = {
+  1:["dreamyHeaven","pachalaWarm","ivoryMatte"],
+  2:["leafSoft","pachalaWarm","leafSoft"],
+  3:["turmericGlow","pachalaWarm","ivoryMatte"],
+  4:["turmericGlow","divineBW"],
+  5:["divineBW","pachalaWarm","dreamyHeaven"],
+};
+const FOCI = ["center center","center top","left center","right center","center bottom"];
+const ORI  = ["portrait","landscape","square","portrait","landscape"];
+
+const PHOTOS = FILES.map((f, i) => {
+  const id = i + 1;
+  const chapter = Math.floor(i / 10) + 1;
+  const k = i % 10;
+  return {
+    id, image: U(f), chapter,
+    title: TITLES[chapter][k],
+    caption: CAPS[chapter],
+    orientation: ORI[(i + chapter) % ORI.length],
+    tone: chapter === 4 && k % 3 === 0 ? "bw" : "color",
+    featured: [1, 11, 21, 31, 41].includes(id),
+    focusPosition: FOCI[(i * 2) % FOCI.length],
+    filter: FILTERS[chapter][(chapter === 4 ? (k % 3 === 0 ? 1 : 0) : k % FILTERS[chapter].length)],
+  };
+});
+const byChapter = (c) => PHOTOS.filter((p) => p.chapter === c);
+const photoById = (id) => PHOTOS.find((p) => p.id === id);
+
+/* ============================================================
+   Reusable bits
+   ============================================================ */
+function Frame({ p, className = "", imgClass = "", corners = true, onClick, vignette = false }) {
   return (
-    <span className="ff-sparkle" style={{
-      left: `${left}%`, top: `${top}%`, width: s, height: s,
-      animationDuration: `${dur}s`, animationDelay: `${delay}s`,
-    }} />
+    <div className={`relative bg-white p-2 rounded-[14px] shadow-[0_22px_50px_-18px_rgba(141,191,138,.5)] ring-1 ring-line ${onClick ? "cursor-pointer" : ""} ${className}`} onClick={onClick}>
+      <div className="relative w-full h-full overflow-hidden rounded-[8px] bg-gradient-to-br from-pgreen/40 to-blush/30">
+        <img src={p.image} alt={p.title} loading="lazy"
+          className={`w-full h-full object-cover ${p.filter} ${imgClass}`}
+          style={{ objectPosition: p.focusPosition }}
+          onError={(e) => { e.currentTarget.style.opacity = 0; }} />
+        {vignette && <div className="absolute inset-0 pointer-events-none" style={{ boxShadow:"inset 0 0 70px rgba(36,32,30,.18)" }} />}
+        <div className="absolute inset-0 pointer-events-none opacity-0 hover:opacity-100 transition duration-500"
+          style={{ background:"linear-gradient(120deg,transparent 42%,rgba(255,255,255,.5) 50%,transparent 58%)" }} />
+      </div>
+      {corners && <><Corner cls="top-1 left-1" /><Corner cls="top-1 right-1 rotate-90" /><Corner cls="bottom-1 right-1 rotate-180" /><Corner cls="bottom-1 left-1 -rotate-90" /></>}
+    </div>
   );
 }
+function Corner({ cls }) {
+  return <span className={`absolute ${cls} w-5 h-5 border-t-2 border-l-2 border-gold/70 rounded-tl-[6px]`} />;
+}
 
-/* ---------- floating clouds ---------- */
-function Clouds() {
+/* ---- decorative layers ---- */
+function SoftClouds() {
   return (
-    <div className="ff-clouds" aria-hidden>
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
       {Array.from({ length: 6 }).map((_, i) => (
-        <span key={i} className="ff-cloud" style={{
-          top: `${8 + i * 15}%`,
-          "--s": `${0.6 + (i % 3) * 0.35}`,
-          "--dur": `${38 + i * 9}s`,
-          "--delay": `${-i * 7}s`,
-          opacity: 0.10 + (i % 3) * 0.05,
-        }} />
+        <span key={i} className="absolute rounded-full blur-2xl"
+          style={{ top:`${6+i*15}%`, left:`-25%`, width:`${260+i*40}px`, height:`${90+i*16}px`,
+            background:"radial-gradient(60% 100% at 30% 60%,#fff,transparent 70%),radial-gradient(50% 90% at 65% 50%,#fff,transparent 70%)",
+            opacity:0.5-(i%3)*0.1, animation:`drift ${44+i*10}s linear ${-i*8}s infinite` }} />
+      ))}
+    </div>
+  );
+}
+function FloatingPetals({ count = 16 }) {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
+      {Array.from({ length: count }).map((_, i) => (
+        <span key={i} className="absolute"
+          style={{ left:`${(i*61)%100}%`, top:`-5%`, width:7+(i%3)*3, height:9+(i%3)*3,
+            background:`radial-gradient(circle at 30% 30%, #FFF9EF, ${i%2?"#F3C8D2":"#FFFFFF"})`,
+            borderRadius:"60% 0 60% 0", boxShadow:"0 1px 4px rgba(195,140,160,.4)",
+            animation:`fall ${9+(i%6)}s linear ${-(i%9)*1.1}s infinite` }} />
+      ))}
+    </div>
+  );
+}
+function MangoLeaves({ count = 8 }) {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
+      {Array.from({ length: count }).map((_, i) => (
+        <span key={i} className="absolute"
+          style={{ left:`${(i*73)%100}%`, top:"-6%", width:14, height:24,
+            background:"linear-gradient(160deg,#8DBF8A,#5f9a63)", borderRadius:"0 80% 0 80%",
+            opacity:.7, animation:`leafFall ${12+(i%5)*2}s linear ${-(i%7)*1.4}s infinite` }} />
+      ))}
+    </div>
+  );
+}
+function LightRays() {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+      {Array.from({ length: 4 }).map((_, i) => (
+        <span key={i} className="absolute top-[-20%] origin-top"
+          style={{ left:`${15+i*22}%`, width:`${60+i*20}px`, height:"140%",
+            background:"linear-gradient(180deg,rgba(216,168,78,.18),transparent 70%)",
+            filter:"blur(6px)", animation:`rays ${7+i*2}s ease-in-out ${-i}s infinite` }} />
+      ))}
+    </div>
+  );
+}
+function Sparkles2({ count = 22 }) {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
+      {Array.from({ length: count }).map((_, i) => (
+        <span key={i} className="absolute rounded-full"
+          style={{ left:`${(i*53)%100}%`, top:`${(i*37)%100}%`, width:3+(i%3), height:3+(i%3),
+            background:"radial-gradient(circle,#fff,#D8A84E)", boxShadow:"0 0 8px #D8A84E",
+            animation:`twinkle ${3+(i%4)}s ease-in-out ${(i%7)*.4}s infinite` }} />
       ))}
     </div>
   );
 }
 
-/* ---------- scroll reveal ---------- */
-function useReveal(threshold = 0.25) {
-  const ref = useRef(null);
-  const [shown, setShown] = useState(false);
-  useEffect(() => {
-    const el = ref.current; if (!el) return;
-    const ob = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setShown(true); ob.disconnect(); } }, { threshold });
-    ob.observe(el);
-    return () => ob.disconnect();
-  }, [threshold]);
-  return [ref, shown];
+const fadeUp = { hidden:{ opacity:0, y:36 }, show:{ opacity:1, y:0, transition:{ duration:.8, ease:[.2,.8,.2,1] } } };
+const Reveal = ({ children, className, delay=0 }) => (
+  <motion.div className={className} variants={fadeUp} initial="hidden" whileInView="show"
+    viewport={{ once:true, amount:.2 }} transition={{ delay }}>{children}</motion.div>
+);
+
+function Kicker({ children }) {
+  return <span className="font-cormorant tracking-[5px] uppercase text-gold text-sm">{children}</span>;
+}
+function Heading({ children, className="" }) {
+  return <h2 className={`font-play font-extrabold text-ink leading-tight ${className}`}>{children}</h2>;
 }
 
-/* ---------- 3D tilt wrapper ---------- */
-function Tilt({ children, className, style, intensity = 12, onClick }) {
-  const [t, setT] = useState({ x: 0, y: 0, s: 1 });
-  const move = (e) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    const px = (e.clientX - r.left) / r.width - 0.5;
-    const py = (e.clientY - r.top) / r.height - 0.5;
-    setT({ x: py * -intensity, y: px * intensity, s: 1.03 });
-  };
+/* ============================================================
+   1 · NAV
+   ============================================================ */
+function Nav({ onLink }) {
+  const [open, setOpen] = useState(false);
+  const links = [["Home","home"],["Story","story"],["Chapters","chapters"],["Gallery","gallery"],["Contact","ending"]];
   return (
-    <div className={className} onClick={onClick} onMouseMove={move}
-      onMouseLeave={() => setT({ x: 0, y: 0, s: 1 })}
-      style={{ ...style, transform: `perspective(1100px) rotateX(${t.x}deg) rotateY(${t.y}deg) scale(${t.s})`, transition: "transform .25s ease" }}>
-      {children}
-    </div>
+    <nav className="fixed top-0 inset-x-0 z-50">
+      <div className="max-w-7xl mx-auto px-6 md:px-10 py-4 flex items-center justify-between
+        bg-bg/70 backdrop-blur-md border-b border-line/70">
+        <button onClick={() => onLink("home")} className="font-play font-extrabold tracking-[3px] text-ink text-lg">STUDIO&nbsp;<span className="goldgrad">K</span></button>
+        <div className="hidden md:flex items-center gap-8 font-inter text-sm text-muted">
+          {links.map(([l,id]) => (
+            <button key={id} onClick={() => onLink(id)} className="hover:text-ink transition tracking-wide">{l}</button>
+          ))}
+        </div>
+        <button onClick={() => onLink("gallery")} className="hidden md:inline-flex font-inter text-sm px-5 py-2 rounded-full bg-ink text-bg hover:bg-leaf transition">View Album</button>
+        <button className="md:hidden text-ink" onClick={() => setOpen(!open)}>{open ? <X size={22}/> : <Menu size={22}/>}</button>
+      </div>
+      {open && (
+        <div className="md:hidden bg-bg/95 backdrop-blur border-b border-line px-6 py-4 flex flex-col gap-3 font-inter text-muted">
+          {links.map(([l,id]) => <button key={id} className="text-left py-1" onClick={() => { onLink(id); setOpen(false); }}>{l}</button>)}
+        </div>
+      )}
+    </nav>
   );
 }
 
-/* ---------- INTRO ---------- */
-function Intro({ onDone }) {
-  useEffect(() => { const t = setTimeout(onDone, 2600); return () => clearTimeout(t); }, [onDone]);
+/* ============================================================
+   2 · HERO LANDING
+   ============================================================ */
+function HeroLanding({ onEnter, onGallery }) {
+  const [p, setP] = useState({ x:0, y:0 });
+  const cover = photoById(1), s1 = photoById(2), s2 = photoById(11);
   return (
-    <div className="ff-intro">
-      <div className="ff-intro-halo" />
-      <Crown className="ff-intro-crown" size={46} />
-      <h1 className="ff-intro-title">{HONOREE}</h1>
-      <p className="ff-intro-sub">entering the fairyland…</p>
-      <div className="ff-intro-line"><i /></div>
-    </div>
-  );
-}
+    <header id="home" className="relative min-h-screen flex items-center pt-24 pb-16 px-6 md:px-10 overflow-hidden"
+      onMouseMove={(e) => setP({ x:e.clientX/innerWidth-0.5, y:e.clientY/innerHeight-0.5 })}>
+      <div className="absolute inset-0 -z-10" style={{ background:
+        "radial-gradient(60% 50% at 20% 15%,rgba(207,232,213,.7),transparent 60%),radial-gradient(55% 45% at 85% 10%,rgba(243,200,210,.5),transparent 60%),radial-gradient(70% 60% at 50% 100%,rgba(255,249,239,.9),transparent 60%),linear-gradient(180deg,#FFFDF8,#FAF4EA)" }} />
+      <img src={cover.image} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover opacity-[.10] blur-2xl -z-10" style={{ animation:"slowZoom 18s ease-in-out infinite alternate" }} />
+      <LightRays /><SoftClouds /><FloatingPetals count={14} /><MangoLeaves count={6} />
+      {/* mandap silhouette */}
+      <div className="absolute bottom-0 inset-x-0 h-40 -z-0 opacity-[.07]"
+        style={{ background:"radial-gradient(40% 100% at 50% 100%,#24201E,transparent 70%)" }} />
 
-/* ---------- HERO (royal, name tag + hero pic, parallax 3D) ---------- */
-function Hero({ onScroll }) {
-  const [p, setP] = useState({ x: 0, y: 0 });
-  const onMove = (e) => {
-    const x = (e.clientX / window.innerWidth - 0.5);
-    const y = (e.clientY / window.innerHeight - 0.5);
-    setP({ x, y });
-  };
-  return (
-    <header className="ff-hero" onMouseMove={onMove}>
-      <div className="ff-hero-glow" style={{ transform: `translate(${p.x * -30}px, ${p.y * -30}px)` }} />
-      <Clouds />
-      <div className="ff-sparkles">{Array.from({ length: 40 }).map((_, i) => <Sparkle key={i} i={i} />)}</div>
-
-      <div className="ff-hero-inner">
-        <div className="ff-hero-frame-wrap" style={{ transform: `translate(${p.x * 24}px, ${p.y * 24}px)` }}>
-          <div className="ff-hero-arch">
-            <div className="ff-hero-arch-glow" />
-            <img className="ff-hero-pic" src={P("hero.jpg")} alt={HONOREE}
-              onError={(e) => { e.currentTarget.style.opacity = 0; }} />
-            <div className="ff-hero-shine" />
+      <div className="relative max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center">
+        {/* left */}
+        <motion.div initial={{ opacity:0, y:30 }} animate={{ opacity:1, y:0 }} transition={{ duration:1 }}>
+          <Kicker>Pachala Function Memory Portfolio</Kicker>
+          <h1 className="font-play font-black text-ink leading-[1.04] mt-4 text-[clamp(38px,6vw,76px)]">
+            Where Every Frame<br/>Feels Like <span className="shimmer">Blessings</span>
+          </h1>
+          <p className="font-lora text-muted text-lg mt-6 max-w-lg leading-relaxed">
+            A soft heavenly album of family, tradition, smiles, rituals, decorations, and the quiet moments that become lifelong memories.
+          </p>
+          <div className="flex flex-wrap gap-4 mt-9">
+            <button onClick={onEnter} className="font-inter px-7 py-3.5 rounded-full bg-ink text-bg hover:bg-leaf transition shadow-lg shadow-leaf/30">Enter Album</button>
+            <button onClick={onGallery} className="font-inter px-7 py-3.5 rounded-full bg-white text-ink ring-1 ring-line hover:ring-gold transition">View 50 Frames</button>
           </div>
-          <div className="ff-hero-crown"><Crown size={34} /></div>
-        </div>
+        </motion.div>
 
-        <div className="ff-nameplate" style={{ transform: `translate(${p.x * 12}px, ${p.y * 12}px)` }}>
-          <span className="ff-eyebrow"><Sparkles size={13} /> A Royal Fairyland Celebration <Sparkles size={13} /></span>
-          <h1 className="ff-name">{HONOREE}</h1>
-          <span className="ff-divider"><i /><Flower2 size={16} /><i /></span>
-          <p className="ff-name-sub">{HONOREE_SUB}</p>
-        </div>
+        {/* right — 3D photo composition */}
+        <motion.div className="relative h-[460px] md:h-[540px]" initial={{ opacity:0, scale:.9 }} animate={{ opacity:1, scale:1 }} transition={{ duration:1, delay:.2 }}
+          style={{ transform:`translate(${p.x*18}px,${p.y*18}px)` }}>
+          <div className="absolute right-10 top-6 w-44 md:w-52" style={{ transform:`rotate(-7deg) translate(${p.x*-26}px,${p.y*-26}px)`, animation:"floatySlow 7s ease-in-out infinite" }}>
+            <Frame p={s1} className="aspect-[3/4]" />
+          </div>
+          <div className="absolute left-4 bottom-8 w-40 md:w-48" style={{ transform:`rotate(6deg) translate(${p.x*-34}px,${p.y*-34}px)`, animation:"floaty 6s ease-in-out .6s infinite" }}>
+            <Frame p={s2} className="aspect-[3/4]" />
+          </div>
+          <div className="absolute left-1/2 top-1/2 w-60 md:w-72 -translate-x-1/2 -translate-y-1/2" style={{ animation:"floaty 6.5s ease-in-out infinite" }}>
+            <Frame p={cover} className="aspect-[4/5]" vignette />
+            <span className="absolute -top-3 -left-3 font-cormorant text-gold/90"><Flower2 size={30}/></span>
+            <span className="absolute -bottom-3 -right-3 text-leaf/80"><Leaf size={26}/></span>
+            <span className="absolute -top-4 right-6 font-inter text-[11px] tracking-widest bg-ink text-bg px-3 py-1 rounded-full">01 / 50</span>
+            <span className="absolute -bottom-6 left-4 font-cormorant italic text-sm text-muted bg-white/90 px-3 py-1 rounded-full ring-1 ring-line shadow">{STUDIO}</span>
+          </div>
+        </motion.div>
       </div>
 
-      <button className="ff-scroll" onClick={onScroll}>
-        <span>Begin the Journey</span><ArrowDown size={16} />
+      <button onClick={onEnter} className="absolute bottom-7 left-1/2 -translate-x-1/2 font-cormorant tracking-widest text-muted text-sm flex items-center gap-2">
+        Scroll to Begin <span className="inline-block animate-bounce">↓</span>
       </button>
     </header>
   );
 }
 
-/* ---------- PERSON (one-by-one, alternating, 3D reveal) ---------- */
-function Person({ person, index, onOpen }) {
-  const [ref, shown] = useReveal(0.3);
-  const left = index % 2 === 0;
+/* ============================================================
+   3 · 3D ALBUM OPENING
+   ============================================================ */
+function AlbumOpening3D() {
   return (
-    <section className={`ff-person ${left ? "l" : "r"} ${shown ? "in" : ""}`} ref={ref}>
-      <div className="ff-person-sparkles">{Array.from({ length: 14 }).map((_, i) => <Sparkle key={i} i={i + index * 5} />)}</div>
+    <section className="relative py-28 px-6 md:px-10 overflow-hidden bg-jasmine">
+      <SoftClouds /><FloatingPetals count={10} />
+      <div className="relative max-w-5xl mx-auto text-center">
+        <Reveal><Kicker>The Album</Kicker>
+          <Heading className="text-[clamp(28px,4.5vw,50px)] mt-3">3D Fairyland Pachala Album</Heading>
+          <p className="font-cormorant italic text-xl text-muted mt-2">Premium Traditional Function Portfolio</p>
+          <p className="font-inter text-xs tracking-[3px] uppercase text-leaf mt-3">Soft Clouds • Jasmine Petals • Mango Leaves • Elegant Frames • Page Turns</p>
+        </Reveal>
 
-      <Tilt className="ff-person-photo" intensity={14} onClick={() => onOpen(person.photo)}>
-        <div className="ff-person-ring" />
-        <div className="ff-person-img">
-          <img src={person.photo} alt={person.name} loading="lazy"
-            onError={(e) => { e.currentTarget.parentElement.classList.add("ph"); }} />
+        <div className="mt-14 flex justify-center" style={{ perspective:"1600px" }}>
+          <div className="relative" style={{ transformStyle:"preserve-3d", animation:"floatySlow 7s ease-in-out infinite" }}>
+            {/* book base */}
+            <div className="relative w-[300px] md:w-[420px] h-[230px] md:h-[300px] rounded-r-xl rounded-l-md bg-white shadow-[0_40px_80px_-30px_rgba(141,191,138,.7)] ring-1 ring-line flex">
+              <div className="w-1/2 h-full p-2"><Frame p={photoById(3)} className="w-full h-full" corners={false} /></div>
+              <div className="w-1/2 h-full p-2"><Frame p={photoById(12)} className="w-full h-full" corners={false} /></div>
+              {/* spine */}
+              <div className="absolute left-1/2 -translate-x-1/2 top-0 h-full w-2 bg-gradient-to-b from-gold/40 to-leaf/30" />
+              {/* turning page */}
+              <div className="absolute left-1/2 top-0 h-full w-1/2 origin-left p-2 rounded-r-xl bg-white ring-1 ring-line"
+                style={{ transformStyle:"preserve-3d", animation:"pageTurn 9s ease-in-out infinite", backfaceVisibility:"hidden" }}>
+                <Frame p={photoById(21)} className="w-full h-full" corners={false} />
+              </div>
+            </div>
+            <span className="absolute -top-5 -left-5 text-gold"><Flower2 size={26}/></span>
+            <span className="absolute -bottom-5 -right-5 text-leaf"><Leaf size={24}/></span>
+          </div>
         </div>
-        <div className="ff-person-crown"><Crown size={22} /></div>
-      </Tilt>
-
-      <div className="ff-person-text">
-        <span className="ff-person-no">{String(index + 1).padStart(2, "0")}</span>
-        <p className="ff-person-telugu">{person.telugu}</p>
-        <h2 className="ff-person-name">{person.name}</h2>
-        <span className="ff-person-role"><Heart size={12} /> {person.role}</span>
-        <p className="ff-person-cap">{person.caption}</p>
-        <span className="ff-divider sm"><i /><Star size={13} /><i /></span>
       </div>
     </section>
   );
 }
 
-/* ---------- GROUP GALLERY (3D tilt cards) ---------- */
-function Gallery({ onOpen }) {
-  const [ref, shown] = useReveal(0.12);
+/* ============================================================
+   4 · OPENING COVER
+   ============================================================ */
+function OpeningCover() {
+  const p = photoById(2);
   return (
-    <section className="ff-gallery" ref={ref}>
-      <div className="ff-head">
-        <span className="ff-kicker"><Sparkles size={14} /> All of Us</span>
-        <h2 className="ff-head-title">Together, In One Frame</h2>
-        <p className="ff-head-sub">The whole family — gathered, glowing, and gloriously together.</p>
+    <section className="relative py-28 px-6 overflow-hidden">
+      <img src={p.image} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover opacity-[.14] blur-2xl -z-10" />
+      <div className="absolute inset-0 -z-10 bg-bg/60" />
+      <FloatingPetals count={10} />
+      <Reveal className="relative max-w-md mx-auto text-center">
+        <div className="relative inline-block">
+          <Frame p={photoById(8)} className="w-64 md:w-80 aspect-[4/5] mx-auto" vignette />
+          <Flower2 className="absolute -top-4 -left-4 text-gold" size={28}/>
+          <Flower2 className="absolute -bottom-4 -right-4 text-blush" size={28}/>
+        </div>
+        <p className="font-script text-5xl text-leaf mt-8">Welcome</p>
+        <h3 className="font-play font-bold text-3xl text-ink -mt-1">to Our World</h3>
+        <p className="font-cormorant italic text-muted text-lg mt-2">50 Frames of Tradition &amp; Love</p>
+      </Reveal>
+    </section>
+  );
+}
+
+/* ============================================================
+   5 · STUDIO INTRO
+   ============================================================ */
+function StudioIntro() {
+  const trio = [photoById(13), photoById(5), photoById(17)];
+  return (
+    <section className="relative py-28 px-6 md:px-10 overflow-hidden"
+      style={{ background:"linear-gradient(135deg,#CFE8D5 0%,#FFF9EF 50%,#F3C8D2 120%)" }}>
+      <FloatingPetals count={8} />
+      <div className="relative max-w-5xl mx-auto text-center">
+        <Reveal><p className="font-inter tracking-[7px] uppercase text-ink/70 text-sm">Stories By</p></Reveal>
+        <div className="grid grid-cols-3 gap-4 md:gap-8 mt-8 max-w-3xl mx-auto">
+          {trio.map((p,i) => (
+            <Reveal key={p.id} delay={i*0.12}>
+              <div style={{ animation:`floaty ${6+i}s ease-in-out ${i*.4}s infinite` }}>
+                <Frame p={p} className="aspect-[3/4]" />
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal delay={0.2}>
+          <h2 className="font-play font-black text-ink text-[clamp(46px,9vw,110px)] mt-10 leading-none">STUDIO&nbsp;K</h2>
+          <p className="font-cormorant italic text-muted text-xl mt-1">Traditional Memories, Softly Preserved</p>
+        </Reveal>
       </div>
-      <div className={`ff-grid ${shown ? "in" : ""}`}>
-        {GROUP.map((src, i) => (
-          <Tilt key={i} className={`ff-grid-item ${i === 0 ? "big" : ""}`} intensity={10}
-            style={{ "--d": `${(i % 6) * 0.08}s` }} onClick={() => onOpen(src)}>
-            <div className="ff-grid-img">
-              <img src={src} alt={`Memory ${i + 1}`} loading="lazy"
-                onError={(e) => { e.currentTarget.parentElement.classList.add("ph"); }} />
-              <div className="ff-grid-shine" />
+    </section>
+  );
+}
+
+/* ============================================================
+   6 · EDITORIAL STORY
+   ============================================================ */
+function EditorialStory() {
+  return (
+    <section id="story" className="relative py-28 px-6 md:px-10 bg-ivory overflow-hidden">
+      <div className="max-w-4xl mx-auto text-center">
+        <Reveal><Frame p={photoById(7)} className="aspect-[16/9] w-full" vignette /></Reveal>
+        <Reveal delay={0.1}>
+          <p className="font-cormorant italic text-[clamp(20px,3vw,32px)] text-ink leading-relaxed mt-12 max-w-2xl mx-auto">
+            “Here’s to blessings, laughter, family, and a lifetime of memories — because every beautiful tradition begins with one meaningful moment.”
+          </p>
+        </Reveal>
+        <Reveal delay={0.2}>
+          <Frame p={photoById(24)} className="aspect-[4/3] w-56 mx-auto mt-12" />
+          <div className="flex items-center justify-center gap-2 mt-6">
+            {[0,1,2,3].map((d) => <span key={d} className={`h-1.5 rounded-full transition-all ${d===1?"w-6 bg-gold":"w-1.5 bg-line"}`} />)}
+          </div>
+        </Reveal>
+      </div>
+      <Volume2 className="absolute bottom-8 right-8 text-leaf/60" size={20} />
+    </section>
+  );
+}
+
+/* ============================================================
+   7 · CHAPTER INDEX
+   ============================================================ */
+function ChapterIndex({ onChapter }) {
+  return (
+    <section id="chapters" className="relative py-28 px-6 md:px-10 overflow-hidden bg-bg">
+      <SoftClouds />
+      <div className="relative max-w-6xl mx-auto">
+        <Reveal className="text-center mb-14">
+          <Kicker>The Album Chapters</Kicker>
+          <Heading className="text-[clamp(30px,5vw,52px)] mt-3">Five Chapters. Fifty Frames.</Heading>
+          <p className="font-cormorant italic text-xl text-muted mt-1">One blessed story.</p>
+        </Reveal>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-7">
+          {CHAPTERS.map((c,i) => (
+            <Reveal key={c.id} delay={i*0.08}>
+              <button onClick={() => onChapter(c.id)}
+                className="group w-full text-left bg-white rounded-2xl ring-1 ring-line p-3 shadow-[0_18px_44px_-22px_rgba(141,191,138,.6)] hover:-translate-y-2 hover:shadow-[0_30px_60px_-22px_rgba(216,168,78,.5)] transition-all duration-500"
+                style={{ transformStyle:"preserve-3d" }}>
+                <div className="relative overflow-hidden rounded-xl aspect-[4/3]">
+                  <img src={byChapter(c.id)[0].image} alt={c.name} loading="lazy"
+                    className={`w-full h-full object-cover ${byChapter(c.id)[0].filter} group-hover:scale-110 transition duration-700`} />
+                  <span className="absolute top-3 right-3 font-play text-2xl text-white drop-shadow">0{c.id}</span>
+                  <Flower2 className="absolute bottom-2 left-2 text-white/80" size={18}/>
+                </div>
+                <div className="px-2 pt-4 pb-2">
+                  <h3 className="font-play font-bold text-xl text-ink">{c.name}</h3>
+                  <p className="font-lora italic text-sm text-muted mt-1 leading-snug">{c.quote}</p>
+                  <p className="font-inter text-xs tracking-widest uppercase text-gold mt-3">10 Frames →</p>
+                </div>
+              </button>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================
+   8-11 · CHAPTER SECTIONS
+   ============================================================ */
+function ChapterSection({ chapter, anchorRef, onOpen }) {
+  const c = CHAPTERS[chapter-1];
+  const ph = byChapter(chapter);
+  const bg = chapter===2 ? "bg-gradient-to-br from-pgreen/60 to-blush/40"
+           : chapter===4 ? "bg-ivory" : "bg-bg";
+  return (
+    <section ref={anchorRef} className={`relative py-24 px-6 md:px-10 overflow-hidden ${bg} border-t border-line/60`}>
+      {chapter!==4 && <FloatingPetals count={8} />}
+      <div className="relative max-w-6xl mx-auto">
+        <Reveal className="text-center mb-12">
+          <p className="font-script text-4xl text-leaf">{c.script}</p>
+          <Heading className="text-[clamp(28px,4.5vw,48px)]">{c.name}</Heading>
+          <p className="font-cormorant italic text-lg text-muted mt-2 max-w-xl mx-auto">{c.quote}</p>
+        </Reveal>
+
+        {chapter===1 && (
+          <div className="grid md:grid-cols-2 gap-6 items-start">
+            <Reveal><Frame p={ph[0]} className="aspect-[4/5]" vignette /></Reveal>
+            <div className="grid grid-cols-2 gap-4">
+              {ph.slice(1).map((p,i) => <Reveal key={p.id} delay={i*0.05}><Frame p={p} className="aspect-square" /></Reveal>)}
             </div>
-          </Tilt>
-        ))}
+          </div>
+        )}
+
+        {chapter===2 && (<>
+          <div className="grid grid-cols-3 gap-4 md:gap-6 max-w-3xl mx-auto mb-8">
+            {ph.slice(0,3).map((p,i) => <Reveal key={p.id} delay={i*0.1}><div style={{animation:`floaty ${6+i}s ease-in-out infinite`}}><Frame p={p} className="aspect-[3/4]" /></div></Reveal>)}
+          </div>
+          <div className="columns-2 md:columns-3 gap-5 [&>*]:mb-5">
+            {ph.slice(3).map((p,i) => (
+              <Reveal key={p.id} delay={i*0.05}>
+                <div><Frame p={p} className={i%2?"aspect-[4/5]":"aspect-square"} />
+                  {i%3===0 && <p className="font-lora italic text-xs text-muted text-center mt-2">{p.title}</p>}</div>
+              </Reveal>
+            ))}
+          </div>
+        </>)}
+
+        {chapter===3 && (<>
+          <Reveal className="max-w-2xl mx-auto text-center mb-10">
+            <p className="font-cormorant italic text-[clamp(18px,2.6vw,26px)] text-ink leading-relaxed">
+              “In every ritual, every smile, and every blessing, this day becomes a memory held close by the heart.”
+            </p>
+          </Reveal>
+          <Reveal><Frame p={ph[0]} className="aspect-[16/9] max-w-3xl mx-auto" vignette /></Reveal>
+          <div className="columns-2 gap-6 [&>*]:mb-6 mt-8 max-w-4xl mx-auto">
+            {ph.slice(1).map((p,i) => <Reveal key={p.id} delay={i*0.04}><Frame p={p} className={i%2?"aspect-[3/4]":"aspect-square"} /></Reveal>)}
+          </div>
+        </>)}
+
+        {chapter===4 && (<>
+          <Reveal className="text-center mb-8"><p className="font-lora italic text-muted max-w-xl mx-auto">“Every flower, every color, every detail carried the beauty of tradition.”</p></Reveal>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+            {ph.map((p,i) => (
+              <Reveal key={p.id} delay={(i%3)*0.06}>
+                <div className="relative">
+                  <Frame p={p} className="aspect-square" corners={false} />
+                  {i===0 && <span className="absolute top-2 right-2 font-inter text-[10px] tracking-widest bg-white/90 text-ink px-2 py-0.5 rounded-full ring-1 ring-line">05 / 12</span>}
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </>)}
+
+        {chapter===5 && (
+          <div className="space-y-10 max-w-3xl mx-auto">
+            {[["SMILE",ph[0],"A smile that needs no words — pure, warm, and unforgettable."],
+              ["BLESSINGS",ph[5],"Surrounded by love, wrapped in the blessings of everyone who matters."],
+              ["FOREVER",ph[8],"The story does not end here. It lives on in every smile, every blessing, and every memory we carry forward."]
+            ].map(([t,p,cap],i) => (
+              <Reveal key={t} delay={i*0.1}>
+                <div className="bg-white p-3 rounded-2xl ring-1 ring-line shadow-[0_24px_55px_-26px_rgba(141,191,138,.6)]" style={{ animation:`floaty ${7+i}s ease-in-out infinite` }}>
+                  <Frame p={p} className="aspect-[16/10]" corners={false} vignette />
+                  <div className="text-center py-5 px-4">
+                    <h3 className="font-play font-black tracking-[6px] text-2xl text-ink">{t}</h3>
+                    <p className="font-cormorant italic text-muted mt-2">{cap}</p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
 }
 
-/* ---------- ENDING ---------- */
-function Ending({ onTop }) {
-  const [ref, shown] = useReveal(0.3);
+/* ============================================================
+   12 · FEATURED MAGAZINE PAGES
+   ============================================================ */
+const MAG = [
+  ["WELCOME", 1,  "Where every frame feels like a blessing."],
+  ["SMILE",   41, "A smile that turns a moment into a memory."],
+  ["BLESSINGS",46,"Held in the love of everyone who gathered."],
+  ["TRADITION",21,"Turmeric, lamps, and prayers softly whispered."],
+  ["TOGETHER",18, "All of us, in one warm and golden frame."],
+  ["FOREVER", 49, "Some days never truly end — they simply become forever."],
+];
+function MagazinePages({ onOpen }) {
   return (
-    <section className={`ff-ending ${shown ? "in" : ""}`} ref={ref}>
-      <Clouds />
-      <div className="ff-sparkles">{Array.from({ length: 30 }).map((_, i) => <Sparkle key={i} i={i + 11} />)}</div>
-      <div className="ff-ending-inner">
-        <Crown size={40} className="ff-ending-crown" />
-        <p className="ff-ending-text">Blessings, love, and laughter —<br />memories that float like clouds,<br /><em>forever.</em></p>
-        <button className="ff-btn" onClick={onTop}><Sparkles size={15} /> Back to the Beginning</button>
+    <section className="relative bg-bg">
+      {MAG.map(([title,id,cap],i) => {
+        const p = photoById(id);
+        return (
+          <div key={title} className={`relative min-h-[88vh] flex items-center px-6 md:px-14 py-20 overflow-hidden border-t border-line/60 ${i%2?"bg-jasmine":"bg-ivory"}`}>
+            <FloatingPetals count={6} />
+            <div className={`relative max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-10 items-center ${i%2?"md:[direction:rtl]":""}`}>
+              <Reveal className="[direction:ltr]">
+                <Frame p={p} className="aspect-[4/5] w-full max-w-md mx-auto" vignette onClick={() => onOpen(p.id)} />
+              </Reveal>
+              <Reveal delay={0.1} className="[direction:ltr] text-center md:text-left">
+                <span className="font-inter text-xs tracking-[4px] text-gold">0{i+1} / 06</span>
+                <h2 className="font-play font-black tracking-[4px] text-[clamp(40px,8vw,90px)] text-ink leading-none mt-2">{title}</h2>
+                <span className="inline-block w-16 h-px bg-gold my-5" />
+                <p className="font-cormorant italic text-xl text-muted max-w-sm md:mx-0 mx-auto">{cap}</p>
+              </Reveal>
+            </div>
+            <Volume2 className="absolute bottom-6 right-6 text-leaf/50" size={18} />
+          </div>
+        );
+      })}
+    </section>
+  );
+}
+
+/* ============================================================
+   13 · COMPLETE GALLERY (masonry)
+   ============================================================ */
+function PhotoGallery({ onOpen }) {
+  return (
+    <section id="gallery" className="relative py-28 px-6 md:px-10 bg-bg overflow-hidden">
+      <SoftClouds />
+      <div className="relative max-w-6xl mx-auto">
+        <Reveal className="text-center mb-12">
+          <Kicker>The Complete Album</Kicker>
+          <Heading className="text-[clamp(30px,5vw,52px)] mt-3">Fifty Frames, Softly Held</Heading>
+          <p className="font-cormorant italic text-xl text-muted mt-1">One blessed story.</p>
+        </Reveal>
+        <div className="columns-2 md:columns-3 lg:columns-4 gap-5 [&>*]:mb-5">
+          {PHOTOS.map((p,i) => (
+            <motion.div key={p.id} initial={{ opacity:0, y:24 }} whileInView={{ opacity:1, y:0 }}
+              viewport={{ once:true, amount:.05 }} transition={{ duration:.5, delay:(i%8)*0.03 }}>
+              <div className="group" onClick={() => onOpen(p.id)}>
+                <Frame p={p} className={p.orientation==="portrait"?"aspect-[3/4]":p.orientation==="landscape"?"aspect-[4/3]":"aspect-square"}
+                  imgClass="group-hover:scale-105 transition duration-700" corners={false} />
+                <p className="font-lora italic text-xs text-muted text-center mt-2 opacity-0 group-hover:opacity-100 transition">{p.title}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
-/* ---------- LIGHTBOX ---------- */
-function Lightbox({ src, onClose }) {
+/* ============================================================
+   14 · MODAL
+   ============================================================ */
+function PhotoModal({ index, onClose, onNav }) {
+  const p = PHOTOS[index];
   useEffect(() => {
-    const k = (e) => { if (e.key === "Escape") onClose(); };
-    window.addEventListener("keydown", k);
-    document.body.style.overflow = "hidden";
-    return () => { window.removeEventListener("keydown", k); document.body.style.overflow = ""; };
-  }, [onClose]);
+    const k = (e) => { if(e.key==="Escape")onClose(); if(e.key==="ArrowLeft")onNav(-1); if(e.key==="ArrowRight")onNav(1); };
+    addEventListener("keydown",k); document.body.style.overflow="hidden";
+    return () => { removeEventListener("keydown",k); document.body.style.overflow=""; };
+  }, [onClose,onNav]);
   return (
-    <div className="ff-lb" onClick={onClose}>
-      <button className="ff-lb-x" onClick={onClose}><X size={20} /></button>
-      <div className="ff-lb-frame" onClick={(e) => e.stopPropagation()}>
-        <img src={src} alt="memory" />
-      </div>
-    </div>
-  );
-}
-
-/* ---------- APP ---------- */
-function App() {
-  const [entered, setEntered] = useState(false);
-  const [box, setBox] = useState(null);
-  const topRef = useRef(null);
-  const familyRef = useRef(null);
-  const open = useCallback((src) => setBox(src), []);
-  const toFamily = () => familyRef.current?.scrollIntoView({ behavior: "smooth" });
-  const toTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
-
-  return (
-    <div className="ff" ref={topRef}>
-      <Styles />
-      {!entered && <Intro onDone={() => setEntered(true)} />}
-      {entered && (
-        <>
-          <Hero onScroll={toFamily} />
-          <main>
-            <div className="ff-family-head" ref={familyRef}>
-              <span className="ff-kicker"><Crown size={14} /> The Family</span>
-              <h2 className="ff-head-title">The Ones Who Made It All</h2>
-              <p className="ff-head-sub">One by one, the hearts that hold this family together.</p>
-            </div>
-            {PEOPLE.map((p, i) => (<Person key={p.name} person={p} index={i} onOpen={open} />))}
-            <Gallery onOpen={open} />
-            <Ending onTop={toTop} />
-          </main>
-          <footer className="ff-footer">
-            <Flower2 size={16} /> Pachala Function · A Fairyland of Love, Family &amp; Blessings <Flower2 size={16} />
-          </footer>
-        </>
-      )}
-      {box && <Lightbox src={box} onClose={() => setBox(null)} />}
+    <div className="fixed inset-0 z-[200] flex items-center justify-center p-5 bg-ink/40 backdrop-blur-md" onClick={onClose}>
+      <button className="absolute top-6 right-6 w-11 h-11 rounded-full bg-white/80 ring-1 ring-line flex items-center justify-center text-ink hover:bg-blush transition" onClick={onClose}><X size={20}/></button>
+      <button className="absolute left-4 md:left-10 w-11 h-11 rounded-full bg-white/80 ring-1 ring-line flex items-center justify-center text-ink hover:bg-pgreen transition" onClick={(e)=>{e.stopPropagation();onNav(-1);}}><ChevronLeft size={22}/></button>
+      <button className="absolute right-4 md:right-10 w-11 h-11 rounded-full bg-white/80 ring-1 ring-line flex items-center justify-center text-ink hover:bg-pgreen transition" onClick={(e)=>{e.stopPropagation();onNav(1);}}><ChevronRight size={22}/></button>
+      <motion.div initial={{ opacity:0, scale:.92 }} animate={{ opacity:1, scale:1 }} transition={{ duration:.4 }}
+        className="relative bg-bg rounded-2xl ring-1 ring-line p-3 max-w-3xl w-full" onClick={(e)=>e.stopPropagation()}>
+        <div className="bg-white p-2 rounded-xl ring-1 ring-line">
+          <img src={p.image} alt={p.title} className={`w-full max-h-[68vh] object-contain rounded-lg ${p.filter}`} style={{ objectPosition:p.focusPosition }} />
+        </div>
+        <div className="text-center py-4">
+          <h3 className="font-play font-bold text-2xl text-ink">{p.title}</h3>
+          <p className="font-cormorant italic text-muted mt-1">{p.caption}</p>
+          <p className="font-inter text-xs tracking-widest text-gold mt-2">{String(index+1).padStart(2,"0")} / 50</p>
+        </div>
+      </motion.div>
     </div>
   );
 }
 
 /* ============================================================
-   STYLES — fairyland / heaven, royal gold, full 3D animation
+   15 · FINAL ENDING
    ============================================================ */
-function Styles() {
-  return (<style>{`
-  .ff{
-    --ink:#3b2a52; --plum:#6b3fa0; --gold:#d4af37; --gold2:#f4e2a1; --rose:#f7b6cd;
-    --lav:#cdb4f6; --sky:#bcd7f7; --cream:#fff8ec; --white:#fffdf8;
-    position:relative; min-height:100vh; overflow-x:hidden; color:var(--ink);
-    font-family:'Poppins',system-ui,sans-serif;
-    background:
-      radial-gradient(60% 50% at 20% 10%, rgba(205,180,246,.65), transparent 60%),
-      radial-gradient(55% 45% at 85% 15%, rgba(247,182,205,.55), transparent 60%),
-      radial-gradient(70% 60% at 50% 100%, rgba(188,215,247,.55), transparent 60%),
-      linear-gradient(180deg,#f4ecff 0%,#fdeef4 35%,#eaf2fe 70%,#fff8ec 100%);
-  }
-  .ff *{box-sizing:border-box;margin:0;}
-  @media (prefers-reduced-motion: reduce){.ff *{animation-duration:.001s!important;}}
-  .ff h1,.ff h2{font-family:'Playfair Display',serif;}
+function FinalEnding({ onTop }) {
+  const strip = [1,11,21,31,41].map(photoById);
+  return (
+    <section id="ending" className="relative min-h-[88vh] flex items-center justify-center px-6 py-24 overflow-hidden"
+      style={{ background:"linear-gradient(180deg,#FFF9EF,#CFE8D5 60%,#FFFDF8)" }}>
+      <SoftClouds /><FloatingPetals count={16} /><MangoLeaves count={7} /><LightRays />
+      <div className="relative text-center max-w-2xl">
+        <Reveal>
+          <Sparkles className="mx-auto text-gold mb-4" size={30}/>
+          <p className="font-play font-bold text-[clamp(22px,3.6vw,40px)] text-ink leading-snug">
+            These are not just photographs.<br/>They are the quiet proof of family, tradition, blessings, and a day beautifully remembered.
+          </p>
+          <p className="font-script text-4xl text-leaf mt-6">The memories continue…</p>
+        </Reveal>
+        <Reveal delay={0.2}>
+          <div className="flex justify-center gap-3 mt-10">
+            {strip.map((p,i) => (
+              <div key={p.id} className="w-16 md:w-24 shrink-0" style={{ animation:`floaty ${6+i}s ease-in-out ${i*.3}s infinite` }}>
+                <Frame p={p} className="aspect-[3/4]" corners={false} />
+              </div>
+            ))}
+          </div>
+          <button onClick={onTop} className="font-inter mt-12 px-7 py-3 rounded-full bg-ink text-bg hover:bg-leaf transition">Back to the Beginning</button>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
 
-  /* sparkles + clouds */
-  .ff-sparkles{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1;}
-  .ff-sparkle{position:absolute;border-radius:50%;background:radial-gradient(circle,#fff,var(--gold));box-shadow:0 0 8px var(--gold2),0 0 14px rgba(212,175,55,.7);animation:ffTwinkle ease-in-out infinite;}
-  @keyframes ffTwinkle{0%,100%{opacity:0;transform:scale(.4);}50%{opacity:1;transform:scale(1.3);}}
-  .ff-clouds{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
-  .ff-cloud{position:absolute;left:-30%;width:340px;height:120px;background:radial-gradient(60% 100% at 30% 60%,#fff,transparent 70%),radial-gradient(50% 90% at 60% 50%,#fff,transparent 70%),radial-gradient(45% 80% at 80% 65%,#fff,transparent 70%);filter:blur(6px);transform:scale(var(--s));animation:ffDrift var(--dur) linear infinite;animation-delay:var(--delay);}
-  @keyframes ffDrift{from{transform:translateX(0) scale(var(--s));}to{transform:translateX(180vw) scale(var(--s));}}
-
-  /* divider */
-  .ff-divider{display:inline-flex;align-items:center;gap:10px;color:var(--gold);margin:10px 0;}
-  .ff-divider i{display:block;width:54px;height:1px;background:linear-gradient(90deg,transparent,var(--gold));}
-  .ff-divider i:last-child{background:linear-gradient(90deg,var(--gold),transparent);}
-  .ff-divider.sm i{width:38px;}
-
-  /* intro */
-  .ff-intro{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
-    background:radial-gradient(circle at 50% 40%,#2a1a44,#160c28);color:var(--cream);animation:ffIntroOut .8s ease 1.9s forwards;}
-  .ff-intro-halo{position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,.35),transparent 65%);filter:blur(20px);animation:ffPulse 3s ease-in-out infinite;}
-  .ff-intro-crown{color:var(--gold2);filter:drop-shadow(0 0 16px var(--gold));animation:ffFloatY 3s ease-in-out infinite;z-index:1;}
-  .ff-intro-title{position:relative;font-size:clamp(46px,9vw,92px);font-weight:800;letter-spacing:2px;z-index:1;
-    background:linear-gradient(120deg,#fff,var(--gold2),#fff);-webkit-background-clip:text;background-clip:text;color:transparent;animation:ffShimmer 4s linear infinite;background-size:200% auto;}
-  .ff-intro-sub{position:relative;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;letter-spacing:3px;opacity:.85;z-index:1;}
-  .ff-intro-line{margin-top:18px;width:160px;height:2px;background:rgba(255,255,255,.15);border-radius:2px;overflow:hidden;z-index:1;}
-  .ff-intro-line i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2));animation:ffLoad 1.9s ease forwards;}
-  @keyframes ffLoad{to{width:100%;}}
-  @keyframes ffIntroOut{to{opacity:0;visibility:hidden;}}
-  @keyframes ffPulse{0%,100%{opacity:.6;transform:scale(1);}50%{opacity:1;transform:scale(1.12);}}
-  @keyframes ffShimmer{to{background-position:200% center;}}
-  @keyframes ffFloatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
-
-  /* hero */
-  .ff-hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 6vw 120px;overflow:hidden;}
-  .ff-hero-glow{position:absolute;width:70vw;height:70vw;max-width:760px;max-height:760px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.7),rgba(247,182,205,.25) 45%,transparent 70%);filter:blur(10px);z-index:0;}
-  .ff-hero-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:30px;}
-  .ff-hero-frame-wrap{position:relative;transition:transform .2s ease;}
-  .ff-hero-arch{position:relative;width:clamp(220px,34vw,330px);height:clamp(290px,46vw,440px);border-radius:50% 50% 46% 46%/60% 60% 40% 40%;overflow:hidden;
-    border:3px solid rgba(255,255,255,.7);box-shadow:0 0 0 6px rgba(212,175,55,.45),0 30px 70px rgba(107,63,160,.4),inset 0 0 40px rgba(255,255,255,.3);
-    animation:ffFloatY 6s ease-in-out infinite;}
-  .ff-hero-arch-glow{position:absolute;inset:-2px;border-radius:inherit;box-shadow:inset 0 0 60px rgba(212,175,55,.4);z-index:2;pointer-events:none;}
-  .ff-hero-pic{width:100%;height:100%;object-fit:cover;display:block;}
-  .ff-hero-shine{position:absolute;top:0;left:-60%;width:50%;height:100%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);animation:ffShine 5s ease-in-out infinite;z-index:3;}
-  @keyframes ffShine{0%,60%{left:-60%;}85%,100%{left:130%;}}
-  .ff-hero-crown{position:absolute;top:-26px;left:50%;transform:translateX(-50%);color:var(--gold);filter:drop-shadow(0 4px 10px rgba(212,175,55,.6));animation:ffFloatY 4s ease-in-out infinite;z-index:4;}
-  .ff-nameplate{text-align:center;display:flex;flex-direction:column;align-items:center;transition:transform .2s ease;}
-  .ff-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'Cormorant Garamond',serif;font-size:15px;letter-spacing:3px;text-transform:uppercase;color:var(--plum);background:rgba(255,255,255,.55);border:1px solid rgba(212,175,55,.5);padding:7px 18px;border-radius:30px;backdrop-filter:blur(8px);box-shadow:0 6px 20px rgba(107,63,160,.12);}
-  .ff-name{font-size:clamp(52px,11vw,128px);font-weight:900;line-height:1;margin:14px 0 4px;letter-spacing:1px;
-    background:linear-gradient(120deg,#7b3fb0,#d4af37 45%,#b8567f 90%);-webkit-background-clip:text;background-clip:text;color:transparent;
-    filter:drop-shadow(0 6px 18px rgba(212,175,55,.25));}
-  .ff-name-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(18px,2.6vw,26px);color:var(--plum);letter-spacing:.5px;}
-  .ff-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;
-    background:rgba(255,255,255,.6);border:1px solid rgba(212,175,55,.5);color:var(--plum);font-family:'Cormorant Garamond',serif;font-size:16px;letter-spacing:1px;
-    padding:11px 22px;border-radius:30px;cursor:pointer;backdrop-filter:blur(8px);box-shadow:0 10px 30px rgba(107,63,160,.18);transition:.3s;z-index:3;}
-  .ff-scroll:hover{transform:translateX(-50%) translateY(-3px);box-shadow:0 16px 40px rgba(212,175,55,.35);}
-  .ff-scroll svg{animation:ffFloatY 1.8s ease-in-out infinite;}
-
-  /* section heads */
-  .ff-family-head,.ff-head{text-align:center;max-width:640px;margin:0 auto;padding:70px 6vw 10px;position:relative;z-index:2;}
-  .ff-kicker{display:inline-flex;align-items:center;gap:8px;font-family:'Cormorant Garamond',serif;font-size:15px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);}
-  .ff-head-title{font-size:clamp(30px,5vw,52px);font-weight:800;margin:10px 0;color:var(--ink);
-    background:linear-gradient(120deg,#6b3fa0,#b8567f);-webkit-background-clip:text;background-clip:text;color:transparent;}
-  .ff-head-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:var(--plum);}
-
-  /* person one-by-one */
-  .ff-person{position:relative;display:flex;align-items:center;justify-content:center;gap:clamp(24px,5vw,72px);
-    max-width:1100px;margin:0 auto;padding:70px 6vw;flex-wrap:wrap;}
-  .ff-person.r{flex-direction:row-reverse;}
-  .ff-person-sparkles{position:absolute;inset:0;pointer-events:none;z-index:0;}
-  .ff-person-photo{position:relative;flex:0 0 auto;width:clamp(240px,32vw,330px);height:clamp(300px,40vw,420px);cursor:pointer;z-index:2;
-    opacity:0;transform:perspective(1100px) rotateY(18deg) translateX(-40px);}
-  .ff-person.r .ff-person-photo{transform:perspective(1100px) rotateY(-18deg) translateX(40px);}
-  .ff-person.in .ff-person-photo{animation:ffPhotoIn 1s cubic-bezier(.2,.9,.3,1) forwards;}
-  .ff-person.r.in .ff-person-photo{animation:ffPhotoInR 1s cubic-bezier(.2,.9,.3,1) forwards;}
-  @keyframes ffPhotoIn{to{opacity:1;transform:perspective(1100px) rotateY(0) translateX(0);}}
-  @keyframes ffPhotoInR{to{opacity:1;transform:perspective(1100px) rotateY(0) translateX(0);}}
-  .ff-person-img{position:absolute;inset:0;border-radius:50% 50% 46% 46%/56% 56% 44% 44%;overflow:hidden;border:3px solid rgba(255,255,255,.8);
-    box-shadow:0 0 0 5px rgba(212,175,55,.4),0 26px 60px rgba(107,63,160,.35);background:linear-gradient(135deg,var(--lav),var(--rose));}
-  .ff-person-img img{width:100%;height:100%;object-fit:cover;display:block;}
-  .ff-person-img.ph img{display:none;}
-  .ff-person-ring{position:absolute;inset:-16px;border-radius:50%;border:1px dashed rgba(212,175,55,.55);animation:ffSpin 26s linear infinite;}
-  .ff-person-crown{position:absolute;top:-20px;left:50%;transform:translateX(-50%);color:var(--gold);filter:drop-shadow(0 4px 8px rgba(212,175,55,.5));z-index:3;animation:ffFloatY 4s ease-in-out infinite;}
-  @keyframes ffSpin{to{transform:rotate(360deg);}}
-  .ff-person-text{flex:1 1 280px;max-width:440px;text-align:left;position:relative;z-index:2;
-    opacity:0;transform:translateY(30px);}
-  .ff-person.in .ff-person-text{animation:ffUp .9s ease .25s forwards;}
-  .ff-person.r .ff-person-text{text-align:right;}
-  .ff-person.r .ff-divider{flex-direction:row-reverse;}
-  @keyframes ffUp{to{opacity:1;transform:none;}}
-  .ff-person-no{font-family:'Playfair Display',serif;font-size:60px;font-weight:800;color:rgba(212,175,55,.35);line-height:.8;display:block;}
-  .ff-person-telugu{font-size:30px;color:var(--gold);font-weight:600;margin:4px 0;}
-  .ff-person-name{font-size:clamp(34px,5vw,56px);font-weight:800;line-height:1;margin:2px 0 8px;
-    background:linear-gradient(120deg,#6b3fa0,#b8567f);-webkit-background-clip:text;background-clip:text;color:transparent;}
-  .ff-person-role{display:inline-flex;align-items:center;gap:6px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--plum);
-    background:rgba(255,255,255,.6);border:1px solid rgba(212,175,55,.5);padding:5px 14px;border-radius:20px;}
-  .ff-person-cap{font-family:'Cormorant Garamond',serif;font-size:21px;line-height:1.5;color:var(--ink);margin:16px 0 4px;opacity:.92;}
-
-  /* gallery */
-  .ff-gallery{position:relative;padding-bottom:40px;z-index:2;}
-  .ff-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1180px;margin:36px auto 0;padding:0 6vw;}
-  .ff-grid-item{position:relative;border-radius:20px;cursor:pointer;opacity:0;transform:translateY(36px) scale(.96);transform-style:preserve-3d;}
-  .ff-grid.in .ff-grid-item{animation:ffPop .8s cubic-bezier(.2,.9,.3,1) var(--d) forwards;}
-  @keyframes ffPop{to{opacity:1;transform:translateY(0) scale(1);}}
-  .ff-grid-item.big{grid-column:span 2;grid-row:span 2;}
-  .ff-grid-img{position:relative;width:100%;height:100%;min-height:170px;border-radius:20px;overflow:hidden;
-    border:2px solid rgba(255,255,255,.75);box-shadow:0 0 0 3px rgba(212,175,55,.3),0 18px 44px rgba(107,63,160,.28);
-    background:linear-gradient(135deg,var(--lav),var(--rose),var(--sky));aspect-ratio:1/1;}
-  .ff-grid-item.big .ff-grid-img{aspect-ratio:1/1;}
-  .ff-grid-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease;}
-  .ff-grid-item:hover .ff-grid-img img{transform:scale(1.07);}
-  .ff-grid-img.ph img{display:none;}
-  .ff-grid-shine{position:absolute;inset:0;background:linear-gradient(120deg,transparent 40%,rgba(255,255,255,.35) 50%,transparent 60%);opacity:0;transition:.5s;}
-  .ff-grid-item:hover .ff-grid-shine{opacity:1;}
-
-  /* ending */
-  .ff-ending{position:relative;min-height:80vh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:80px 6vw;margin-top:40px;}
-  .ff-ending-inner{position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px;opacity:0;transform:translateY(30px);transition:1s;}
-  .ff-ending.in .ff-ending-inner{opacity:1;transform:none;}
-  .ff-ending-crown{color:var(--gold);filter:drop-shadow(0 4px 14px rgba(212,175,55,.5));animation:ffFloatY 4s ease-in-out infinite;}
-  .ff-ending-text{font-family:'Playfair Display',serif;font-size:clamp(26px,4.5vw,46px);font-weight:700;line-height:1.45;color:var(--ink);}
-  .ff-ending-text em{background:linear-gradient(120deg,var(--gold),#b8567f);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic;}
-  .ff-btn{display:inline-flex;align-items:center;gap:9px;background:linear-gradient(120deg,var(--plum),#b8567f);color:#fff;font-weight:600;font-size:15px;
-    border:none;padding:13px 28px;border-radius:30px;cursor:pointer;box-shadow:0 12px 34px rgba(107,63,160,.4);transition:.3s;margin-top:8px;}
-  .ff-btn:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(184,86,127,.5);}
-
-  /* footer */
-  .ff-footer{position:relative;z-index:2;text-align:center;padding:30px 6vw 46px;color:var(--plum);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;display:flex;align-items:center;justify-content:center;gap:10px;}
-  .ff-footer svg{color:var(--gold);}
-
-  /* lightbox */
-  .ff-lb{position:fixed;inset:0;z-index:200;background:rgba(26,12,40,.86);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;padding:24px;animation:ffFade .3s ease;}
-  @keyframes ffFade{from{opacity:0;}to{opacity:1;}}
-  .ff-lb-frame{max-width:92vw;max-height:88vh;border-radius:18px;overflow:hidden;border:3px solid rgba(255,255,255,.8);box-shadow:0 0 0 5px rgba(212,175,55,.4),0 30px 80px rgba(0,0,0,.6);animation:ffZoom .4s cubic-bezier(.2,.9,.3,1);}
-  .ff-lb-frame img{display:block;max-width:92vw;max-height:88vh;object-fit:contain;}
-  @keyframes ffZoom{from{opacity:0;transform:scale(.9);}to{opacity:1;transform:scale(1);}}
-  .ff-lb-x{position:absolute;top:20px;right:20px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);transition:.25s;}
-  .ff-lb-x:hover{background:var(--rose);color:#3b2a52;}
-
-  @media (max-width:760px){
-    .ff-person,.ff-person.r{flex-direction:column;text-align:center;}
-    .ff-person-text,.ff-person.r .ff-person-text{text-align:center;}
-    .ff-person.r .ff-divider,.ff-person .ff-divider{flex-direction:row;justify-content:center;}
-    .ff-person-text{display:flex;flex-direction:column;align-items:center;}
-    .ff-grid{grid-template-columns:repeat(2,1fr);}
-    .ff-grid-item.big{grid-column:span 2;grid-row:span 1;}
-  }
-  `}</style>);
+/* ============================================================
+   APP
+   ============================================================ */
+function App() {
+  const [modal, setModal] = useState(null);
+  const refs = { chapters:useRef(null), story:useRef(null), gallery:useRef(null), ending:useRef(null), home:useRef(null) };
+  const chapRefs = { 1:useRef(null), 2:useRef(null), 3:useRef(null), 4:useRef(null), 5:useRef(null) };
+  const open = useCallback((id) => setModal(PHOTOS.findIndex((p)=>p.id===id)), []);
+  const nav = useCallback((d) => setModal((p)=>(p+d+PHOTOS.length)%PHOTOS.length), []);
+  const goId = (id) => {
+    if (id==="home") return scrollTo({ top:0, behavior:"smooth" });
+    const r = refs[id]?.current; if (r) r.scrollIntoView({ behavior:"smooth" });
+  };
+  return (
+    <div className="font-inter text-ink">
+      <Nav onLink={goId} />
+      <HeroLanding onEnter={() => refs.chapters.current?.scrollIntoView({behavior:"smooth"})} onGallery={() => goId("gallery")} />
+      <AlbumOpening3D />
+      <OpeningCover />
+      <StudioIntro />
+      <div ref={refs.story}><EditorialStory /></div>
+      <div ref={refs.chapters}><ChapterIndex onChapter={(id)=>chapRefs[id].current?.scrollIntoView({behavior:"smooth"})} /></div>
+      {[1,2,3,4,5].map((ch) => <ChapterSection key={ch} chapter={ch} anchorRef={chapRefs[ch]} onOpen={open} />)}
+      <MagazinePages onOpen={open} />
+      <div ref={refs.gallery}><PhotoGallery onOpen={open} /></div>
+      <div ref={refs.ending}><FinalEnding onTop={() => goId("home")} /></div>
+      <footer className="bg-ink text-bg/80 text-center py-10 px-6 font-cormorant italic text-lg flex items-center justify-center gap-3">
+        <Flower2 size={16} className="text-gold"/> Pachala Memories · 50 Frames of Tradition &amp; Love · {STUDIO} <Flower2 size={16} className="text-gold"/>
+      </footer>
+      {modal!==null && <PhotoModal index={modal} onClose={()=>setModal(null)} onNav={nav} />}
+    </div>
+  );
 }
 
 createRoot(document.getElementById("root")).render(<App />);
