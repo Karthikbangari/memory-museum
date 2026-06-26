@@ -3,9 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-<meta http-equiv="Pragma" content="no-cache" />
-<meta http-equiv="Expires" content="0" />
+<!-- Cache assets so repeat visits (esp. on phones) are instant. The ?v=ASSET_V query busts caches when images change. -->
 <title>Pachala Memories — 50 Frames of Tradition &amp; Love</title>
 <meta name="description" content="A dreamy 3D fairyland Pachala Function memory album — family, tradition, blessings." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -147,8 +145,9 @@ import { Menu, X, ChevronLeft, ChevronRight, Volume2, Flower2, Leaf, Sparkles } 
    block below. Photos hosted on GitHub, served via jsDelivr.
    ============================================================ */
 const PHOTO_BASE = "photos"; // same-origin (GitHub Pages) — no CDN cache, instant updates
-const ASSET_V = "4"; // bump to force browsers to re-fetch images after an update
+const ASSET_V = "6"; // bump to force browsers to re-fetch images after an update
 const U = (f) => `${PHOTO_BASE}/${f}?v=${ASSET_V}`;
+const IS_MOBILE = typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
 const STUDIO = "Stories by Rekkala's";
 
 const FILES = [
@@ -301,7 +300,7 @@ const SKY_RAYS = [12, 30, 48, 66, 84];
 
 /* Optional rendered backdrops — drop these files in /photos and push.
    Until they exist, onError hides them and the CSS/SVG art shows instead. */
-const BG = { sky: U("bg-sky.png"), hero: U("bg-hero.png"), welcome: U("welcome.png") };
+const BG = { sky: U("bg-sky.jpg"), hero: U("bg-hero.jpg"), welcome: U("welcome.jpg") };
 function BgImage({ src, className = "", style }) {
   const [ok, setOk] = useState(true);
   if (!ok) return null;
@@ -309,6 +308,16 @@ function BgImage({ src, className = "", style }) {
 }
 
 function FairySky() {
+  // Mobile: skip the 2MB sky image + parallax motion layers — render a light static sky
+  if (IS_MOBILE) {
+    return (
+      <div className="skyfixed" aria-hidden>
+        {SKY_PUFFS.slice(0, 4).map((p, i) => (
+          <span key={i} className="cloudpuff" style={{ top:`${p.t}%`, left:`${p.l}%`, width:p.w*0.7, height:p.w*0.3, opacity:p.o*0.65 }} />
+        ))}
+      </div>
+    );
+  }
   const { sx, sy } = useTilt();
   const { scrollY } = useScroll();
   const farX = useTransform(sx, (v) => v * -16), farY = useTransform(sy, (v) => v * -10);
@@ -374,7 +383,7 @@ function ScrollProgress() {
 function SoftClouds({ floor = true }) {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0" aria-hidden>
-      {Array.from({ length: 6 }).map((_, i) => (
+      {Array.from({ length: IS_MOBILE ? 3 : 6 }).map((_, i) => (
         <span key={i} className="absolute rounded-full blur-2xl"
           style={{ top:`${5+i*15}%`, left:"-30%", width:`${300+i*50}px`, height:`${100+i*18}px`,
             background:"radial-gradient(60% 100% at 30% 60%,#fff,transparent 70%),radial-gradient(50% 90% at 65% 50%,#fff,transparent 70%)",
@@ -385,9 +394,10 @@ function SoftClouds({ floor = true }) {
   );
 }
 function FloatingPetals({ count = 30 }) {
+  const n = IS_MOBILE ? Math.ceil(count * 0.35) : count;
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-[2]" aria-hidden>
-      {Array.from({ length: count }).map((_, i) => {
+      {Array.from({ length: n }).map((_, i) => {
         const c = i%3===0 ? "#F3C8D2" : i%3===1 ? "#FFF9EF" : "#CFE8D5";
         return <span key={i} className="absolute"
           style={{ left:`${(i*53)%100}%`, top:"-6%", width:6+(i%4)*3, height:8+(i%4)*3,
@@ -476,11 +486,11 @@ const Sprig = ({ x, y, s = 1, rot = 0, dark = "#5f9a63", light = "#86bd86" }) =>
     <path d="M0 -2 L0 -33" stroke="#3f7a48" strokeWidth="0.9" opacity=".5" />
   </g>
 );
-function JasmineCluster({ className = "", flip = false }) {
+function JasmineCluster({ className = "", flip = false, plain = false }) {
   return (
     <svg viewBox="0 0 130 96" className={className} aria-hidden
-      style={{ filter: "drop-shadow(0 6px 8px rgba(110,90,60,.22))", transform: flip ? "scaleX(-1)" : undefined }}>
-      <g style={{ transformOrigin: "65px 90px", animation: "sway 7s ease-in-out infinite" }}>
+      style={{ filter: plain ? undefined : "drop-shadow(0 6px 8px rgba(110,90,60,.22))", transform: flip ? "scaleX(-1)" : undefined }}>
+      <g style={{ transformOrigin: "65px 90px", animation: plain ? undefined : "sway 7s ease-in-out infinite" }}>
         <Sprig x={40} y={92} s={1.5} rot={-32} /><Sprig x={66} y={94} s={1.7} rot={4} /><Sprig x={92} y={92} s={1.5} rot={30} />
         <Sprig x={26} y={84} s={1.1} rot={-58} /><Sprig x={108} y={84} s={1.1} rot={58} />
         <Blossom x={36} y={60} s={1.25} rot={10} /><Blossom x={62} y={50} s={1.6} rot={-8} /><Blossom x={90} y={60} s={1.3} rot={16} />
@@ -531,7 +541,7 @@ function Frame({ p, className = "", imgClass = "", onClick, vignette = false, gl
     <div className={`relative ${glow ? "before:absolute before:-inset-5 before:-z-10 before:rounded-[30px] before:bg-[radial-gradient(circle,rgba(141,191,138,.45),transparent_65%)] before:blur-xl" : ""}`}>
       <div className={`frame ${onClick ? "cursor-pointer" : ""} ${className}`} onClick={onClick}>
         <div className="relative w-full h-full overflow-hidden rounded-[12px] bg-gradient-to-br from-pgreen/40 to-blush/30">
-          <img src={p.image} alt={p.title} loading="lazy"
+          <img src={p.image} alt={p.title} loading="lazy" decoding="async"
             className={`w-full h-full object-cover ${p.filter} ${imgClass}`}
             style={{ objectPosition:p.focusPosition }}
             onError={(e)=>{ e.currentTarget.style.opacity=0; }} />
@@ -539,7 +549,7 @@ function Frame({ p, className = "", imgClass = "", onClick, vignette = false, gl
         {vignette && <span className="vig" />}
         <span className="corner c-tl" /><span className="corner c-tr" /><span className="corner c-br" /><span className="corner c-bl" />
       </div>
-      {flower && <JasmineCluster className="absolute -bottom-4 -left-3 w-14 md:w-16 z-[7] pointer-events-none" />}
+      {flower && <JasmineCluster plain className="absolute -bottom-4 -left-3 w-14 md:w-16 z-[7] pointer-events-none" />}
     </div>
   );
 }
@@ -595,7 +605,7 @@ function HeroLanding({ onEnter, onGallery }) {
   const rotX = useTransform(sy, (v) => v * -13);
   return (
     <header id="home" className="fairy relative min-h-[100svh] flex items-center pt-28 pb-24 px-6 md:px-10">
-      <BgImage src={BG.hero} className="absolute inset-0 w-full h-full object-cover" style={{ zIndex: 0 }} />
+      {!IS_MOBILE && <BgImage src={BG.hero} className="absolute inset-0 w-full h-full object-cover" style={{ zIndex: 0 }} />}
       {/* fallback scene if the backdrop image is absent */}
       <img src={cover.image} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover opacity-[.08] blur-3xl -z-10" style={{ animation:"slowZoom 20s ease-in-out infinite alternate" }} />
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-ivory/10 via-transparent to-ivory/45" />
@@ -1061,7 +1071,7 @@ function App() {
       {/* floating flowers across the whole portfolio (foreground) */}
       <div className="fixed inset-0 z-[40] pointer-events-none overflow-hidden" aria-hidden>
         <FloatingPetals count={20} />
-        {Array.from({ length: 7 }).map((_, i) => (
+        {Array.from({ length: IS_MOBILE ? 3 : 7 }).map((_, i) => (
           <span key={i} className="absolute" style={{ left:`${(i*61)%100}%`, top:"-8%",
             animation:`fall ${10+(i%5)*2}s linear ${-i*2}s infinite` }}>
             <Jasmine className="w-4 md:w-6" />
