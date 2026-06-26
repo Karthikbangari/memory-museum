@@ -300,7 +300,10 @@ const SKY_RAYS = [12, 30, 48, 66, 84];
 
 /* Optional rendered backdrops — drop these files in /photos and push.
    Until they exist, onError hides them and the CSS/SVG art shows instead. */
-const BG = { sky: U("bg-sky.jpg"), hero: U("bg-hero.jpg"), welcome: U("welcome.jpg") };
+// Phones get portrait 3:4 crops so the composition fits a tall screen instead of a zoomed center-crop.
+const _BG_D = { sky: U("bg-sky.jpg"),   hero: U("bg-hero.jpg"),   welcome: U("welcome.jpg") };
+const _BG_M = { sky: U("bg-sky-m.jpg"), hero: U("bg-hero-m.jpg"), welcome: U("welcome.jpg") };
+const BG = IS_MOBILE ? _BG_M : _BG_D;
 function BgImage({ src, className = "", style }) {
   const [ok, setOk] = useState(true);
   if (!ok) return null;
