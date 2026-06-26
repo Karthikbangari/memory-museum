@@ -144,9 +144,9 @@ import { Menu, X, ChevronLeft, ChevronRight, Volume2, Flower2, Leaf, Sparkles } 
    block below. Photos hosted on GitHub, served via jsDelivr.
    ============================================================ */
 const PHOTO_BASE = "photos"; // same-origin (GitHub Pages) — no CDN cache, instant updates
-const ASSET_V = "3"; // bump to force browsers to re-fetch images after an update
+const ASSET_V = "4"; // bump to force browsers to re-fetch images after an update
 const U = (f) => `${PHOTO_BASE}/${f}?v=${ASSET_V}`;
-const STUDIO = "Stories by Studio K";
+const STUDIO = "Stories by Rekkala's";
 
 const FILES = [
   // Ch1 Welcome & Blessings (1-10)
@@ -523,7 +523,7 @@ function Garland({ className = "" }) {
 /* ============================================================
    FRAME + helpers
    ============================================================ */
-function Frame({ p, className = "", imgClass = "", onClick, vignette = false, glow = false }) {
+function Frame({ p, className = "", imgClass = "", onClick, vignette = false, glow = false, flower = true }) {
   return (
     <div className={`relative ${glow ? "before:absolute before:-inset-5 before:-z-10 before:rounded-[30px] before:bg-[radial-gradient(circle,rgba(141,191,138,.45),transparent_65%)] before:blur-xl" : ""}`}>
       <div className={`frame ${onClick ? "cursor-pointer" : ""} ${className}`} onClick={onClick}>
@@ -534,9 +534,9 @@ function Frame({ p, className = "", imgClass = "", onClick, vignette = false, gl
             onError={(e)=>{ e.currentTarget.style.opacity=0; }} />
         </div>
         {vignette && <span className="vig" />}
-        <span className="shine" />
         <span className="corner c-tl" /><span className="corner c-tr" /><span className="corner c-br" /><span className="corner c-bl" />
       </div>
+      {flower && <JasmineCluster className="absolute -bottom-4 -left-3 w-14 md:w-16 z-[7] pointer-events-none" />}
     </div>
   );
 }
@@ -568,7 +568,7 @@ function Nav({ onLink }) {
   return (
     <nav className="fixed top-0 inset-x-0 z-50">
       <div className="max-w-7xl mx-auto px-6 md:px-10 py-4 flex items-center justify-between bg-bg/70 backdrop-blur-md border-b border-line/70">
-        <button onClick={()=>onLink("home")} className="font-play font-extrabold tracking-[3px] text-ink text-lg">STUDIO&nbsp;<span className="goldgrad">K</span></button>
+        <button onClick={()=>onLink("home")} className="font-play font-extrabold tracking-[3px] text-ink text-lg">REKKALA<span className="goldgrad">&apos;S</span></button>
         <div className="hidden md:flex items-center gap-8 font-inter text-sm text-muted">
           {links.map(([l,id])=> <button key={id} onClick={()=>onLink(id)} className="hover:text-ink transition tracking-wide">{l}</button>)}
         </div>
@@ -618,7 +618,7 @@ function HeroLanding({ onEnter, onGallery }) {
               <div className="absolute right-8 top-2 w-40 md:w-48" style={{ transform:"translateZ(-140px) rotate(-9deg) translateX(30px)" }}><Frame p={s1} className="aspect-[3/4]" /></div>
               <div className="absolute left-2 bottom-6 w-36 md:w-44" style={{ transform:"translateZ(-90px) rotate(7deg) translateX(-26px)" }}><Frame p={s3} className="aspect-[3/4]" /></div>
               <div className="absolute left-1/2 top-1/2 w-56 md:w-72 -translate-x-1/2 -translate-y-1/2" style={{ transform:"translate(-50%,-50%) translateZ(20px)" }}>
-                <Frame p={cover} className="aspect-[4/5]" vignette glow />
+                <Frame p={cover} className="aspect-[4/5]" vignette glow flower={false} />
                 <MangoFrond className="absolute -right-11 top-4 w-20 md:w-24 hidden sm:block" />
                 <MangoFrond className="absolute -left-11 top-2 w-16 md:w-20 hidden sm:block" flip />
                 <Garland className="absolute -top-8 left-1/2 -translate-x-1/2 w-[122%] max-w-none" />
@@ -715,7 +715,7 @@ function StudioIntro() {
           {trio.map((p,i)=> <Reveal key={p.id} delay={i*0.12}><div style={{ animation:`floaty ${6+i}s ease-in-out ${i*.4}s infinite` }}><Frame p={p} className="aspect-[3/4]" /></div></Reveal>)}
         </div>
         <Reveal delay={0.2}>
-          <h2 className="font-play font-black text-ink text-[clamp(46px,9vw,110px)] mt-10 leading-none">STUDIO&nbsp;K</h2>
+          <h2 className="font-play font-black text-ink text-[clamp(40px,8vw,96px)] mt-10 leading-none">REKKALA&apos;S</h2>
           <p className="font-cormorant italic text-muted text-xl mt-1">Traditional Memories, Softly Preserved</p>
         </Reveal>
       </div>
@@ -995,7 +995,7 @@ function PeopleWhoMatter({ onOpen }) {
             <Reveal key={person.name} delay={(i%2)*0.1}>
               <div className="flex flex-col items-center text-center" style={{ animation:`floaty ${6+i}s ease-in-out ${i*.35}s infinite` }}>
                 <div className="relative">
-                  <Frame p={personP(person.file)} className="w-60 md:w-72 aspect-[4/5]" vignette glow onClick={()=>openP(person.file)} />
+                  <Frame p={personP(person.file)} className="w-60 md:w-72 aspect-[4/5]" vignette glow flower={false} onClick={()=>openP(person.file)} />
                   <Garland className="absolute -top-7 left-1/2 -translate-x-1/2 w-[118%] max-w-none" />
                   <JasmineCluster className="absolute -bottom-8 -left-8 w-28 md:w-32" />
                   <JasmineCluster className="absolute -bottom-5 -right-7 w-20 md:w-24" flip />
@@ -1010,7 +1010,7 @@ function PeopleWhoMatter({ onOpen }) {
         </div>
         <Reveal className="mt-24" delay={0.1}>
           <div className="relative max-w-3xl mx-auto bg-white p-3 rounded-2xl ring-1 ring-line shadow-[0_34px_70px_-30px_rgba(141,191,138,.6)]" style={{ animation:"floaty 8s ease-in-out infinite" }}>
-            <Frame p={fam} className="w-full aspect-[16/10]" vignette onClick={()=>openP("family.jpg")} />
+            <Frame p={fam} className="w-full aspect-[16/10]" vignette flower={false} onClick={()=>openP("family.jpg")} />
             <div className="text-center py-7 px-4">
               <p className="font-script text-3xl text-leaf">Our Whole World</p>
               <h3 className="font-play font-black tracking-[6px] text-2xl text-ink mt-1">THE WHOLE FAMILY</h3>
@@ -1026,7 +1026,7 @@ function PeopleWhoMatter({ onOpen }) {
             ["group2.jpg","Generations","“Side by side, young and old — our greatest blessing.”"]].map(([file,t,q],i)=>(
             <Reveal key={file} delay={i*0.1}>
               <div className="relative bg-white p-2.5 rounded-2xl ring-1 ring-line shadow-[0_24px_55px_-26px_rgba(141,191,138,.6)]" style={{ animation:`floaty ${6+i}s ease-in-out ${i*.3}s infinite` }}>
-                <Frame p={personP(file)} className="w-full aspect-[3/2]" vignette onClick={()=>openP(file)} />
+                <Frame p={personP(file)} className="w-full aspect-[3/2]" vignette flower={false} onClick={()=>openP(file)} />
                 <div className="text-center py-4 px-3">
                   <h4 className="font-play font-bold tracking-[2px] text-lg text-ink">{t}</h4>
                   <p className="font-cormorant italic text-muted text-sm mt-1">{q}</p>
@@ -1055,6 +1055,16 @@ function App() {
     <TiltProvider>
     <div className="font-inter text-ink">
       <FairySky />
+      {/* floating flowers across the whole portfolio (foreground) */}
+      <div className="fixed inset-0 z-[40] pointer-events-none overflow-hidden" aria-hidden>
+        <FloatingPetals count={20} />
+        {Array.from({ length: 7 }).map((_, i) => (
+          <span key={i} className="absolute" style={{ left:`${(i*61)%100}%`, top:"-8%",
+            animation:`fall ${10+(i%5)*2}s linear ${-i*2}s infinite` }}>
+            <Jasmine className="w-4 md:w-6" />
+          </span>
+        ))}
+      </div>
       <ScrollProgress />
       <Nav onLink={goId} />
       <HeroLanding onEnter={()=>refs.chapters.current?.scrollIntoView({behavior:"smooth"})} onGallery={()=>goId("gallery")} />
