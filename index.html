@@ -56,13 +56,15 @@
       linear-gradient(160deg,#CFE8D5 0%,#FFF9EF 55%,#F3C8D2 130%);}
 
   /* ---------- cloud floor ---------- */
-  .cloudfloor{position:absolute;left:0;right:0;bottom:-30px;height:220px;pointer-events:none;z-index:1;
+  .cloudfloor{position:absolute;left:-10%;right:-10%;bottom:-8%;height:240px;pointer-events:none;z-index:1;
     background:
-      radial-gradient(60% 120% at 18% 100%, #fff, transparent 70%),
-      radial-gradient(55% 120% at 42% 100%, #fff, transparent 70%),
-      radial-gradient(65% 130% at 68% 100%, #fff, transparent 72%),
-      radial-gradient(55% 120% at 90% 100%, #fff, transparent 70%);
-    filter:blur(8px);opacity:.9;}
+      radial-gradient(circle at 10% 72%, #fff 0 14%, transparent 15%),
+      radial-gradient(circle at 24% 56%, #fff 0 17%, transparent 18%),
+      radial-gradient(circle at 40% 70%, #fff 0 19%, transparent 20%),
+      radial-gradient(circle at 56% 58%, #fff 0 17%, transparent 18%),
+      radial-gradient(circle at 72% 70%, #fff 0 18%, transparent 19%),
+      radial-gradient(circle at 88% 60%, #fff 0 15%, transparent 16%);
+    filter:blur(9px);opacity:.95;}
 
   /* ---------- keyframes ---------- */
   @keyframes floaty{0%,100%{transform:translateY(0) rotate(0);}50%{transform:translateY(-14px) rotate(.5deg);}}
@@ -375,7 +377,7 @@ function HeroLanding({ onEnter, onGallery }) {
   return (
     <header id="home" className="fairy relative min-h-screen flex items-center pt-24 pb-24 px-6 md:px-10">
       <img src={cover.image} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover opacity-[.10] blur-3xl -z-10" style={{ animation:"slowZoom 20s ease-in-out infinite alternate" }} />
-      <LightRays /><SoftClouds /><PalaceSilhouette /><FloatingPetals count={26} /><MangoLeaves count={8} />
+      <LightRays /><SoftClouds /><PalaceSilhouette /><FloatingPetals count={34} /><MangoLeaves count={12} />
 
       <div className="relative max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center z-[3]">
         <motion.div initial={{ opacity:0, y:30 }} animate={{ opacity:1, y:0 }} transition={{ duration:1 }}>
@@ -546,6 +548,32 @@ function ChapterIndex({ onChapter }) {
                   <p className="font-inter text-xs tracking-widest uppercase text-gold mt-3">10 Frames →</p>
                 </div>
               </button>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================
+   FEATURE STRIP
+   ============================================================ */
+const FEATURES = [["Soft Clouds & Light Rays",6],["Jasmine Petals",31],["3D Album Page Turn",3],["Elegant Frames",13],["Mango Leaves",32]];
+function FeatureStrip() {
+  return (
+    <section className="fairy relative py-20 px-6 md:px-10">
+      <SoftClouds floor={false} /><FloatingPetals count={10} />
+      <div className="relative max-w-6xl mx-auto z-[3]">
+        <Reveal className="text-center mb-10"><Kicker>The Album Magic</Kicker>
+          <Heading className="text-[clamp(26px,4vw,42px)] mt-3">Woven Into Every Frame</Heading></Reveal>
+        <div className="flex md:grid md:grid-cols-5 gap-5 overflow-x-auto md:overflow-visible snap-x md:snap-none pb-4 no-scrollbar -mx-6 px-6 md:mx-0 md:px-0">
+          {FEATURES.map(([t,id],i)=>(
+            <Reveal key={t} delay={i*0.07} className="snap-center shrink-0 w-[60%] sm:w-[40%] md:w-auto">
+              <div className="group" style={{ animation:`floaty ${6+i}s ease-in-out ${i*.3}s infinite` }}>
+                <Frame p={photoById(id)} className="aspect-[3/4]" imgClass="group-hover:scale-105 transition duration-700" />
+                <p className="font-cormorant text-center text-ink mt-3 text-[15px] flex items-center justify-center gap-1.5"><Jasmine className="w-4 h-4 scale-75" />{t}</p>
+              </div>
             </Reveal>
           ))}
         </div>
@@ -733,6 +761,7 @@ function App() {
       <StudioIntro />
       <div ref={refs.story}><EditorialStory /></div>
       <div ref={refs.chapters}><ChapterIndex onChapter={(id)=>chapRefs[id].current?.scrollIntoView({behavior:"smooth"})} /></div>
+      <FeatureStrip />
       {[1,2,3,4,5].map((ch)=><ChapterSection key={ch} chapter={ch} anchorRef={chapRefs[ch]} onOpen={open} />)}
       <MagazinePages onOpen={open} />
       <div ref={refs.gallery}><PhotoGallery onOpen={open} /></div>
