@@ -300,10 +300,10 @@ const SKY_RAYS = [12, 30, 48, 66, 84];
 
 /* Optional rendered backdrops — drop these files in /photos and push.
    Until they exist, onError hides them and the CSS/SVG art shows instead. */
-// Phones get portrait 3:4 crops so the composition fits a tall screen instead of a zoomed center-crop.
-const _BG_D = { sky: U("bg-sky.jpg"),   hero: U("bg-hero.jpg"),   welcome: U("welcome.jpg") };
-const _BG_M = { sky: U("bg-sky-m.jpg"), hero: U("bg-hero-m.jpg"), welcome: U("welcome.jpg") };
-const BG = IS_MOBILE ? _BG_M : _BG_D;
+const BG = { sky: U("bg-sky.jpg"), hero: U("bg-hero.jpg"), welcome: U("welcome.jpg") };
+// On phones the backdrops are landscape, so object-cover shows only a vertical strip.
+// The flowers live on the left edge of both images — anchor the strip there so they show.
+const BG_POS = IS_MOBILE ? "object-left" : "";
 function BgImage({ src, className = "", style }) {
   const [ok, setOk] = useState(true);
   if (!ok) return null;
@@ -318,7 +318,7 @@ function FairySky() {
     // Lightweight q90 JPG backdrop is small enough to show on phones now (static, no parallax).
     return (
       <div className="skyfixed" aria-hidden>
-        <BgImage src={BG.sky} className="absolute inset-0 w-full h-full object-cover" />
+        <BgImage src={BG.sky} className={`absolute inset-0 w-full h-full object-cover ${BG_POS}`} />
         {SKY_PUFFS.slice(0, 4).map((p, i) => (
           <span key={i} className="cloudpuff" style={{ top:`${p.t}%`, left:`${p.l}%`, width:p.w*0.7, height:p.w*0.3, opacity:p.o*0.65 }} />
         ))}
@@ -612,7 +612,7 @@ function HeroLanding({ onEnter, onGallery }) {
   const rotX = useTransform(sy, (v) => v * -13);
   return (
     <header id="home" className="fairy relative min-h-[100svh] flex items-center pt-28 pb-24 px-6 md:px-10">
-      <BgImage src={BG.hero} className="absolute inset-0 w-full h-full object-cover" style={{ zIndex: 0 }} />
+      <BgImage src={BG.hero} className={`absolute inset-0 w-full h-full object-cover ${BG_POS}`} style={{ zIndex: 0 }} />
       {/* fallback scene if the backdrop image is absent */}
       <img src={cover.image} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover opacity-[.08] blur-3xl -z-10" style={{ animation:"slowZoom 20s ease-in-out infinite alternate" }} />
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-ivory/10 via-transparent to-ivory/45" />
@@ -704,7 +704,7 @@ function OpeningCover() {
   const cover = photoById(1); // headline family photo into the welcome frame
   return (
     <section className="fairy relative py-24 px-6">
-      <BgImage src={BG.sky} className="absolute inset-0 w-full h-full object-cover opacity-30" />
+      <BgImage src={BG.sky} className={`absolute inset-0 w-full h-full object-cover opacity-30 ${BG_POS}`} />
       <SoftClouds floor={false} /><FloatingPetals count={12} />
       <Reveal className="relative z-[3] flex justify-center">
         <div className="relative w-full max-w-[440px]" style={{ animation:"floaty 7s ease-in-out infinite" }}>
@@ -1001,7 +1001,7 @@ function PeopleWhoMatter({ onOpen }) {
   const openP = (f) => { const ph = byFile(f); if (ph && onOpen) onOpen(ph.id); };
   return (
     <section className="fairy relative py-28 px-6 md:px-10 border-t border-line/50">
-      <BgImage src={BG.sky} className="absolute inset-0 w-full h-full object-cover opacity-30" />
+      <BgImage src={BG.sky} className={`absolute inset-0 w-full h-full object-cover opacity-30 ${BG_POS}`} />
       <SoftClouds floor={false} /><FloatingPetals count={12} />
       <div className="relative max-w-6xl mx-auto z-[3]">
         <Reveal className="text-center mb-16">
