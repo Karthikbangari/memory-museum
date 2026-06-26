@@ -252,8 +252,21 @@ function TiltProvider({ children }) {
       my.set(Math.max(-0.5, Math.min(0.5, ((e.beta || 0) - 42) / 40)));
     };
     addEventListener("mousemove", onMouse, { passive: true });
-    addEventListener("deviceorientation", onOrient, { passive: true });
-    return () => { removeEventListener("mousemove", onMouse); removeEventListener("deviceorientation", onOrient); };
+
+    const attach = () => addEventListener("deviceorientation", onOrient, { passive: true });
+    const needsPerm = typeof DeviceOrientationEvent !== "undefined" && typeof DeviceOrientationEvent.requestPermission === "function";
+    let detachGesture = () => {};
+    if (needsPerm) {
+      // iOS 13+: motion needs a user gesture — trigger on the first tap/scroll anywhere
+      const ask = async () => { try { const r = await DeviceOrientationEvent.requestPermission(); if (r === "granted") attach(); } catch (e) {} };
+      const opts = { once: true, passive: true };
+      addEventListener("touchend", ask, opts);
+      addEventListener("click", ask, opts);
+      detachGesture = () => { removeEventListener("touchend", ask); removeEventListener("click", ask); };
+    } else {
+      attach(); // Android & desktop: works immediately, no permission needed
+    }
+    return () => { removeEventListener("mousemove", onMouse); removeEventListener("deviceorientation", onOrient); detachGesture(); };
   }, [mx, my]);
   return <TiltCtx.Provider value={{ sx, sy }}>{children}</TiltCtx.Provider>;
 }
@@ -323,19 +336,6 @@ function ScrollProgress() {
   return <motion.div className="scrollbar-top" style={{ scaleX: scrollYProgress }} />;
 }
 
-function MotionEnable() {
-  const [need, setNeed] = useState(false);
-  useEffect(() => {
-    setNeed(typeof DeviceOrientationEvent !== "undefined" && typeof DeviceOrientationEvent.requestPermission === "function");
-  }, []);
-  if (!need) return null;
-  return (
-    <button onClick={async () => { try { await DeviceOrientationEvent.requestPermission(); } catch (e) {} setNeed(false); }}
-      className="fixed bottom-5 left-5 z-[80] font-cormorant tracking-widest text-xs uppercase bg-white/85 backdrop-blur ring-1 ring-gold/40 text-ink px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
-      <Sparkles size={13} className="text-gold" /> Enable 3D Tilt
-    </button>
-  );
-}
 
 /* ============================================================
    DECORATIVE LAYERS
@@ -899,7 +899,6 @@ function App() {
         <Flower2 size={16} className="text-gold"/> Pachala Memories · 50 Frames of Tradition &amp; Love · {STUDIO} <Flower2 size={16} className="text-gold"/>
       </footer>
       {modal!==null && <PhotoModal index={modal} onClose={()=>setModal(null)} onNav={nav} />}
-      <MotionEnable />
     </div>
     </TiltProvider>
   );
