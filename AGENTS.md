@@ -68,6 +68,7 @@ Order of things in the `<script type="text/babel">` block:
 
 - **Edit `index.html` only** for app changes — everything lives there.
 - To **add/swap a photo**: drop the file in `photos/`, add its filename to `FILES` (keep 10-per-chapter grouping), add matching `TITLES`/`CAPTIONS` entries, **commit & push to `main`** (jsDelivr serves from `main`).
+- **Optional rendered backdrops** (`BG` constant + `BgImage` component): drop `photos/bg-sky.jpg` (full-page fixed parallax sky) and/or `photos/bg-hero.jpg` (hero backdrop) to override the CSS/SVG art with real artwork. Must be **scenery only** (no baked-in text/photos). If a file is absent, `BgImage` hides itself on error and the CSS art shows — so the slots are safe to leave empty.
 - **Theme colors & fonts** are defined in the inline `tailwind.config` (`bg`, `cloud`, `ivory`, `pgreen`, `leaf`, `gold`, `blush`, `ink`, …; fonts `play`, `cormorant`, `lora`, `inter`, `script`).
 - Studio label constant: `STUDIO = "Stories by Studio K"`.
 - jsDelivr caches per commit; a hard refresh or a few minutes may be needed after pushing new images.
